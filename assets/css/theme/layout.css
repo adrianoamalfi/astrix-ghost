@@ -1,0 +1,59 @@
+.gh-container {
+  width: var(--gh-container);
+  margin-inline: auto;
+}
+
+.gh-container-wide {
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+}
+
+/*
+ * Breakout grid for article content: normal blocks sit in the readable
+ * measure, .kg-width-wide / .kg-width-full escape to the wide/full tracks.
+ */
+.gh-canvas {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--spacing-4), 1fr)
+    [wide-start] minmax(0, 220px)
+    [main-start] min(var(--gh-measure), calc(100% - 2 * var(--spacing-4)))
+    [main-end] minmax(0, 220px)
+    [wide-end] minmax(var(--spacing-4), 1fr)
+    [full-end];
+}
+
+.gh-canvas > * {
+  grid-column: main-start / main-end;
+}
+
+.gh-canvas > .kg-width-wide {
+  grid-column: wide-start / wide-end;
+}
+
+.gh-canvas > .kg-width-full {
+  grid-column: full-start / full-end;
+}
+
+/* Post page: sticky TOC beside the article on large screens */
+.gh-article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-8);
+}
+
+@media (min-width: 1200px) {
+  .gh-article-layout.has-toc {
+    grid-template-columns: 240px minmax(0, 1fr) 240px;
+  }
+
+  .gh-article-layout.has-toc > .gh-toc-column {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .gh-article-layout.has-toc > .gh-article-column {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}

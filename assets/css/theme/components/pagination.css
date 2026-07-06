@@ -1,0 +1,15 @@
+.gh-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-block: var(--spacing-6) var(--spacing-10);
+}
+
+.gh-pagination-label {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}

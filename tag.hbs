@@ -1,0 +1,32 @@
+{{!< default}}
+
+{{#tag}}
+<header class="gh-archive-header{{#if feature_image}} gh-archive-header--image{{/if}}"{{#if feature_image}} data-astryx-media="dark"{{/if}}>
+    {{#if feature_image}}
+        <div class="gh-archive-backdrop">
+            <img src="{{img_url feature_image size="xl"}}" alt="" loading="eager">
+        </div>
+        <div class="gh-archive-scrim"></div>
+    {{/if}}
+    <div class="gh-archive-inner">
+        <span class="u-kicker">{{t "Tag"}}</span>
+        <h1 class="gh-archive-title">{{name}}</h1>
+        {{#if description}}
+            <p class="gh-archive-description">{{description}}</p>
+        {{/if}}
+        <p class="gh-archive-meta">
+            {{plural ../pagination.total empty=(t "No posts") singular=(t "% post") plural=(t "% posts")}}
+        </p>
+    </div>
+</header>
+{{/tag}}
+
+<div class="gh-feed-wrap">
+    <div class="gh-feed gh-feed--bold-grid">
+        {{#foreach posts}}
+            {{> "post-card"}}
+        {{/foreach}}
+    </div>
+</div>
+
+{{pagination}}

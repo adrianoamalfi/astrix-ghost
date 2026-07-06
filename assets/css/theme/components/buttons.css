@@ -1,0 +1,76 @@
+.gh-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  min-height: var(--size-element-lg);
+  padding: var(--spacing-2) var(--spacing-5);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent);
+  color: var(--gh-on-accent);
+  font-family: var(--gh-font-body, var(--font-family-body));
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.gh-button:hover {
+  background-color: var(--gh-accent-hover);
+  color: var(--gh-on-accent);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-med);
+}
+
+.gh-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.gh-button--ghost {
+  background-color: transparent;
+  border-color: var(--color-border-emphasized);
+  color: var(--color-text-primary);
+}
+
+.gh-button--ghost:hover {
+  background-color: var(--gh-accent-muted);
+  border-color: var(--gh-accent);
+  color: var(--color-text-primary);
+  box-shadow: none;
+}
+
+.gh-button--large {
+  min-height: 52px;
+  padding: var(--spacing-3) var(--spacing-7);
+  font-size: var(--font-size-lg);
+}
+
+.gh-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-element-lg);
+  height: var(--size-element-lg);
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  color: var(--color-icon-primary);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.gh-icon-button:hover {
+  background-color: var(--color-overlay-hover);
+}
+
+.gh-icon-button svg {
+  width: 20px;
+  height: 20px;
+}

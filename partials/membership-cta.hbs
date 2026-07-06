@@ -1,0 +1,23 @@
+{{!-- Upgrade CTA shown in place of gated content. Context: post. --}}
+<aside class="gh-post-upgrade">
+    <h2 class="gh-post-upgrade-title">
+        {{#has visibility="paid"}}
+            {{t "This post is for paying subscribers only"}}
+        {{else has visibility="members"}}
+            {{t "This post is for subscribers only"}}
+        {{else}}
+            {{t "Upgrade to keep reading"}}
+        {{/has}}
+    </h2>
+    <p class="gh-post-upgrade-text">{{t "Subscribe to {siteTitle} to keep reading this post and get access to the full archive." siteTitle=@site.title}}</p>
+    <div class="gh-post-upgrade-actions">
+        {{#has visibility="paid"}}
+            <a class="gh-button gh-button--large" href="#/portal/signup" data-portal="signup">{{t "Upgrade now"}}</a>
+        {{else}}
+            <a class="gh-button gh-button--large" href="#/portal/signup" data-portal="signup">{{t "Subscribe for free"}}</a>
+        {{/has}}
+    </div>
+    <p class="gh-post-upgrade-signin">
+        {{t "Already have an account?"}} <a href="#/portal/signin" data-portal="signin">{{t "Sign in"}}</a>
+    </p>
+</aside>

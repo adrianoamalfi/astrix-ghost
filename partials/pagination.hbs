@@ -1,0 +1,17 @@
+{{#if pagination.pages}}
+<nav class="gh-pagination" aria-label="{{t "Pagination"}}">
+    {{#if pagination.prev}}
+        <a class="gh-button gh-button--ghost" href="{{page_url pagination.prev}}">{{t "Newer posts"}}</a>
+    {{else}}
+        <span></span>
+    {{/if}}
+
+    <span class="gh-pagination-label">{{t "Page {page} of {pages}" page=pagination.page pages=pagination.pages}}</span>
+
+    {{#if pagination.next}}
+        <a class="gh-button gh-button--ghost" href="{{page_url pagination.next}}">{{t "Older posts"}}</a>
+    {{else}}
+        <span></span>
+    {{/if}}
+</nav>
+{{/if}}

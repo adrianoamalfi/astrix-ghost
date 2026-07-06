@@ -1,0 +1,55 @@
+.gh-footer {
+  margin-top: var(--spacing-12);
+  background-color: var(--color-background-surface);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.gh-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-block: var(--spacing-8);
+}
+
+.gh-footer-brand {
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+.gh-footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gh-footer-nav a {
+  display: inline-block;
+  padding: var(--spacing-1) var(--spacing-2);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.gh-footer-nav a:hover {
+  color: var(--gh-accent);
+}
+
+.gh-footer-copy {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.gh-footer-copy a {
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}

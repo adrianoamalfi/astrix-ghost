@@ -1,0 +1,14 @@
+<footer class="gh-footer">
+    <div class="gh-footer-inner">
+        <a class="gh-footer-brand" href="{{@site.url}}">{{@site.title}}</a>
+
+        <nav class="gh-footer-nav" aria-label="{{t "Secondary navigation"}}">
+            {{navigation type="secondary"}}
+        </nav>
+
+        <div class="gh-footer-copy">
+            <span>&copy; {{date format="YYYY"}} {{@site.title}}</span>
+            <span> — {{t "Published with"}} <a href="https://ghost.org" rel="noopener">Ghost</a></span>
+        </div>
+    </div>
+</footer>

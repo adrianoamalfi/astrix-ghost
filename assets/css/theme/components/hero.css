@@ -1,0 +1,205 @@
+/*
+ * Home hero — the image is the protagonist. The text sits on a scrimmed
+ * photo, locally forced dark via data-astryx-media="dark" so tokens resolve
+ * to their dark values regardless of the visitor's scheme.
+ */
+.gh-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: min(82vh, 780px);
+  margin-bottom: var(--spacing-10);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.gh-hero-media,
+.gh-hero-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.gh-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 0.78) 0%,
+    rgb(0 0 0 / 0.35) 45%,
+    rgb(0 0 0 / 0.12) 100%
+  );
+}
+
+.gh-hero--no-image {
+  background:
+    radial-gradient(1200px 500px at 85% -10%, var(--gh-accent-muted), transparent),
+    var(--color-background-inverted);
+}
+
+.gh-hero-content {
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-block: var(--spacing-12) var(--spacing-10);
+  max-width: none;
+}
+
+.gh-hero-content-inner {
+  max-width: 60rem;
+}
+
+.gh-hero-tag {
+  display: inline-block;
+  margin-bottom: var(--spacing-4);
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent);
+  color: var(--gh-on-accent);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.gh-hero-title {
+  margin: 0 0 var(--spacing-4);
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: var(--gh-display-1);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--gh-display-tracking);
+  line-height: var(--gh-display-leading);
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+.gh-hero-title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.gh-hero-title a:hover {
+  color: var(--gh-accent-2);
+}
+
+.gh-hero-excerpt {
+  max-width: 44rem;
+  margin: 0 0 var(--spacing-5);
+  font-size: clamp(1.0625rem, 1rem + 0.5vw, 1.3125rem);
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+}
+
+.gh-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Editorial variant: contained, text above image, no forced dark */
+.gh-hero--editorial {
+  display: block;
+  min-height: 0;
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-top: var(--spacing-8);
+  overflow: visible;
+}
+
+.gh-hero--editorial .gh-hero-content {
+  width: 100%;
+  padding-block: 0 var(--spacing-6);
+}
+
+.gh-hero--editorial .gh-hero-excerpt,
+.gh-hero--editorial .gh-hero-meta {
+  color: var(--color-text-secondary);
+}
+
+.gh-hero--editorial .gh-hero-title a:hover {
+  color: var(--gh-accent);
+}
+
+.gh-hero-editorial-media {
+  display: block;
+}
+
+.gh-hero-editorial-media img {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+  border-radius: var(--gh-radius-media);
+  box-shadow: var(--shadow-high);
+}
+
+/* Split variant: text | image, contained */
+.gh-hero--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: var(--spacing-8);
+  align-items: center;
+  min-height: 0;
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-block: var(--spacing-8);
+  overflow: visible;
+}
+
+.gh-hero--split .gh-hero-excerpt,
+.gh-hero--split .gh-hero-meta {
+  color: var(--color-text-secondary);
+}
+
+.gh-hero--split .gh-hero-title a:hover {
+  color: var(--gh-accent);
+}
+
+.gh-hero-split-media {
+  display: block;
+}
+
+.gh-hero-split-media img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--gh-radius-media);
+  box-shadow: var(--shadow-high);
+}
+
+@media (max-width: 900px) {
+  .gh-hero--split {
+    grid-template-columns: 1fr;
+  }
+
+  .gh-hero-split-media {
+    order: -1;
+  }
+}
+
+/* Featured slider — pure CSS scroll-snap */
+.gh-featured {
+  margin-bottom: var(--spacing-10);
+}
+
+.gh-featured-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(420px, 82vw);
+  gap: var(--spacing-5);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding-block: var(--spacing-2) var(--spacing-4);
+  scrollbar-width: thin;
+}
+
+.gh-featured-track > * {
+  scroll-snap-align: start;
+}

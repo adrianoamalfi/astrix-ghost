@@ -1,0 +1,35 @@
+/*
+ * Astrix — bold, expressive Ghost theme on Astryx design tokens.
+ *
+ * Layer order is declared first and is load-bearing:
+ * vendor files wrap themselves in `reset` / `astryx-base` / `astryx-theme`;
+ * all hand-written CSS lives in `theme.*` sub-layers.
+ * koenig.css is intentionally imported UNLAYERED and last, because Ghost
+ * injects its own unlayered card CSS which would otherwise always win.
+ */
+@layer reset, astryx-base, astryx-theme,
+       theme.vars, theme.base, theme.layout, theme.components,
+       theme.prose, theme.utilities;
+
+@import "vendor/astryx-reset.css";
+@import "vendor/astryx-tokens.css";
+@import "vendor/astryx-theme-neutral.css";
+
+@import "theme/vars.css" layer(theme.vars);
+@import "theme/base.css" layer(theme.base);
+@import "theme/layout.css" layer(theme.layout);
+
+@import "theme/components/buttons.css" layer(theme.components);
+@import "theme/components/header.css" layer(theme.components);
+@import "theme/components/hero.css" layer(theme.components);
+@import "theme/components/cards.css" layer(theme.components);
+@import "theme/components/footer.css" layer(theme.components);
+@import "theme/components/toc.css" layer(theme.components);
+@import "theme/components/progress.css" layer(theme.components);
+@import "theme/components/members.css" layer(theme.components);
+@import "theme/components/pagination.css" layer(theme.components);
+
+@import "theme/prose.css" layer(theme.prose);
+@import "theme/utilities.css" layer(theme.utilities);
+
+@import "theme/koenig.css";

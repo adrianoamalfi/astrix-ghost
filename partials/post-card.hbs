@@ -1,0 +1,49 @@
+{{!-- Bold post card. Context: a post object. --}}
+<article class="gh-card {{post_class}}">
+    <a class="gh-card-link" href="{{url}}">
+        {{#if feature_image}}
+            <div class="gh-card-media">
+                <img
+                    srcset="{{img_url feature_image size="s"}} 320w,
+                            {{img_url feature_image size="m"}} 640w,
+                            {{img_url feature_image size="l"}} 1024w"
+                    sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                    src="{{img_url feature_image size="m"}}"
+                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                    loading="lazy"
+                >
+                {{#primary_tag}}
+                    <span class="gh-card-tag">{{name}}</span>
+                {{/primary_tag}}
+            </div>
+        {{else}}
+            <div class="gh-card-media gh-card-media--empty">
+                {{#primary_tag}}
+                    <span class="gh-card-tag">{{name}}</span>
+                {{/primary_tag}}
+            </div>
+        {{/if}}
+
+        <div class="gh-card-body">
+            <h2 class="gh-card-title">{{title}}</h2>
+
+            {{#if custom_excerpt}}
+                <p class="gh-card-excerpt">{{custom_excerpt}}</p>
+            {{else}}
+                <p class="gh-card-excerpt">{{excerpt words="26"}}</p>
+            {{/if}}
+
+            <div class="gh-card-meta">
+                <span>{{primary_author.name}}</span>
+                <span class="gh-meta-divider"></span>
+                <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+                <span class="gh-meta-divider"></span>
+                <span>{{reading_time}}</span>
+                {{#unless access}}
+                    <span class="gh-meta-divider"></span>
+                    <span class="gh-card-access">{{> "icons/lock"}}{{#has visibility="paid"}}{{t "Premium"}}{{else}}{{t "Members"}}{{/has}}</span>
+                {{/unless}}
+            </div>
+        </div>
+    </a>
+</article>

@@ -1,0 +1,45 @@
+/*
+ * Theme identity variables. Astryx rule: never override --color-* on :root —
+ * every theme-level knob is a NEW --gh-* variable mapped onto Astryx tokens.
+ * --gh-accent tracks the accent color chosen in Ghost Admin → Design.
+ * --gh-accent-2 is overridden from @custom.secondary_accent in default.hbs.
+ */
+:root {
+  /* color */
+  --gh-accent: var(--ghost-accent-color, var(--color-accent));
+  --gh-accent-hover: color-mix(in oklab, var(--gh-accent), var(--color-text-primary) 16%);
+  --gh-accent-muted: color-mix(in oklab, var(--gh-accent) 14%, transparent);
+  --gh-accent-soft: color-mix(in oklab, var(--gh-accent) 8%, var(--color-background-body));
+  --gh-on-accent: #fff;
+  --gh-accent-2: #f5b301;
+
+  /* display type — poster-sized, fluid */
+  --gh-display-1: clamp(2.75rem, 1.1rem + 5.6vw, 5.75rem);
+  --gh-display-2: clamp(2rem, 1.05rem + 3.2vw, 3.5rem);
+  --gh-display-3: clamp(1.5rem, 1.15rem + 1.5vw, 2.25rem);
+  --gh-display-tracking: -0.025em;
+  --gh-display-leading: 1.02;
+
+  /* prose — Astryx type tokens are app-sized (base 0.875rem), long-form
+     needs its own fluid scale and measure */
+  --gh-prose-size: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
+  --gh-prose-leading: 1.7;
+  --gh-measure: 68ch;
+
+  /* layout */
+  --gh-container: min(1280px, 100% - 2 * var(--spacing-6));
+  --gh-container-wide: min(1600px, 100% - 2 * var(--spacing-6));
+  --gh-header-height: 64px;
+
+  /* surfaces */
+  --gh-radius-card: var(--radius-container);
+  --gh-radius-media: var(--radius-container);
+  --gh-card-lift: 0 16px 40px -12px var(--color-shadow);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gh-container: min(1280px, 100% - 2 * var(--spacing-4));
+    --gh-container-wide: min(1600px, 100% - 2 * var(--spacing-4));
+  }
+}

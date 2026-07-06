@@ -1,0 +1,379 @@
+/*
+ * Long-form article styles. theme-neutral sizes headings with :where() at
+ * app scale, so these zero-conflict overrides win with normal specificity.
+ */
+.gh-article-header {
+  width: var(--gh-container);
+  margin-inline: auto;
+  padding-block: var(--spacing-10) var(--spacing-8);
+  text-align: center;
+}
+
+.gh-article-header--page {
+  padding-bottom: var(--spacing-6);
+}
+
+.gh-article-tag {
+  margin-bottom: var(--spacing-4);
+}
+
+.gh-article-title {
+  max-width: 22ch;
+  margin: 0 auto var(--spacing-4);
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: var(--gh-display-1);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--gh-display-tracking);
+  line-height: var(--gh-display-leading);
+  text-wrap: balance;
+}
+
+.gh-article-excerpt {
+  max-width: 46rem;
+  margin: 0 auto var(--spacing-6);
+  color: var(--color-text-secondary);
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.gh-article-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.gh-article-authors {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.gh-author-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 2px solid var(--color-background-body);
+}
+
+.gh-article-authors a {
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  color: var(--color-text-primary);
+}
+
+.gh-article-image {
+  width: min(var(--gh-container-wide), 100%);
+  margin: 0 auto var(--spacing-10);
+}
+
+.gh-article-image img {
+  width: 100%;
+  border-radius: var(--gh-radius-media);
+  box-shadow: var(--shadow-high);
+}
+
+.gh-article-image figcaption {
+  margin-top: var(--spacing-2);
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Body copy */
+.gh-content {
+  font-size: var(--gh-prose-size);
+  line-height: var(--gh-prose-leading);
+}
+
+.gh-content > * + * {
+  margin-top: var(--spacing-5);
+}
+
+.gh-content > [id] {
+  scroll-margin-top: calc(var(--gh-header-height) + var(--spacing-4));
+}
+
+.gh-content h2,
+.gh-content h3,
+.gh-content h4 {
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.gh-content h2 {
+  margin-top: var(--spacing-10);
+  font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem);
+  font-weight: var(--font-weight-bold);
+}
+
+.gh-content h3 {
+  margin-top: var(--spacing-8);
+  font-size: clamp(1.3125rem, 1.15rem + 0.7vw, 1.625rem);
+  font-weight: var(--font-weight-bold);
+}
+
+.gh-content h4 {
+  margin-top: var(--spacing-6);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.gh-content a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--gh-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.gh-content a:hover {
+  color: var(--gh-accent);
+}
+
+.gh-content ul,
+.gh-content ol {
+  padding-left: var(--spacing-6);
+}
+
+.gh-content li {
+  margin-top: var(--spacing-2);
+}
+
+.gh-content li::marker {
+  color: var(--gh-accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.gh-content blockquote {
+  margin-inline: 0;
+  padding: var(--spacing-2) 0 var(--spacing-2) var(--spacing-5);
+  border-left: 4px solid var(--gh-accent);
+  font-size: 1.15em;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.gh-content blockquote.kg-blockquote-alt {
+  border-left: none;
+  padding: var(--spacing-4) var(--spacing-6);
+  text-align: center;
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: var(--gh-accent);
+}
+
+.gh-content hr {
+  margin-block: var(--spacing-10);
+  border: none;
+  height: 3px;
+  width: var(--spacing-12);
+  margin-inline: auto;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--gh-accent), var(--gh-accent-2));
+}
+
+.gh-content code {
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-inner);
+  background-color: var(--color-background-muted);
+  font-family: var(--font-family-code);
+  font-size: 0.875em;
+}
+
+.gh-content pre {
+  padding: var(--spacing-5);
+  border-radius: var(--gh-radius-card);
+  background-color: var(--color-syntax-background, var(--color-background-inverted));
+  overflow-x: auto;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.gh-content pre code {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+}
+
+.gh-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-base);
+}
+
+.gh-content th,
+.gh-content td {
+  padding: var(--spacing-2) var(--spacing-3);
+  border-bottom: var(--border-width) solid var(--color-border);
+  text-align: left;
+}
+
+.gh-content th {
+  font-weight: var(--font-weight-bold);
+  border-bottom-width: 2px;
+  border-bottom-color: var(--color-border-emphasized);
+}
+
+.gh-content figcaption {
+  margin-top: var(--spacing-2);
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Article footer: tags + share */
+.gh-article-footer {
+  width: min(var(--gh-measure), calc(100% - 2 * var(--spacing-4)));
+  margin: var(--spacing-10) auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  padding-top: var(--spacing-6);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.gh-article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.gh-tag-chip {
+  display: inline-block;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-muted);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.gh-tag-chip:hover {
+  background-color: var(--gh-accent);
+  color: var(--gh-on-accent);
+}
+
+/* Archive headers (tag.hbs / author.hbs) */
+.gh-archive-header {
+  position: relative;
+  width: 100%;
+  padding-block: var(--spacing-12) var(--spacing-8);
+  margin-bottom: var(--spacing-4);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.gh-archive-header--image {
+  min-height: 320px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.gh-archive-backdrop,
+.gh-archive-backdrop img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.gh-archive-header--image .gh-archive-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.75), rgb(0 0 0 / 0.2));
+}
+
+.gh-archive-inner {
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+}
+
+.gh-archive-title {
+  margin: 0 0 var(--spacing-2);
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: var(--gh-display-1);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--gh-display-tracking);
+  line-height: var(--gh-display-leading);
+}
+
+.gh-archive-description {
+  max-width: 44rem;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+}
+
+.gh-archive-meta {
+  margin-top: var(--spacing-3);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.gh-author-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+.gh-author-header .gh-author-avatar {
+  width: 96px;
+  height: 96px;
+  box-shadow: var(--shadow-med);
+}
+
+.gh-author-links {
+  display: flex;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-3);
+}
+
+/* Error pages */
+.gh-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-block: var(--spacing-12);
+}
+
+.gh-error-code {
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: clamp(5rem, 14vw, 12rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--gh-display-tracking);
+  line-height: 1;
+  background: linear-gradient(120deg, var(--gh-accent), var(--gh-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gh-error-description {
+  margin: var(--spacing-4) 0 var(--spacing-6);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+}

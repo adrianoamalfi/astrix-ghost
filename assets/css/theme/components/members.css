@@ -1,0 +1,213 @@
+/* Subscribe form (newsletter) — used in the CTA band, footer and kg-signup */
+.gh-subscribe {
+  position: relative;
+  border-radius: var(--radius-page);
+  padding: clamp(var(--spacing-8), 6vw, var(--spacing-12));
+  background:
+    radial-gradient(900px 400px at 90% -20%, var(--gh-accent-muted), transparent),
+    var(--color-background-inverted);
+  overflow: hidden;
+  text-align: center;
+}
+
+.gh-subscribe-band {
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-block: var(--spacing-8);
+}
+
+.gh-subscribe-title {
+  margin: 0 0 var(--spacing-2);
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: var(--gh-display-2);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--gh-display-tracking);
+  line-height: 1.05;
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+.gh-subscribe-text {
+  max-width: 40rem;
+  margin: 0 auto var(--spacing-6);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+}
+
+.gh-members-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  max-width: 30rem;
+  margin-inline: auto;
+}
+
+.gh-members-form input[type="email"] {
+  flex-grow: 1;
+  min-width: 0;
+  min-height: var(--size-element-lg);
+  padding: var(--spacing-2) var(--spacing-4);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-body);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+}
+
+.gh-members-form input[type="email"]:focus-visible {
+  outline: 2px solid var(--gh-accent);
+  outline-offset: 1px;
+  border-color: var(--gh-accent);
+}
+
+/* Portal form states — Ghost toggles .loading/.success/.error on the form */
+.gh-members-form .gh-form-loading,
+.gh-members-form.loading .gh-form-cta {
+  display: none;
+}
+
+.gh-members-form.loading .gh-form-loading {
+  display: inline-flex;
+}
+
+.gh-form-feedback {
+  display: none;
+  flex-basis: 100%;
+  margin: var(--spacing-2) 0 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Ghost toggles .loading/.success/.error on the [data-members-form] element */
+.gh-members-form.success .gh-form-feedback--success {
+  display: block;
+  color: var(--color-success);
+}
+
+.gh-members-form.error .gh-form-feedback--error {
+  display: block;
+  color: var(--color-error);
+}
+
+@media (max-width: 560px) {
+  .gh-members-form {
+    flex-direction: column;
+  }
+}
+
+/* Gated content CTA */
+.gh-post-upgrade {
+  width: min(var(--gh-measure), 100%);
+  margin: var(--spacing-8) auto;
+  padding: var(--spacing-8);
+  border-radius: var(--radius-page);
+  border: 2px solid var(--gh-accent);
+  background:
+    linear-gradient(to bottom, var(--gh-accent-soft), var(--color-background-surface));
+  text-align: center;
+}
+
+.gh-post-upgrade-title {
+  margin: 0 0 var(--spacing-2);
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: var(--gh-display-3);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
+}
+
+.gh-post-upgrade-text {
+  margin: 0 0 var(--spacing-5);
+  color: var(--color-text-secondary);
+}
+
+.gh-post-upgrade-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+}
+
+.gh-post-upgrade-signin {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Membership page — tiers grid */
+.gh-tiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--spacing-6);
+  width: var(--gh-container);
+  margin-inline: auto;
+  padding-block: var(--spacing-8);
+}
+
+.gh-tier {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-6);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--gh-radius-card);
+  background-color: var(--color-background-card);
+  box-shadow: var(--shadow-low);
+}
+
+.gh-tier-name {
+  margin: 0 0 var(--spacing-1);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.gh-tier-description {
+  margin: 0 0 var(--spacing-4);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.gh-tier-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  margin-bottom: var(--spacing-4);
+}
+
+.gh-tier-amount {
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+}
+
+.gh-tier-period {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.gh-tier-benefits {
+  flex-grow: 1;
+  margin: 0 0 var(--spacing-5);
+  padding: 0;
+  list-style: none;
+}
+
+.gh-tier-benefits li {
+  position: relative;
+  padding: var(--spacing-1) 0 var(--spacing-1) var(--spacing-5);
+  font-size: var(--font-size-sm);
+}
+
+.gh-tier-benefits li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--gh-accent);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Comments */
+.gh-comments {
+  width: min(var(--gh-measure), calc(100% - 2 * var(--spacing-4)));
+  margin: var(--spacing-10) auto;
+}

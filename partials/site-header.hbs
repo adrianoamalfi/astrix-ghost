@@ -1,0 +1,40 @@
+<header id="gh-header" class="gh-header{{#match @custom.navigation_layout "Logo in the middle"}} gh-header--center{{/match}}">
+    <div class="gh-header-inner">
+        <div class="gh-header-brand">
+            <a class="gh-header-logo" href="{{@site.url}}">
+                {{#if @site.logo}}
+                    <img src="{{@site.logo}}" alt="{{@site.title}}">
+                {{else}}
+                    {{@site.title}}
+                {{/if}}
+            </a>
+        </div>
+
+        <nav class="gh-nav" id="gh-nav" aria-label="{{t "Main navigation"}}">
+            {{navigation}}
+        </nav>
+
+        <div class="gh-header-actions">
+            {{#if @site.members_enabled}}
+                {{#unless @member}}
+                    <a class="gh-button gh-header-cta" href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
+                {{else}}
+                    <a class="gh-button gh-button--ghost gh-header-cta" href="#/portal/account" data-portal="account">{{t "Account"}}</a>
+                {{/unless}}
+            {{/if}}
+
+            <button class="gh-icon-button" data-ghost-search aria-label="{{t "Search"}}">
+                {{> "icons/search"}}
+            </button>
+
+            <button class="gh-icon-button" id="gh-scheme-toggle" aria-label="{{t "Change color scheme"}}" data-label-light="{{t "Switch to dark mode"}}" data-label-dark="{{t "Switch to system mode"}}" data-label-system="{{t "Switch to light mode"}}">
+                {{> "icons/sun"}}
+                {{> "icons/moon"}}
+            </button>
+
+            <button class="gh-icon-button gh-burger" id="gh-burger" aria-label="{{t "Open menu"}}" aria-expanded="false" aria-controls="gh-nav">
+                {{> "icons/menu"}}
+            </button>
+        </div>
+    </div>
+</header>

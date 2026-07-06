@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}" data-astryx-theme="neutral"{{#match @custom.color_scheme_default "!=" "System"}} data-scheme-default="{{@custom.color_scheme_default}}"{{/match}}>
+<head>
+    {{!-- No-flash color scheme: must run before any CSS is applied --}}
+    <script>(function () {
+        try {
+            var s = localStorage.getItem('astrix-scheme');
+            if (!s) { s = (document.documentElement.getAttribute('data-scheme-default') || '').toLowerCase(); }
+            if (s === 'dark' || s === 'light') { document.documentElement.style.colorScheme = s; }
+        } catch (e) { /* storage unavailable */ }
+    })();</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>{{meta_title}}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap">
+    <link rel="stylesheet" href="{{asset "built/screen.css"}}">
+
+    <style>
+        :root {
+            {{#if @custom.secondary_accent}}--gh-accent-2: {{@custom.secondary_accent}};{{/if}}
+        }
+    </style>
+
+    {{ghost_head}}
+</head>
+<body class="{{body_class}}">
+
+    <a class="gh-skip-link" href="#gh-main-content">{{t "Skip to content"}}</a>
+
+    {{> "site-header"}}
+
+    <main id="gh-main-content" class="gh-main">
+        {{{body}}}
+    </main>
+
+    {{> "site-footer"}}
+
+    <script defer src="{{asset "built/main.js"}}"></script>
+    {{ghost_foot}}
+</body>
+</html>

@@ -1,0 +1,95 @@
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-background-body);
+  color: var(--color-text-primary);
+  font-family: var(--gh-font-body, var(--font-family-body));
+  font-size: var(--gh-prose-size);
+  line-height: var(--gh-prose-leading);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gh-main {
+  flex-grow: 1;
+}
+
+::selection {
+  background-color: var(--gh-accent);
+  color: var(--gh-on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gh-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-inner);
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--gh-accent);
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+a:hover {
+  color: var(--gh-accent);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.gh-skip-link {
+  position: absolute;
+  top: var(--spacing-2);
+  left: var(--spacing-2);
+  z-index: 100;
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: var(--gh-accent);
+  color: var(--gh-on-accent);
+  border-radius: var(--radius-element);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.gh-skip-link:focus-visible {
+  transform: translateY(0);
+  color: var(--gh-on-accent);
+}
+
+/* Section headings used across home/tag/related — expressive kicker style */
+.gh-section-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-3);
+  margin-block: var(--spacing-10) var(--spacing-6);
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: var(--gh-display-3);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--gh-display-tracking);
+  line-height: 1.1;
+}
+
+.gh-section-title::after {
+  content: "";
+  flex-grow: 1;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--gh-accent), transparent);
+}

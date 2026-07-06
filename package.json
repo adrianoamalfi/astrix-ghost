@@ -1,0 +1,112 @@
+{
+  "name": "astrix",
+  "description": "A bold, expressive personal blog theme for Ghost, built on the Astryx design system tokens.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "email": "adriano.amalfi@cdp.it"
+  },
+  "keywords": [
+    "ghost",
+    "ghost-theme"
+  ],
+  "engines": {
+    "ghost": ">=6.0.0"
+  },
+  "config": {
+    "posts_per_page": 12,
+    "image_sizes": {
+      "s": { "width": 320 },
+      "m": { "width": 640 },
+      "l": { "width": 1024 },
+      "xl": { "width": 1920 },
+      "xxl": { "width": 2400 }
+    },
+    "card_assets": true,
+    "custom": {
+      "navigation_layout": {
+        "type": "select",
+        "options": ["Logo on the left", "Logo in the middle"],
+        "default": "Logo on the left"
+      },
+      "color_scheme_default": {
+        "type": "select",
+        "options": ["System", "Light", "Dark"],
+        "default": "System"
+      },
+      "secondary_accent": {
+        "type": "color",
+        "default": "#f5b301"
+      },
+      "header_style": {
+        "type": "select",
+        "options": ["Editorial", "Poster", "Split"],
+        "default": "Poster",
+        "group": "homepage"
+      },
+      "feed_layout": {
+        "type": "select",
+        "options": ["Bold grid", "Mosaic", "List"],
+        "default": "Bold grid",
+        "group": "homepage"
+      },
+      "show_featured_slider": {
+        "type": "boolean",
+        "default": true,
+        "group": "homepage"
+      },
+      "cta_headline": {
+        "type": "text",
+        "default": "",
+        "group": "homepage",
+        "description": "Headline of the subscribe call-to-action band. Leave empty for the default text."
+      },
+      "cta_text": {
+        "type": "text",
+        "default": "",
+        "group": "homepage",
+        "description": "Supporting text of the subscribe call-to-action band."
+      },
+      "show_toc": {
+        "type": "boolean",
+        "default": true,
+        "group": "post"
+      },
+      "show_reading_progress": {
+        "type": "boolean",
+        "default": true,
+        "group": "post"
+      },
+      "show_related_posts": {
+        "type": "boolean",
+        "default": true,
+        "group": "post"
+      }
+    }
+  },
+  "scripts": {
+    "tokens": "node scripts/extract-tokens.mjs",
+    "build:css": "postcss assets/css/screen.css -o assets/built/screen.css",
+    "build:js": "esbuild assets/js/main.js --bundle --minify --target=es2020 --outfile=assets/built/main.js",
+    "build": "npm run tokens && npm run build:css && npm run build:js",
+    "dev:css": "postcss assets/css/screen.css -o assets/built/screen.css --watch",
+    "dev:js": "esbuild assets/js/main.js --bundle --sourcemap --target=es2020 --outfile=assets/built/main.js --watch",
+    "dev:sync": "browser-sync start --proxy localhost:2368 --files \"assets/built/*\" \"**/*.hbs\" --no-open --no-notify",
+    "dev": "npm run tokens && concurrently -n css,js,sync \"npm:dev:css\" \"npm:dev:js\" \"npm:dev:sync\"",
+    "test": "gscan .",
+    "zip": "npm run build && mkdir -p dist && rm -f dist/astrix.zip && zip -r dist/astrix.zip . -x \"node_modules/*\" \"dist/*\" \"scripts/*\" \".git/*\" \".claude/*\" \"postcss.config.cjs\" \"package-lock.json\" \"*.map\" \".DS_Store\" \"*/.DS_Store\" \".gitignore\""
+  },
+  "devDependencies": {
+    "@astryxdesign/cli": "^0.1.3",
+    "@astryxdesign/core": "^0.1.3",
+    "@astryxdesign/theme-neutral": "^0.1.3",
+    "browser-sync": "^3.0.3",
+    "concurrently": "^9.1.2",
+    "cssnano": "^7.0.6",
+    "esbuild": "^0.25.5",
+    "gscan": "^5.0.0",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.1.0"
+  }
+}

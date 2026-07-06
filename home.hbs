@@ -1,0 +1,59 @@
+{{!< default}}
+
+{{#get "posts" filter="featured:true" include="tags,authors" limit="7" as |featured|}}
+
+    {{#if featured}}
+        {{!-- Hero: the latest featured post --}}
+        {{#foreach featured limit="1"}}
+            {{> "post-hero"}}
+        {{/foreach}}
+
+        {{!-- Featured slider: the other featured posts --}}
+        {{#if @custom.show_featured_slider}}
+            {{#if featured.[1]}}
+                <section class="gh-featured gh-container-wide">
+                    <h2 class="gh-section-title">{{t "Featured"}}</h2>
+                    <div class="gh-featured-track">
+                        {{#foreach featured from="2"}}
+                            {{> "post-card"}}
+                        {{/foreach}}
+                    </div>
+                </section>
+            {{/if}}
+        {{/if}}
+    {{else}}
+        {{!-- No featured posts: expressive site intro instead --}}
+        <section class="gh-hero gh-hero--no-image gh-hero--intro" data-astryx-media="dark">
+            <div class="gh-hero-content">
+                <div class="gh-hero-content-inner">
+                    <h1 class="gh-hero-title">{{@site.title}}</h1>
+                    {{#if @site.description}}
+                        <p class="gh-hero-excerpt">{{@site.description}}</p>
+                    {{/if}}
+                    {{#if @site.members_enabled}}
+                        {{#unless @member}}
+                            <a class="gh-button gh-button--large" href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
+                        {{/unless}}
+                    {{/if}}
+                </div>
+            </div>
+        </section>
+    {{/if}}
+
+    {{!-- Main feed (the hero post is skipped to avoid duplication) --}}
+    <section class="gh-feed-wrap">
+        <h2 class="gh-section-title gh-container-wide">{{t "Latest posts"}}</h2>
+        <div class="gh-feed {{#match @custom.feed_layout "Mosaic"}}gh-feed--mosaic{{else match @custom.feed_layout "List"}}gh-feed--list{{else}}gh-feed--bold-grid{{/match}}">
+            {{#foreach posts}}
+                {{#match id "!=" featured.[0].id}}
+                    {{> "post-card"}}
+                {{/match}}
+            {{/foreach}}
+        </div>
+    </section>
+
+{{/get}}
+
+{{pagination}}
+
+{{> "subscribe-form"}}
