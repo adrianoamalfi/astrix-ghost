@@ -27,7 +27,7 @@
             <div class="gh-article-authors">
                 {{#foreach authors}}
                     {{#if profile_image}}
-                        <img class="gh-author-avatar" src="{{img_url profile_image size="s"}}" alt="{{name}}">
+                        <img class="gh-author-avatar" src="{{img_url profile_image size="s"}}" alt="{{name}}" loading="lazy" decoding="async">
                     {{/if}}
                     <a href="{{url}}">{{name}}</a>
                 {{/foreach}}
@@ -49,6 +49,7 @@
                 sizes="(max-width: 1600px) 100vw, 1600px"
                 src="{{img_url feature_image size="xl"}}"
                 alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                decoding="async"
                 fetchpriority="high"
             >
             {{#if feature_image_caption}}
