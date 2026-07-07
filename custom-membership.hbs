@@ -32,6 +32,13 @@
                             <span class="gh-tier-amount">{{price monthly_price currency=currency}}</span>
                             <span class="gh-tier-period">/ {{t "month"}}</span>
                         </div>
+                    {{else}}
+                        {{#if yearly_price}}
+                            <div class="gh-tier-price">
+                                <span class="gh-tier-amount">{{price yearly_price currency=currency}}</span>
+                                <span class="gh-tier-period">/ {{t "year"}}</span>
+                            </div>
+                        {{/if}}
                     {{/if}}
                     {{#if benefits}}
                         <ul class="gh-tier-benefits">
@@ -40,7 +47,11 @@
                             {{/foreach}}
                         </ul>
                     {{/if}}
-                    <a class="gh-button" href="#/portal/signup/{{id}}/monthly" data-portal="signup/{{id}}/monthly">{{t "Choose this plan"}}</a>
+                    {{#if monthly_price}}
+                        <a class="gh-button" href="#/portal/signup/{{id}}/monthly" data-portal="signup/{{id}}/monthly">{{t "Choose this plan"}}</a>
+                    {{else}}
+                        <a class="gh-button" href="#/portal/signup/{{id}}/yearly" data-portal="signup/{{id}}/yearly">{{t "Choose this plan"}}</a>
+                    {{/if}}
                 </div>
             {{/foreach}}
         </section>
