@@ -1,5 +1,5 @@
 {{!-- Bold post card. Context: a post object. --}}
-<article class="gh-card {{post_class}}">
+<article class="gh-card {{post_class}}{{#unless access}} gh-card--locked{{#has visibility="paid"}} gh-card--paid{{else}} gh-card--members{{/has}}{{/unless}}">
     <a class="gh-card-link" href="{{url}}">
         {{#if feature_image}}
             <div class="gh-card-media">
@@ -11,16 +11,23 @@
                     src="{{img_url feature_image size="m"}}"
                     alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
                     loading="lazy"
+                    decoding="async"
                 >
                 {{#primary_tag}}
                     <span class="gh-card-tag">{{name}}</span>
                 {{/primary_tag}}
+                {{#unless access}}
+                    <span class="gh-card-lock-badge">{{> "icons/lock"}}{{#has visibility="paid"}}{{t "Premium"}}{{else}}{{t "Members"}}{{/has}}</span>
+                {{/unless}}
             </div>
         {{else}}
             <div class="gh-card-media gh-card-media--empty">
                 {{#primary_tag}}
                     <span class="gh-card-tag">{{name}}</span>
                 {{/primary_tag}}
+                {{#unless access}}
+                    <span class="gh-card-lock-badge">{{> "icons/lock"}}{{#has visibility="paid"}}{{t "Premium"}}{{else}}{{t "Members"}}{{/has}}</span>
+                {{/unless}}
             </div>
         {{/if}}
 
@@ -34,15 +41,18 @@
             {{/if}}
 
             <div class="gh-card-meta">
-                <span>{{primary_author.name}}</span>
+                {{#primary_author}}
+                    <span class="gh-meta-author">
+                        {{#if profile_image}}
+                            <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s"}}" alt="{{name}}" loading="lazy" decoding="async">
+                        {{/if}}
+                        <span>{{name}}</span>
+                    </span>
+                {{/primary_author}}
                 <span class="gh-meta-divider"></span>
                 <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
                 <span class="gh-meta-divider"></span>
                 <span>{{reading_time}}</span>
-                {{#unless access}}
-                    <span class="gh-meta-divider"></span>
-                    <span class="gh-card-access">{{> "icons/lock"}}{{#has visibility="paid"}}{{t "Premium"}}{{else}}{{t "Members"}}{{/has}}</span>
-                {{/unless}}
             </div>
         </div>
     </a>

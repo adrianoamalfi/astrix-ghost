@@ -16,7 +16,14 @@
                 <p class="gh-hero-excerpt">{{excerpt words="40"}}</p>
             {{/if}}
             <div class="gh-hero-meta">
-                <span>{{primary_author.name}}</span>
+                {{#primary_author}}
+                    <span class="gh-meta-author">
+                        {{#if profile_image}}
+                            <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s"}}" alt="{{name}}" loading="lazy" decoding="async">
+                        {{/if}}
+                        <span>{{name}}</span>
+                    </span>
+                {{/primary_author}}
                 <span aria-hidden="true">·</span>
                 <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
                 <span aria-hidden="true">·</span>
@@ -33,6 +40,7 @@
                 sizes="(max-width: 1600px) 100vw, 1600px"
                 src="{{img_url feature_image size="xl"}}"
                 alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                decoding="async"
                 fetchpriority="high"
             >
         </a>
@@ -53,7 +61,14 @@
             <p class="gh-hero-excerpt">{{excerpt words="32"}}</p>
         {{/if}}
         <div class="gh-hero-meta">
-            <span>{{primary_author.name}}</span>
+            {{#primary_author}}
+                <span class="gh-meta-author">
+                    {{#if profile_image}}
+                        <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s"}}" alt="{{name}}" loading="lazy" decoding="async">
+                    {{/if}}
+                    <span>{{name}}</span>
+                </span>
+            {{/primary_author}}
             <span aria-hidden="true">·</span>
             <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
             <span aria-hidden="true">·</span>
@@ -69,6 +84,7 @@
                 sizes="(max-width: 900px) 100vw, 50vw"
                 src="{{img_url feature_image size="l"}}"
                 alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                decoding="async"
                 fetchpriority="high"
             >
         </a>
@@ -88,6 +104,7 @@
                 sizes="100vw"
                 src="{{img_url feature_image size="xl"}}"
                 alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                decoding="async"
                 fetchpriority="high"
             >
         </div>
@@ -109,7 +126,14 @@
             {{/if}}
 
             <div class="gh-hero-meta">
-                <span>{{primary_author.name}}</span>
+                {{#primary_author}}
+                    <span class="gh-meta-author">
+                        {{#if profile_image}}
+                            <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s"}}" alt="{{name}}" loading="lazy" decoding="async">
+                        {{/if}}
+                        <span>{{name}}</span>
+                    </span>
+                {{/primary_author}}
                 <span aria-hidden="true">·</span>
                 <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
                 <span aria-hidden="true">·</span>

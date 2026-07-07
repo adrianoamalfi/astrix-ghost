@@ -97,10 +97,35 @@
 .gh-hero-meta {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--spacing-3);
   color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
+}
+
+.gh-meta-author {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.gh-meta-author > span {
+  min-width: 0;
+  max-width: 28ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gh-meta-author-avatar {
+  width: var(--spacing-7);
+  height: var(--spacing-7);
+  flex: 0 0 var(--spacing-7);
+  border: calc(var(--border-width) * 2) solid var(--color-background-body);
+  border-radius: var(--radius-full);
+  object-fit: cover;
 }
 
 /* Editorial variant: contained, text above image, no forced dark */
@@ -180,6 +205,20 @@
 
   .gh-hero-split-media {
     order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .gh-hero-meta {
+    gap: var(--spacing-1-5) var(--spacing-2);
+  }
+
+  .gh-meta-author {
+    max-width: 100%;
+  }
+
+  .gh-meta-author > span {
+    max-width: calc(100vw - (2 * var(--spacing-4)) - var(--spacing-8));
   }
 }
 

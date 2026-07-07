@@ -1,5 +1,9 @@
 {{!-- Upgrade CTA shown in place of gated content. Context: post. --}}
-<aside class="gh-post-upgrade">
+<aside class="gh-post-upgrade{{#has visibility="paid"}} gh-post-upgrade--paid{{else}} gh-post-upgrade--members{{/has}}">
+    <div class="gh-post-upgrade-badge" aria-hidden="true">
+        {{> "icons/lock"}}
+        {{#has visibility="paid"}}{{t "Premium"}}{{else}}{{t "Members"}}{{/has}}
+    </div>
     <h2 class="gh-post-upgrade-title">
         {{#has visibility="paid"}}
             {{t "This post is for paying subscribers only"}}

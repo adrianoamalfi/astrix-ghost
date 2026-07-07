@@ -128,6 +128,24 @@
   transition: box-shadow var(--duration-medium) var(--ease-standard);
 }
 
+.gh-card--locked .gh-card-media::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--color-background-inverted) 18%, transparent), color-mix(in oklab, var(--color-background-inverted) 54%, transparent));
+}
+
+.gh-card--locked .gh-card-media img {
+  filter: blur(10px) saturate(0.85);
+  transform: scale(1.05);
+}
+
+.gh-card--locked .gh-card-link:hover .gh-card-media img {
+  transform: scale(1.08);
+}
+
 .gh-card-media img {
   width: 100%;
   height: 100%;
@@ -161,6 +179,35 @@
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.gh-card-lock-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent);
+  color: var(--gh-on-accent);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  box-shadow: var(--shadow-md);
+  transform: translate(-50%, -50%);
+}
+
+.gh-card-lock-badge svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* Premium (paid) cards: gold badge with AA-legible dark text on gold */
+.gh-card--paid .gh-card-lock-badge {
+  background-color: var(--gh-accent-2);
+  color: color-mix(in oklab, var(--gh-accent-2) 24%, #000);
 }
 
 .gh-card-media--empty {
@@ -205,15 +252,23 @@
   font-weight: var(--font-weight-medium);
 }
 
+.gh-card-meta .gh-meta-author-avatar {
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+  flex-basis: var(--spacing-6);
+}
+
 .gh-card-meta .gh-meta-divider::before {
   content: "·";
   color: var(--color-text-disabled);
 }
 
-.gh-card-access {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-1);
-  color: var(--gh-accent);
-  font-weight: var(--font-weight-semibold);
+@media (max-width: 640px) {
+  .gh-feed--bold-grid .gh-card:first-child .gh-card-title {
+    font-size: var(--gh-display-3);
+  }
+
+  .gh-card-meta {
+    gap: var(--spacing-1-5) var(--spacing-2);
+  }
 }
