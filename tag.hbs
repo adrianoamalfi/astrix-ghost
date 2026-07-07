@@ -4,7 +4,7 @@
 <header class="gh-archive-header{{#if feature_image}} gh-archive-header--image{{/if}}"{{#if feature_image}} data-astryx-media="dark"{{/if}}>
     {{#if feature_image}}
         <div class="gh-archive-backdrop">
-            <img src="{{img_url feature_image size="xl"}}" alt="" loading="eager">
+            <img src="{{img_url feature_image size="xl"}}" alt="" loading="eager" decoding="async">
         </div>
         <div class="gh-archive-scrim"></div>
     {{/if}}

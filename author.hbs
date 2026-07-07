@@ -5,7 +5,7 @@
     <div class="gh-archive-inner">
         <div class="gh-author-header">
             {{#if profile_image}}
-                <img class="gh-author-avatar" src="{{img_url profile_image size="s"}}" alt="{{name}}">
+                <img class="gh-author-avatar" src="{{img_url profile_image size="s"}}" alt="{{name}}" loading="lazy" decoding="async">
             {{/if}}
             <div>
                 <span class="u-kicker">{{t "Author"}}</span>
