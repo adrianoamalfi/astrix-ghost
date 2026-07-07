@@ -1,11 +1,15 @@
 {{!< default}}
 
 <div class="gh-feed-wrap">
-    <div class="gh-feed {{#match @custom.feed_layout "Mosaic"}}gh-feed--mosaic{{else match @custom.feed_layout "List"}}gh-feed--list{{else}}gh-feed--bold-grid{{/match}}">
-        {{#foreach posts}}
-            {{> "post-card"}}
-        {{/foreach}}
-    </div>
+    {{#if posts}}
+        <div class="gh-feed {{#match @custom.feed_layout "Mosaic"}}gh-feed--mosaic{{else match @custom.feed_layout "List"}}gh-feed--list{{else}}gh-feed--bold-grid{{/match}}">
+            {{#foreach posts}}
+                {{> "post-card"}}
+            {{/foreach}}
+        </div>
+    {{else}}
+        {{> "empty-state"}}
+    {{/if}}
 </div>
 
 {{pagination}}

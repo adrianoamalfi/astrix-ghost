@@ -51,6 +51,51 @@
 }
 
 /* List: edge-to-edge rows, image on the right */
+/* Empty archive state (tag/author/index with no posts) */
+.gh-empty {
+  width: var(--gh-container);
+  margin-inline: auto;
+  padding-block: var(--spacing-10) var(--spacing-12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-3);
+}
+
+.gh-empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-12);
+  height: var(--spacing-12);
+  margin-bottom: var(--spacing-2);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-muted);
+  color: var(--gh-accent);
+}
+
+.gh-empty-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.gh-empty-title {
+  margin: 0;
+  font-family: var(--gh-font-heading, var(--font-family-heading));
+  font-size: var(--gh-display-3);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
+}
+
+.gh-empty-text {
+  max-width: 42ch;
+  margin: 0 0 var(--spacing-4);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+}
+
 .gh-feed--list {
   grid-template-columns: 1fr;
   width: var(--gh-container);

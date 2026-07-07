@@ -22,11 +22,15 @@
 {{/tag}}
 
 <div class="gh-feed-wrap">
-    <div class="gh-feed gh-feed--bold-grid">
-        {{#foreach posts}}
-            {{> "post-card"}}
-        {{/foreach}}
-    </div>
+    {{#if posts}}
+        <div class="gh-feed gh-feed--bold-grid">
+            {{#foreach posts}}
+                {{> "post-card"}}
+            {{/foreach}}
+        </div>
+    {{else}}
+        {{> "empty-state"}}
+    {{/if}}
 </div>
 
 {{pagination}}
