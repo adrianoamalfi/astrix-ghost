@@ -44,7 +44,7 @@
     <section class="gh-feed-wrap">
         <h2 class="gh-section-title gh-container-wide">{{t "Latest posts"}}</h2>
         <div class="gh-feed {{#match @custom.feed_layout "Mosaic"}}gh-feed--mosaic{{else match @custom.feed_layout "List"}}gh-feed--list{{else}}gh-feed--bold-grid{{/match}}">
-            {{#foreach posts}}
+            {{#foreach ../posts}}
                 {{#match id "!=" featured.[0].id}}
                     {{> "post-card"}}
                 {{/match}}
