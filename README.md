@@ -32,7 +32,12 @@ npm install
 npm run build     # extract Astryx tokens + bundle CSS/JS into assets/built/
 npm run dev       # watch + browser-sync proxy against http://localhost:2368
 npm test          # gscan validation
-npm run zip       # dist/astrix.zip, ready to upload to Ghost Admin
+npm run check:i18n # verifies template translation keys exist in locales
+npm run check:a11y # verifies common template accessibility invariants
+npm run check     # build + gscan validation, recommended before commits/releases
+npm run smoke     # local Ghost route smoke test, requires http://localhost:2368
+npm run zip       # check + dist/astrix.zip, ready to upload to Ghost Admin
+npm run release   # zip + package summary
 ```
 
 For local development, symlink this folder into a local Ghost install and
@@ -46,6 +51,16 @@ ghost restart
 
 Locale changes and `package.json` changes require a Ghost restart; template
 changes only need a browser refresh in development mode.
+
+Run `npm run check` before publishing changes. `npm run zip` runs the same
+validation before creating the upload package. The generated zip contains
+runtime assets only; source CSS/JS stays in the repository.
+
+Use `VISUAL_QA.md` as the manual browser checklist before uploading a theme
+release.
+
+`npm run smoke` checks the local Ghost routes listed in `VISUAL_QA.md`. Set
+`GHOST_URL` to test a different local URL.
 
 ## Theme settings (Ghost Admin → Design)
 

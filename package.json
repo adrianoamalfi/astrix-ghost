@@ -94,7 +94,12 @@
     "dev:sync": "browser-sync start --proxy localhost:2368 --files \"assets/built/*\" \"**/*.hbs\" --no-open --no-notify",
     "dev": "npm run tokens && concurrently -n css,js,sync \"npm:dev:css\" \"npm:dev:js\" \"npm:dev:sync\"",
     "test": "gscan .",
-    "zip": "npm run build && mkdir -p dist && rm -f dist/astrix.zip && zip -r dist/astrix.zip . -x \"node_modules/*\" \"dist/*\" \"scripts/*\" \".git/*\" \".claude/*\" \"postcss.config.cjs\" \"package-lock.json\" \"*.map\" \".DS_Store\" \"*/.DS_Store\" \".gitignore\""
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "check:a11y": "node scripts/check-a11y.mjs",
+    "check": "npm run build && npm test && npm run check:i18n && npm run check:a11y",
+    "smoke": "node scripts/smoke-routes.mjs",
+    "zip": "npm run check && mkdir -p dist && rm -f dist/astrix.zip && zip -r dist/astrix.zip . -x \"node_modules/*\" \"dist/*\" \"scripts/*\" \"assets/css/*\" \"assets/js/*\" \".git/*\" \".claude/*\" \"AGENTS.md\" \"VISUAL_QA.md\" \"postcss.config.cjs\" \"package-lock.json\" \"*.map\" \".DS_Store\" \"*/.DS_Store\" \".gitignore\"",
+    "release": "npm run zip && node scripts/release-summary.mjs"
   },
   "devDependencies": {
     "@astryxdesign/cli": "^0.1.3",
