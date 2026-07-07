@@ -27,12 +27,23 @@
   grid-column: main-start / main-end;
 }
 
+/*
+ * Wide/full cards escape to viewport scale rather than to the grid tracks:
+ * on post pages the whole canvas sits inside the (centered) content column
+ * of the TOC layout, so the grid tracks alone can't break out of it.
+ */
 .gh-canvas > .kg-width-wide {
-  grid-column: wide-start / wide-end;
+  grid-column: full-start / full-end;
+  justify-self: center;
+  width: min(1160px, 100vw - 2 * var(--spacing-6));
+  max-width: none;
 }
 
 .gh-canvas > .kg-width-full {
   grid-column: full-start / full-end;
+  justify-self: center;
+  width: 100vw;
+  max-width: none;
 }
 
 /* Post page: sticky TOC beside the article on large screens */
