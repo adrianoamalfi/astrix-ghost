@@ -5,6 +5,7 @@
  * falls back to the stylesheet's `color-scheme: light dark`.
  */
 const STORAGE_KEY = 'astrix-scheme';
+const SCHEMES = new Set(['light', 'dark', 'system']);
 
 function systemScheme() {
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -23,10 +24,15 @@ function apply(scheme) {
 
 function stored() {
   try {
-    return localStorage.getItem(STORAGE_KEY);
+    return normalize(localStorage.getItem(STORAGE_KEY));
   } catch (e) {
     return null;
   }
+}
+
+function normalize(scheme) {
+  const value = String(scheme || '').toLowerCase();
+  return SCHEMES.has(value) ? value : null;
 }
 
 function store(scheme) {
@@ -41,7 +47,7 @@ function store(scheme) {
 
 export function initColorScheme() {
   const html = document.documentElement;
-  const defaultScheme = (html.getAttribute('data-scheme-default') || 'system').toLowerCase();
+  const defaultScheme = normalize(html.getAttribute('data-scheme-default')) || 'system';
   let current = stored() || defaultScheme;
   apply(current);
 
@@ -61,13 +67,10 @@ export function initColorScheme() {
   updateLabel();
 
   button.addEventListener('click', () => {
-    const effective = current === 'system' ? systemScheme() : current;
-    // From the user's point of view the button flips light/dark; a third
-    // click returns to following the system.
     if (current === 'system') {
-      current = effective === 'dark' ? 'light' : 'dark';
-    } else if (current === effective && stored()) {
-      current = effective === 'dark' ? 'light' : 'dark';
+      current = 'light';
+    } else if (current === 'light') {
+      current = 'dark';
     } else {
       current = 'system';
     }

@@ -28,13 +28,18 @@ export function initToc() {
   const seen = new Set();
   let currentH2Item = null;
 
-  headings.forEach((heading) => {
-    if (!heading.id) {
-      let id = slugify(heading.textContent) || 'section';
-      while (seen.has(id) || document.getElementById(id)) id += '-x';
-      heading.id = id;
+  const uniqueHeadingId = (heading) => {
+    const base = heading.id || slugify(heading.textContent) || 'section';
+    let id = base;
+    while (seen.has(id) || (document.getElementById(id) && document.getElementById(id) !== heading)) {
+      id += '-x';
     }
-    seen.add(heading.id);
+    seen.add(id);
+    return id;
+  };
+
+  headings.forEach((heading) => {
+    heading.id = uniqueHeadingId(heading);
 
     const item = document.createElement('li');
     const link = document.createElement('a');
@@ -69,8 +74,12 @@ export function initToc() {
         if (entry.isIntersecting) {
           const link = links.get(entry.target.id);
           if (link && link !== activeLink) {
-            if (activeLink) activeLink.classList.remove('is-active');
+            if (activeLink) {
+              activeLink.classList.remove('is-active');
+              activeLink.removeAttribute('aria-current');
+            }
             link.classList.add('is-active');
+            link.setAttribute('aria-current', 'location');
             activeLink = link;
           }
         }
