@@ -1,0 +1,117 @@
+.gh-container {
+  width: var(--gh-container);
+  margin-inline: auto;
+}
+
+.gh-container-wide {
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+}
+
+/*
+ * Breakout grid for article content: normal blocks sit in the readable
+ * measure, .kg-width-wide / .kg-width-full escape to the wide/full tracks.
+ */
+.gh-canvas {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--spacing-4), 1fr)
+    [wide-start] minmax(0, 220px)
+    [main-start] min(var(--gh-measure), calc(100% - 2 * var(--spacing-4)))
+    [main-end] minmax(0, 220px)
+    [wide-end] minmax(var(--spacing-4), 1fr)
+    [full-end];
+}
+
+.gh-canvas > * {
+  grid-column: main-start / main-end;
+}
+
+/*
+ * Wide/full cards escape to viewport scale rather than to the grid tracks:
+ * on post pages the whole canvas sits inside the (centered) content column
+ * of the TOC layout, so the grid tracks alone can't break out of it.
+ */
+.gh-canvas > .kg-width-wide {
+  grid-column: full-start / full-end;
+  justify-self: center;
+  width: min(1160px, 100vw - 2 * var(--spacing-6));
+  max-width: none;
+}
+
+.gh-canvas > .kg-width-full {
+  grid-column: full-start / full-end;
+  justify-self: center;
+  width: min(100vw, 100dvw);
+  max-width: none;
+}
+
+/* Post page: sticky TOC beside the article on large screens */
+.gh-article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+.gh-article-column {
+  min-width: 0;
+}
+
+@media (max-width: 1199px) {
+  .gh-article-layout {
+    width: var(--gh-container);
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .gh-canvas {
+    grid-template-columns:
+      [full-start] minmax(var(--spacing-4), 1fr)
+      [wide-start main-start] minmax(0, calc(100% - 2 * var(--spacing-4)))
+      [main-end wide-end] minmax(var(--spacing-4), 1fr)
+      [full-end];
+  }
+
+  .gh-canvas > .kg-width-wide {
+    width: min(100%, 100vw - 2 * var(--spacing-4));
+  }
+
+  .gh-article-layout {
+    gap: var(--spacing-6);
+  }
+}
+
+@media (min-width: 1200px) {
+  .gh-article-layout.has-toc {
+    grid-template-columns: 240px minmax(0, 1fr) 240px;
+  }
+
+  .gh-article-layout.has-toc > .gh-toc-column {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .gh-article-layout.has-toc > .gh-article-column {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+
+/*
+ * Skip rendering work for large below-the-fold sections until they near the
+ * viewport. contain-intrinsic-size reserves an approximate height so the
+ * scrollbar doesn't jump; the `auto` keyword then remembers the real size once
+ * the section has been rendered.
+ */
+.gh-related,
+.gh-comments,
+.gh-footer {
+  content-visibility: auto;
+}
+
+.gh-related { contain-intrinsic-size: auto 480px; }
+/* sized to the empty state (title + CTA); real threads re-measure on inject */
+.gh-comments { contain-intrinsic-size: auto 320px; }
+.gh-footer { contain-intrinsic-size: auto 320px; }

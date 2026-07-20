@@ -1,0 +1,46 @@
+{{!< default}}
+
+{{#tag}}
+<header class="gh-archive-header{{#if feature_image}} gh-archive-header--image{{/if}}"{{#if feature_image}} data-astryx-media="dark"{{/if}}>
+    {{#if feature_image}}
+        <div class="gh-archive-backdrop">
+            <img
+                srcset="{{img_url feature_image size="m" format="webp"}} 640w,
+                        {{img_url feature_image size="l" format="webp"}} 1024w,
+                        {{img_url feature_image size="xl" format="webp"}} 1920w"
+                sizes="100vw"
+                src="{{img_url feature_image size="xl" format="webp"}}"
+                width="1920" height="1080"
+                alt="" loading="eager" decoding="async">
+        </div>
+        <div class="gh-archive-scrim"></div>
+    {{/if}}
+    <div class="gh-archive-inner">
+        {{> "breadcrumbs"}}
+
+        <span class="u-kicker">{{t "Tag"}}</span>
+        <h1 class="gh-archive-title">{{name}}</h1>
+        {{#if description}}
+            <p class="gh-archive-description">{{description}}</p>
+        {{/if}}
+        <p class="gh-archive-meta">
+            {{plural ../pagination.total empty=(t "No posts") singular=(t "% post") plural=(t "% posts")}}
+        </p>
+    </div>
+</header>
+{{/tag}}
+
+<div class="gh-feed-wrap">
+    <h2 class="u-visually-hidden">{{t "Latest posts"}}</h2>
+    {{#if posts}}
+        <div class="gh-feed gh-feed--bold-grid">
+            {{#foreach posts}}
+                {{> "post-card"}}
+            {{/foreach}}
+        </div>
+    {{else}}
+        {{> "empty-state"}}
+    {{/if}}
+</div>
+
+{{pagination}}

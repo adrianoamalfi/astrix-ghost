@@ -1,0 +1,8 @@
+{{#if comments}}
+<section class="gh-comments" data-lazy-comments>
+    {{!-- Parked in an inert <template>; comments.js injects it (and runs the
+          comments-ui script) once the reader scrolls near, keeping that
+          third-party JS off the initial page load. --}}
+    <template>{{comments title=(t "Comments") count=true}}</template>
+</section>
+{{/if}}

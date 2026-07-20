@@ -1,0 +1,409 @@
+/* Post feed layouts */
+.gh-feed {
+  display: grid;
+  gap: var(--spacing-8) var(--spacing-6);
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-block: var(--spacing-4) var(--spacing-10);
+  min-width: 0;
+}
+
+/* Bold grid: 3 columns, first post of each page is a wide billboard */
+.gh-feed--bold-grid {
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.gh-feed--bold-grid .gh-card {
+  grid-column: span 4;
+}
+
+.gh-feed--bold-grid .gh-card:first-child {
+  grid-column: span 12;
+}
+
+.gh-feed--bold-grid .gh-card:first-child .gh-card-link {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--spacing-6);
+  align-items: center;
+}
+
+.gh-feed--bold-grid .gh-card:first-child .gh-card-title {
+  font-size: var(--gh-display-2);
+}
+
+/* Mosaic: alternating spans for an editorial rhythm */
+.gh-feed--mosaic {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.gh-feed--mosaic .gh-card {
+  grid-column: span 2;
+}
+
+.gh-feed--mosaic .gh-card:nth-child(5n + 1),
+.gh-feed--mosaic .gh-card:nth-child(5n + 2) {
+  grid-column: span 3;
+}
+
+.gh-feed--mosaic .gh-card:nth-child(5n + 1) .gh-card-title,
+.gh-feed--mosaic .gh-card:nth-child(5n + 2) .gh-card-title {
+  font-size: var(--gh-display-3);
+}
+
+/* List: edge-to-edge rows, image on the right */
+/* Empty archive state (tag/author/index with no posts) */
+.gh-empty {
+  width: var(--gh-container);
+  margin-inline: auto;
+  padding-block: var(--spacing-10) var(--spacing-12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-3);
+}
+
+.gh-empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-12);
+  height: var(--spacing-12);
+  margin-bottom: var(--spacing-2);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-muted);
+  color: var(--gh-accent-text);
+}
+
+.gh-empty-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.gh-empty-title {
+  margin: 0;
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: var(--gh-display-3);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
+}
+
+.gh-empty-text {
+  max-width: 42ch;
+  margin: 0 0 var(--spacing-4);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+}
+
+.gh-feed--list {
+  grid-template-columns: 1fr;
+  width: var(--gh-container);
+  gap: 0;
+}
+
+.gh-feed--list .gh-card {
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.gh-feed--list .gh-card-link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
+  gap: var(--spacing-6);
+  align-items: center;
+  padding-block: var(--spacing-6);
+}
+
+.gh-feed--list .gh-card-media {
+  order: 2;
+  aspect-ratio: 4 / 3;
+}
+
+@media (max-width: 1000px) {
+  .gh-feed {
+    gap: var(--spacing-7) var(--spacing-5);
+  }
+
+  .gh-feed--bold-grid .gh-card {
+    grid-column: span 6;
+  }
+
+  .gh-feed--bold-grid .gh-card:first-child .gh-card-link {
+    grid-template-columns: 1fr;
+  }
+
+  .gh-feed--mosaic .gh-card,
+  .gh-feed--mosaic .gh-card:nth-child(5n + 1),
+  .gh-feed--mosaic .gh-card:nth-child(5n + 2) {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 900px) and (min-width: 641px) {
+  .gh-feed--bold-grid .gh-card:first-child .gh-card-title {
+    font-size: var(--gh-display-2);
+  }
+
+  .gh-feed--list .gh-card-link {
+    grid-template-columns: minmax(0, 1fr) minmax(160px, 34%);
+    gap: var(--spacing-5);
+  }
+}
+
+@media (max-width: 640px) {
+  .gh-feed {
+    gap: var(--spacing-7);
+    padding-block: var(--spacing-2) var(--spacing-8);
+  }
+
+  .gh-feed--bold-grid .gh-card,
+  .gh-feed--mosaic .gh-card,
+  .gh-feed--mosaic .gh-card:nth-child(5n + 1),
+  .gh-feed--mosaic .gh-card:nth-child(5n + 2) {
+    grid-column: 1 / -1;
+  }
+
+  .gh-feed--list .gh-card-link {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+    padding-block: var(--spacing-5);
+  }
+
+  .gh-feed--list .gh-card-media {
+    order: 0;
+  }
+}
+
+/* The card itself */
+.gh-card {
+  position: relative;
+}
+
+.gh-card-link {
+  display: block;
+  height: 100%;
+  border-radius: var(--gh-radius-card);
+  text-decoration: none;
+  color: inherit;
+}
+
+.gh-card-link:focus-visible {
+  outline: 2px solid var(--gh-accent-2-text);
+  outline-offset: var(--spacing-1);
+}
+
+.gh-card-media {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  margin-bottom: var(--spacing-4);
+  border-radius: var(--gh-radius-media);
+  overflow: hidden;
+  background-color: var(--color-background-muted);
+  outline: var(--gh-media-ring);
+  outline-offset: -1px;
+}
+
+.gh-card--locked .gh-card-media::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--color-background-inverted) 18%, transparent), color-mix(in oklab, var(--color-background-inverted) 54%, transparent));
+}
+
+.gh-card--locked .gh-card-media img {
+  filter: blur(10px) saturate(0.85);
+  transform: scale(1.05);
+}
+
+.gh-card--locked .gh-card-link:hover .gh-card-media img {
+  transform: scale(1.08);
+}
+
+.gh-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-medium) var(--ease-standard);
+}
+
+.gh-card-link:hover .gh-card-media img {
+  transform: scale(1.04);
+}
+
+/* Gold = touch: the title answers the hover, like every other interaction */
+.gh-card-link:hover .gh-card-title {
+  color: var(--gh-accent-2-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gh-card-link:hover .gh-card-media img {
+    transform: none;
+  }
+}
+
+.gh-card-tag {
+  position: absolute;
+  top: var(--spacing-3);
+  left: var(--spacing-3);
+  padding: var(--spacing-0-5) var(--spacing-2);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-fill);
+  color: var(--gh-on-accent);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gh-card-lock-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-fill);
+  color: var(--gh-on-accent);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  transform: translate(-50%, -50%);
+}
+
+.gh-card-lock-badge svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* Premium (paid) cards: gold badge with AA-legible dark text on gold */
+.gh-card--paid .gh-card-lock-badge {
+  background-color: var(--gh-accent-2);
+  color: var(--gh-accent-2-ink);
+}
+
+.gh-card-lock-badge[data-astryx-badge="members"] {
+  background-color: var(--color-background-inverted);
+  /* text on an inverted surface = the body background color (flips with it) */
+  color: var(--color-background-body);
+}
+
+/*
+ * No feature image: a branded placeholder instead of a blank box. The gold
+ * glow and oversized wordmark stay visible in dark mode, where an
+ * accent-muted tint alone disappears into the body background.
+ */
+.gh-card-media--empty {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 7;
+  border: var(--border-width) solid var(--color-border);
+  background:
+    radial-gradient(400px 200px at 80% -20%, color-mix(in oklab, var(--gh-accent-2) 16%, transparent), transparent),
+    color-mix(in oklab, var(--gh-accent) 8%, var(--color-background-muted));
+}
+
+.gh-card-media-mark {
+  max-width: calc(100% - 2 * var(--spacing-5));
+  overflow: hidden;
+  color: color-mix(in oklab, var(--color-text-secondary) 50%, transparent);
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: var(--gh-display-3);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gh-card-title {
+  margin: 0 0 var(--spacing-2);
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.gh-card-link:hover .gh-card-title {
+  color: var(--gh-accent-2-text);
+}
+
+.gh-card-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 65ch;
+  margin: 0 0 var(--spacing-3);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-base);
+  line-height: 1.55;
+}
+
+.gh-card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.gh-card-meta .gh-meta-author-avatar {
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+  flex-basis: var(--spacing-6);
+}
+
+.gh-meta-author-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.gh-meta-author-avatar--fallback {
+  background-color: var(--gh-accent-muted);
+  color: var(--color-text-primary);
+  font-size: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.gh-meta-author-avatar--fallback::first-letter {
+  font-size: var(--font-size-xs);
+}
+
+.gh-card-meta .gh-meta-divider::before {
+  content: "·";
+  color: var(--color-text-disabled);
+}
+
+@media (max-width: 640px) {
+  .gh-feed--bold-grid .gh-card:first-child .gh-card-title {
+    font-size: var(--gh-display-3);
+  }
+
+  .gh-card-media {
+    margin-bottom: var(--spacing-3);
+  }
+
+  .gh-card-media--empty {
+    aspect-ratio: 16 / 8;
+  }
+
+  .gh-card-meta {
+    gap: var(--spacing-1-5) var(--spacing-2);
+  }
+}

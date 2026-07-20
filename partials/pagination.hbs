@@ -1,0 +1,19 @@
+{{!-- A single page needs no pagination — don't render a lone "Page 1 of 1" --}}
+{{#match pagination.pages ">" 1}}
+<nav class="gh-pagination" data-astryx-pagination="compact" aria-label="{{t "Pagination"}}"
+     data-loading="{{t "Loading…"}}">
+    {{#if pagination.prev}}
+        <a class="gh-button gh-button--ghost gh-pagination-link" href="{{page_url pagination.prev}}" rel="prev">{{t "Newer posts"}}</a>
+    {{else}}
+        <span class="gh-pagination-spacer" aria-hidden="true"></span>
+    {{/if}}
+
+    <span class="gh-pagination-label" aria-live="polite">{{t "Page {page} of {pages}" page=pagination.page pages=pagination.pages}}</span>
+
+    {{#if pagination.next}}
+        <a class="gh-button gh-button--ghost gh-pagination-link" href="{{page_url pagination.next}}" rel="next">{{t "Older posts"}}</a>
+    {{else}}
+        <span class="gh-pagination-spacer" aria-hidden="true"></span>
+    {{/if}}
+</nav>
+{{/match}}

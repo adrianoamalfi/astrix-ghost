@@ -1,0 +1,51 @@
+<nav class="gh-breadcrumbs" data-astryx-breadcrumbs aria-label="{{t "Breadcrumbs"}}">
+    <a href="{{@site.url}}">{{t "Home"}}</a>
+    {{#is "post"}}
+        {{#primary_tag}}
+            <span aria-hidden="true">/</span>
+            <a href="{{url}}">{{name}}</a>
+        {{/primary_tag}}
+    {{/is}}
+    {{#is "tag"}}
+        <span aria-hidden="true">/</span>
+        <span>{{t "Tag"}}</span>
+    {{/is}}
+    {{#is "author"}}
+        <span aria-hidden="true">/</span>
+        <span>{{t "Author"}}</span>
+    {{/is}}
+    {{#is "page"}}
+        <span aria-hidden="true">/</span>
+        <span>{{t "Page"}}</span>
+    {{/is}}
+</nav>
+{{!-- BreadcrumbList structured data (machine-readable mirror of the nav
+      above). Scoped to posts, where the hierarchy has real navigable URLs. --}}
+{{#is "post"}}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "{{t "Home"}}",
+            "item": "{{@site.url}}"
+        }{{#primary_tag}},
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{name}}",
+            "item": "{{url absolute="true"}}"
+        }{{/primary_tag}},
+        {
+            "@type": "ListItem",
+            "position": {{#primary_tag}}3{{else}}2{{/primary_tag}},
+            "name": "{{title}}",
+            "item": "{{url absolute="true"}}"
+        }
+    ]
+}
+</script>
+{{/is}}

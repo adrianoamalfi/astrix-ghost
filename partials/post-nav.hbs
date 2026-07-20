@@ -1,0 +1,16 @@
+{{!-- Older/newer post links. Context: post. Ghost renders each block only
+      when that neighbour exists; the nav hides itself via CSS when empty. --}}
+<nav class="gh-post-nav gh-container-wide" aria-label="{{t "More posts"}}">
+    {{#prev_post}}
+        <a class="gh-post-nav-link gh-post-nav-link--prev" href="{{url}}" rel="prev">
+            <span class="gh-post-nav-kicker">{{t "Previous post"}}</span>
+            <span class="gh-post-nav-title">{{title}}</span>
+        </a>
+    {{/prev_post}}
+    {{#next_post}}
+        <a class="gh-post-nav-link gh-post-nav-link--next" href="{{url}}" rel="next">
+            <span class="gh-post-nav-kicker">{{t "Next post"}}</span>
+            <span class="gh-post-nav-title">{{title}}</span>
+        </a>
+    {{/next_post}}
+</nav>

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.map
+.DS_Store
+.claude
+.impeccable
+AGENTS.md
+PRODUCT.md
+VISUAL_QA.md

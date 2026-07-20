@@ -1,0 +1,21 @@
+import { initColorScheme } from './modules/color-scheme.js';
+import { initToc } from './modules/toc.js';
+import { initProgress } from './modules/progress.js';
+import { initNav } from './modules/nav.js';
+import { initCodeCopy } from './modules/code-copy.js';
+import { initHeadingAnchors } from './modules/heading-anchors.js';
+import { initLightbox } from './modules/lightbox.js';
+import { initComments } from './modules/comments.js';
+import { initArchive } from './modules/archive.js';
+import { initInfiniteScroll } from './modules/infinite-scroll.js';
+
+initColorScheme();
+initToc();
+initProgress();
+initNav();
+initCodeCopy();
+initHeadingAnchors();
+initLightbox();
+initComments();
+initArchive();
+initInfiniteScroll();

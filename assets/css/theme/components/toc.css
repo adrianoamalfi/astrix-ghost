@@ -1,0 +1,122 @@
+.gh-toc-column {
+  min-width: 0;
+}
+
+/* The disclosure is the card: sticky sidebar on desktop, static block above
+   the article below the breakpoint. toc.js opens it on desktop and leaves
+   it closed (reader-toggleable) on mobile. */
+.gh-toc-details {
+  position: sticky;
+  top: calc(var(--gh-header-height) + var(--spacing-6));
+  max-height: calc(100vh - var(--gh-header-height) - 2 * var(--spacing-6));
+  overflow-y: auto;
+  padding: var(--spacing-4);
+  border-radius: var(--gh-radius-card);
+  background-color: var(--color-background-surface);
+  font-size: var(--font-size-sm);
+}
+
+.gh-toc-details[hidden] {
+  display: none;
+}
+
+.gh-toc-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gh-text-secondary);
+}
+
+.gh-toc-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* chevron: down when closed, up when open */
+.gh-toc-summary::after {
+  content: "";
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-25%) rotate(45deg);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.gh-toc-details[open] > .gh-toc-summary::after {
+  transform: translateY(25%) rotate(-135deg);
+}
+
+.gh-toc-details[open] > .gh-toc-summary {
+  margin-bottom: var(--spacing-3);
+}
+
+.gh-toc ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gh-toc ol ol {
+  padding-left: var(--spacing-3);
+}
+
+.gh-toc a {
+  display: block;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-left: 2px solid transparent;
+  border-radius: 0 var(--radius-inner) var(--radius-inner) 0;
+  color: var(--gh-text-secondary);
+  text-decoration: none;
+  line-height: 1.4;
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.gh-toc a:hover {
+  color: var(--color-text-primary);
+}
+
+.gh-toc a.is-active {
+  border-left-color: var(--gh-accent-line);
+  color: var(--gh-accent-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Below the breakpoint the TOC is a closed disclosure above the article */
+@media (max-width: 1199px) {
+  .gh-toc-details {
+    position: static;
+    max-height: none;
+    width: min(var(--gh-measure), 100%);
+    margin-inline: auto;
+    margin-bottom: var(--spacing-6);
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+}
+
+@media (max-width: 640px) {
+  .gh-toc-details {
+    margin-bottom: var(--spacing-5);
+    padding: var(--spacing-3);
+  }
+
+  .gh-toc ol ol {
+    padding-left: var(--spacing-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gh-toc-summary::after,
+  .gh-toc a {
+    transition: none;
+  }
+}

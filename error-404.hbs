@@ -1,0 +1,23 @@
+{{!< default}}
+
+<section class="gh-error gh-container">
+    <div class="gh-error-code">404</div>
+    <p class="gh-error-description">{{t "The page you were looking for doesn't exist or has been moved."}}</p>
+    <div class="gh-post-upgrade-actions">
+        <a class="gh-button" href="{{@site.url}}">{{t "Back to home"}}</a>
+        <button class="gh-button gh-button--ghost" type="button" data-ghost-search>{{t "Search"}}</button>
+    </div>
+</section>
+
+{{#get "posts" include="tags,authors" limit="4" as |recent|}}
+    {{#if recent}}
+        <section class="gh-container-wide">
+            <h2 class="gh-section-title">{{t "Latest posts"}}</h2>
+            <div class="gh-feed gh-feed--bold-grid gh-feed--related">
+                {{#foreach recent}}
+                    {{> "post-card"}}
+                {{/foreach}}
+            </div>
+        </section>
+    {{/if}}
+{{/get}}

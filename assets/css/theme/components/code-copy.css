@@ -1,0 +1,50 @@
+/* Copy-to-clipboard button on content code blocks (see modules/code-copy.js) */
+.gh-content pre {
+  position: relative;
+}
+
+.gh-code-copy {
+  position: absolute;
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  padding: 0;
+  border: var(--border-width) solid color-mix(in oklab, currentColor 20%, transparent);
+  border-radius: var(--radius-element);
+  background-color: color-mix(in oklab, currentColor 8%, transparent);
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity var(--duration-fast) var(--ease-standard),
+              background-color var(--duration-fast) var(--ease-standard);
+}
+
+.gh-content pre:hover .gh-code-copy,
+.gh-content pre:focus-within .gh-code-copy {
+  opacity: 1;
+}
+
+.gh-code-copy:hover {
+  background-color: color-mix(in oklab, currentColor 16%, transparent);
+}
+
+.gh-code-copy svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.gh-code-copy.is-copied {
+  opacity: 1;
+  color: var(--gh-accent-2);
+  border-color: color-mix(in oklab, var(--gh-accent-2) 40%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gh-code-copy {
+    transition: none;
+  }
+}

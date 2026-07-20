@@ -1,0 +1,47 @@
+{{!-- Personal hero: the author is the protagonist, not the latest post.
+      Everything comes from Ghost Admin — no hardcoded identity:
+      @custom.personal_hero_headline (fallback: site title),
+      @custom.personal_hero_text (fallback: site description),
+      @custom.personal_hero_portrait (optional image),
+      social links from Settings → General, subscribe CTA from Portal. --}}
+<section class="gh-hero gh-hero--personal gh-hero--no-image" data-astryx-media="dark">
+    <div class="gh-hero-content">
+        <div class="gh-personal{{#unless @custom.personal_hero_portrait}} gh-personal--text-only{{/unless}}">
+            <div class="gh-personal-text">
+                <h1 class="gh-hero-title">{{#if @custom.personal_hero_headline}}{{@custom.personal_hero_headline}}{{else}}{{@site.title}}{{/if}}</h1>
+
+                {{#if @custom.personal_hero_text}}
+                    <p class="gh-hero-excerpt">{{@custom.personal_hero_text}}</p>
+                {{else}}
+                    {{#if @site.description}}
+                        <p class="gh-hero-excerpt">{{@site.description}}</p>
+                    {{/if}}
+                {{/if}}
+
+                <div class="gh-personal-actions">
+                    {{#if @site.members_enabled}}
+                        {{#unless @member}}
+                            <a class="gh-button gh-button--large" href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
+                        {{/unless}}
+                    {{/if}}
+
+                    {{> "social-links"}}
+                </div>
+            </div>
+
+            {{#if @custom.personal_hero_portrait}}
+                <img
+                    class="gh-personal-portrait"
+                    srcset="{{img_url @custom.personal_hero_portrait size="m" format="webp"}} 640w,
+                            {{img_url @custom.personal_hero_portrait size="l" format="webp"}} 1024w"
+                    sizes="(max-width: 900px) 60vw, 420px"
+                    src="{{img_url @custom.personal_hero_portrait size="l" format="webp"}}"
+                    width="840" height="1050"
+                    alt="{{@site.title}}"
+                    decoding="async"
+                    fetchpriority="high"
+                >
+            {{/if}}
+        </div>
+    </div>
+</section>

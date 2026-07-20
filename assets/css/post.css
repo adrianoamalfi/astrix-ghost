@@ -1,0 +1,23 @@
+/*
+ * Astrix — post/page-only styles, split out of screen.css so the homepage,
+ * tag and author archives don't download the long-form prose, Koenig card,
+ * table-of-contents, lightbox and code-copy CSS they never use. Loaded
+ * conditionally from default.hbs on the post/page contexts.
+ *
+ * The layer order is re-declared identically to screen.css so this sheet slots
+ * its rules into the same cascade layers. koenig.css stays UNLAYERED and last,
+ * for the same reason as in screen.css (Ghost injects unlayered card CSS).
+ */
+@layer reset, astryx-base, astryx-theme,
+       theme.vars, theme.base, theme.layout, theme.components,
+       theme.prose, theme.utilities;
+
+@import "theme/components/toc.css" layer(theme.components);
+@import "theme/components/progress.css" layer(theme.components);
+@import "theme/components/code-copy.css" layer(theme.components);
+@import "theme/components/lightbox.css" layer(theme.components);
+@import "theme/components/post-nav.css" layer(theme.components);
+
+@import "theme/prose.css" layer(theme.prose);
+
+@import "theme/koenig.css";

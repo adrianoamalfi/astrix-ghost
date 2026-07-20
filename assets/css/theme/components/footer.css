@@ -1,0 +1,124 @@
+.gh-footer {
+  margin-top: clamp(var(--spacing-10), 8vw, var(--spacing-12));
+  background-color: var(--color-background-surface);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.gh-footer-inner {
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-block: clamp(var(--spacing-8), 6vw, var(--spacing-11)) var(--spacing-6);
+}
+
+/* Zone 1 — identity + secondary nav, generous air before the meta bar */
+.gh-footer-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-7) var(--spacing-9);
+  padding-bottom: clamp(var(--spacing-7), 5vw, var(--spacing-10));
+}
+
+.gh-footer-identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* flexible basis: lets the bio column shrink so the nav keeps its
+     side-by-side seat above 640px instead of wrapping under long bios */
+  flex: 1 1 18rem;
+}
+
+.gh-footer-brand {
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  text-decoration: none;
+  text-wrap: balance;
+}
+
+.gh-footer-brand:hover {
+  color: var(--gh-accent-text);
+}
+
+.gh-footer-bio {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-base);
+  text-wrap: pretty;
+}
+
+.gh-footer-identity .gh-social-links {
+  /* optical alignment: the round icon buttons carry inner padding */
+  margin-left: calc(-1 * var(--spacing-2));
+}
+
+.gh-footer-nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gh-footer-nav a {
+  display: inline-block;
+  /* spacing-2 block padding brings each row to a ~44px touch pitch */
+  padding-block: var(--spacing-2);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+/* nav lists brighten to ink on hover, like .gh-nav / .gh-toc / .gh-breadcrumbs */
+.gh-footer-nav a:hover {
+  color: var(--color-text-primary);
+}
+
+/* Zone 2 — meta bar: copyright left, credits right */
+.gh-footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-2) var(--spacing-6);
+  padding-top: var(--spacing-5);
+  border-top: var(--border-width) solid var(--color-border);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.gh-footer-credits {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--spacing-2);
+  row-gap: var(--spacing-1);
+}
+
+/* credits are inline text links: underline them (accent decoration color and
+   gold hover come from base `a`) so they read as links, not just bolder text */
+.gh-footer-meta a {
+  font-weight: var(--font-weight-medium);
+  /* longhand: the shorthand would reset base's accent decoration color */
+  text-decoration-line: underline;
+  text-decoration-thickness: var(--border-width);
+}
+
+.gh-footer-sep {
+  user-select: none;
+  opacity: 0.5;
+}
+
+/* Wide screens: nav reads as a right-aligned column, mirroring the identity block */
+@media (min-width: 641px) {
+  .gh-footer-nav ul {
+    align-items: flex-end;
+    text-align: right;
+  }
+}

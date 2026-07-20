@@ -1,0 +1,28 @@
+{{#if @site.members_enabled}}
+<section class="gh-subscribe-band" data-astryx-banner="subscribe">
+    {{!-- data-astryx-media="dark": always-dark poster panel, bookending the hero --}}
+    <div class="gh-subscribe" data-astryx-media="dark">
+        <h2 class="gh-subscribe-title">
+            {{#if @custom.cta_headline}}{{@custom.cta_headline}}{{else}}{{t "Get the best posts, straight to your inbox"}}{{/if}}
+        </h2>
+        <p class="gh-subscribe-text">
+            {{#if @custom.cta_text}}{{@custom.cta_text}}{{else}}{{t "No spam. Unsubscribe at any time."}}{{/if}}
+        </p>
+
+        <div class="gh-members-form-wrap">
+            <form class="gh-members-form" data-members-form="subscribe">
+                <input type="email" name="email" data-members-email required autocomplete="email" inputmode="email"
+                       placeholder="{{t "Your email address"}}"
+                       aria-label="{{t "Your email address"}}"
+                       aria-describedby="gh-members-success gh-members-error">
+                <button class="gh-button" type="submit">
+                    <span class="gh-form-cta">{{t "Subscribe"}}</span>
+                    <span class="gh-form-loading">{{t "Sending…"}}</span>
+                </button>
+                <p class="gh-form-feedback gh-form-feedback--success" id="gh-members-success">{{t "Great! Check your inbox and click the link to confirm."}}</p>
+                <p class="gh-form-feedback gh-form-feedback--error" id="gh-members-error" data-members-error></p>
+            </form>
+        </div>
+    </div>
+</section>
+{{/if}}

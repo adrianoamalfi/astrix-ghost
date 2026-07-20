@@ -1,0 +1,37 @@
+.gh-breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-1-5);
+  margin: 0 auto var(--spacing-4);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.gh-archive-inner > .gh-breadcrumbs {
+  justify-content: flex-start;
+}
+
+.gh-breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.gh-breadcrumbs a:hover {
+  color: var(--color-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.gh-breadcrumbs span[aria-hidden="true"] {
+  color: var(--color-text-disabled);
+}
+
+@media (max-width: 640px) {
+  .gh-breadcrumbs {
+    justify-content: flex-start;
+    margin-bottom: var(--spacing-3);
+  }
+}

@@ -1,0 +1,18 @@
+.gh-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  height: 3px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.gh-progress-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--gh-accent), var(--gh-accent-2));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}

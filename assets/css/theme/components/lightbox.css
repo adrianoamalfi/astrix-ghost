@@ -1,0 +1,117 @@
+/* Image lightbox for content images and galleries (see modules/lightbox.js) */
+.gh-zoomable {
+  cursor: zoom-in;
+}
+
+.has-lightbox-open {
+  overflow: hidden;
+}
+
+.gh-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: clamp(var(--spacing-4), 4vw, var(--spacing-10));
+  background-color: color-mix(in oklab, #000 88%, transparent);
+  backdrop-filter: blur(4px);
+  animation: gh-lightbox-in var(--duration-fast) var(--ease-standard);
+}
+
+.gh-lightbox[hidden] {
+  display: none;
+}
+
+.gh-lightbox-figure {
+  margin: 0;
+  max-width: min(1200px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.gh-lightbox-figure img {
+  max-width: 100%;
+  max-height: 82vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--gh-radius-media);
+}
+
+.gh-lightbox-figure figcaption {
+  color: color-mix(in oklab, #fff 78%, transparent);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+.gh-lightbox-figure figcaption[hidden] {
+  display: none;
+}
+
+.gh-lightbox-close,
+.gh-lightbox-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-10);
+  height: var(--spacing-10);
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: color-mix(in oklab, #fff 12%, transparent);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.gh-lightbox-close:hover,
+.gh-lightbox-nav:hover {
+  background-color: color-mix(in oklab, #fff 24%, transparent);
+}
+
+.gh-lightbox-close {
+  position: absolute;
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+}
+
+.gh-lightbox-nav[hidden] {
+  display: none;
+}
+
+.gh-lightbox-close svg,
+.gh-lightbox-nav svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@keyframes gh-lightbox-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gh-lightbox {
+    animation: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .gh-lightbox-nav {
+    position: absolute;
+    bottom: var(--spacing-4);
+  }
+  .gh-lightbox-prev {
+    left: var(--spacing-4);
+  }
+  .gh-lightbox-next {
+    right: var(--spacing-4);
+  }
+}

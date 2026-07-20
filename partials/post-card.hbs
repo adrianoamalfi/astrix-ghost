@@ -1,0 +1,70 @@
+{{!-- Bold post card. Context: a post object. --}}
+<article class="gh-card {{post_class}}{{#unless access}} gh-card--locked{{#has visibility="paid"}} gh-card--paid{{else}} gh-card--members{{/has}}{{/unless}}" data-astryx-card="clickable">
+    <a class="gh-card-link" href="{{url}}">
+        {{#if feature_image}}
+            <div class="gh-card-media" data-astryx-ratio="3:2">
+                {{!-- The first card is the LCP candidate on archive pages:
+                      load it eagerly with high priority. Contexts that are
+                      never the LCP (related posts) pass force_lazy=true. --}}
+                <img
+                    srcset="{{img_url feature_image size="s" format="webp"}} 320w,
+                            {{img_url feature_image size="m" format="webp"}} 640w,
+                            {{img_url feature_image size="l" format="webp"}} 1024w"
+                    sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                    src="{{img_url feature_image size="m" format="webp"}}"
+                    width="1200" height="800"
+                    alt="{{feature_image_alt}}"
+                    {{#has index="0"}}{{#unless force_lazy}}loading="eager" fetchpriority="high"{{else}}loading="lazy"{{/unless}}{{else}}loading="lazy"{{/has}}
+                    decoding="async"
+                    style="view-transition-name: gh-post-{{id}}"
+                >
+                {{#primary_tag}}
+                    <span class="gh-card-tag" data-astryx-badge="category">{{name}}</span>
+                {{/primary_tag}}
+                {{#unless access}}
+                    <span class="gh-card-lock-badge" data-astryx-badge="{{#has visibility="paid"}}premium{{else}}members{{/has}}">{{> "icons/lock"}}{{#has visibility="paid"}}{{t "Premium"}}{{else}}{{t "Members"}}{{/has}}</span>
+                {{/unless}}
+            </div>
+        {{else}}
+            <div class="gh-card-media gh-card-media--empty" data-astryx-ratio="empty">
+                <span class="gh-card-media-mark" aria-hidden="true">{{#primary_tag}}{{name}}{{else}}{{@site.title}}{{/primary_tag}}</span>
+                {{#primary_tag}}
+                    <span class="gh-card-tag" data-astryx-badge="category">{{name}}</span>
+                {{/primary_tag}}
+                {{#unless access}}
+                    <span class="gh-card-lock-badge" data-astryx-badge="{{#has visibility="paid"}}premium{{else}}members{{/has}}">{{> "icons/lock"}}{{#has visibility="paid"}}{{t "Premium"}}{{else}}{{t "Members"}}{{/has}}</span>
+                {{/unless}}
+            </div>
+        {{/if}}
+
+        <div class="gh-card-body">
+            {{!-- h3: cards sit under the h2 section titles (home) and h1 archive headers --}}
+            <h3 class="gh-card-title">{{title}}</h3>
+
+            {{#if custom_excerpt}}
+                <p class="gh-card-excerpt">{{custom_excerpt}}</p>
+            {{else}}
+                <p class="gh-card-excerpt">{{excerpt words="26"}}</p>
+            {{/if}}
+
+            <div class="gh-card-meta">
+                {{#if @custom.show_author_meta}}
+                    {{#primary_author}}
+                        <span class="gh-meta-author">
+                            {{#if profile_image}}
+                                <img class="gh-meta-author-avatar" data-astryx-avatar="sm" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
+                            {{else}}
+                                <span class="gh-meta-author-avatar gh-meta-author-avatar--fallback" data-astryx-avatar="sm" aria-hidden="true">{{name}}</span>
+                            {{/if}}
+                            <span>{{name}}</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                    {{/primary_author}}
+                {{/if}}
+                <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+            </div>
+        </div>
+    </a>
+</article>

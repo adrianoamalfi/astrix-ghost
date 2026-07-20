@@ -1,0 +1,67 @@
+.gh-pagination {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--spacing-4);
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-block: var(--spacing-6) var(--spacing-10);
+}
+
+.gh-pagination-link:first-child {
+  justify-self: start;
+}
+
+.gh-pagination-link:last-child {
+  justify-self: end;
+}
+
+.gh-pagination-label {
+  justify-self: center;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-surface);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.gh-pagination-spacer {
+  min-width: 1px;
+}
+
+/* Infinite loading active (set by assets/js/modules/infinite-scroll.js):
+   the nav becomes a status row, links come back if a fetch fails */
+.gh-pagination--infinite .gh-pagination-link,
+.gh-pagination--infinite .gh-pagination-spacer {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .gh-pagination {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3);
+    padding-block: var(--spacing-5) var(--spacing-8);
+  }
+
+  .gh-pagination-label {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .gh-pagination-link {
+    width: 100%;
+    min-width: 0;
+    padding-inline: var(--spacing-3);
+  }
+
+  .gh-pagination-link:first-child,
+  .gh-pagination-link:last-child {
+    justify-self: stretch;
+  }
+
+  .gh-pagination-spacer {
+    display: none;
+  }
+}

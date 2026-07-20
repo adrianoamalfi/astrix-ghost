@@ -1,0 +1,283 @@
+/* Subscribe form (newsletter) — used in the CTA band, footer and kg-signup */
+/*
+ * The band carries data-astryx-media="dark", so every token below resolves to
+ * its dark value in BOTH schemes. background-inverted must not be used here:
+ * inside a forced-dark scope it resolves to its dark value — white.
+ */
+.gh-subscribe {
+  position: relative;
+  --gh-subscribe-text: var(--color-text-primary);
+  --gh-subscribe-muted: var(--gh-text-secondary);
+
+  border-radius: var(--radius-page);
+  padding: clamp(var(--spacing-8), 6vw, var(--spacing-12));
+  background:
+    radial-gradient(900px 400px at 90% -20%, color-mix(in oklab, var(--gh-accent-2) 12%, transparent), transparent),
+    var(--color-background-surface);
+  overflow: hidden;
+  text-align: center;
+}
+
+.gh-subscribe-band[data-astryx-banner="subscribe"] .gh-subscribe {
+  border: var(--border-width) solid color-mix(in oklab, var(--gh-accent) 24%, transparent);
+}
+
+.gh-subscribe-band {
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-block: var(--spacing-8);
+}
+
+.gh-subscribe-title {
+  margin: 0 0 var(--spacing-2);
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: var(--gh-display-2);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--gh-display-tracking);
+  line-height: 1.05;
+  color: var(--gh-subscribe-text);
+  text-wrap: balance;
+}
+
+.gh-subscribe-text {
+  max-width: 40rem;
+  margin: 0 auto var(--spacing-6);
+  color: var(--gh-subscribe-muted);
+  font-size: var(--font-size-lg);
+}
+
+.gh-members-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  max-width: 30rem;
+  margin-inline: auto;
+}
+
+.gh-members-form input[type="email"] {
+  flex-grow: 1;
+  min-width: 0;
+  min-height: var(--size-element-lg);
+  padding: var(--spacing-2) var(--spacing-4);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-body);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+}
+
+.gh-members-form input[type="email"]:focus-visible {
+  outline: 2px solid var(--gh-accent-2-text);
+  outline-offset: 1px;
+  border-color: var(--gh-accent-2-text);
+}
+
+/* Portal form states — Ghost toggles .loading/.success/.error on the form */
+.gh-members-form .gh-form-loading,
+.gh-members-form.loading .gh-form-cta {
+  display: none;
+}
+
+.gh-members-form.loading .gh-form-loading {
+  display: inline-flex;
+}
+
+.gh-form-feedback {
+  display: none;
+  flex-basis: 100%;
+  margin: var(--spacing-2) 0 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Ghost toggles .loading/.success/.error on the [data-members-form] element */
+.gh-members-form.success .gh-form-feedback--success {
+  display: block;
+  color: var(--color-success);
+}
+
+.gh-members-form.error .gh-form-feedback--error {
+  display: block;
+  color: var(--color-error);
+}
+
+@media (max-width: 560px) {
+  .gh-members-form {
+    flex-direction: column;
+  }
+}
+
+/* Gated content CTA — forced-dark panel, same token rules as .gh-subscribe */
+.gh-post-upgrade {
+  width: min(var(--gh-measure), 100%);
+  --gh-upgrade-text: var(--color-text-primary);
+  --gh-upgrade-muted: color-mix(in oklab, var(--gh-upgrade-text) 72%, transparent);
+
+  margin: var(--spacing-8) auto;
+  padding: clamp(var(--spacing-6), 5vw, var(--spacing-10));
+  border-radius: var(--radius-page);
+  border: var(--border-width) solid color-mix(in oklab, var(--gh-accent) 38%, transparent);
+  background:
+    radial-gradient(700px 260px at 50% -10%, color-mix(in oklab, var(--gh-accent) 26%, transparent), transparent),
+    linear-gradient(145deg, var(--color-background-surface), color-mix(in oklab, var(--color-background-surface) 90%, var(--gh-accent-2)));
+  color: var(--gh-upgrade-text);
+  text-align: center;
+}
+
+.gh-post-upgrade-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  margin-bottom: var(--spacing-4);
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-fill);
+  color: var(--gh-on-accent);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.gh-post-upgrade-badge svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Premium (paid) tier: gold accent + AA-legible dark text on gold */
+.gh-post-upgrade--paid {
+  border-color: color-mix(in oklab, var(--gh-accent-2) 46%, transparent);
+}
+
+.gh-post-upgrade--paid .gh-post-upgrade-badge {
+  background-color: var(--gh-accent-2);
+  color: var(--gh-accent-2-ink);
+}
+
+.gh-post-upgrade-title {
+  max-width: 14ch;
+  margin: 0 auto var(--spacing-3);
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: var(--gh-display-3);
+  font-weight: var(--font-weight-bold);
+  color: var(--gh-upgrade-text);
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.gh-post-upgrade-text {
+  max-width: 42rem;
+  margin: 0 auto var(--spacing-6);
+  color: var(--gh-upgrade-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+}
+
+.gh-post-upgrade-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+}
+
+.gh-post-upgrade-signin {
+  margin: var(--spacing-3) 0 0;
+  font-size: var(--font-size-sm);
+  color: color-mix(in oklab, var(--gh-upgrade-text) 58%, transparent);
+}
+
+.gh-post-upgrade-signin a {
+  color: var(--gh-upgrade-text);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-width);
+  text-underline-offset: 0.18em;
+}
+
+@media (max-width: 560px) {
+  .gh-post-upgrade-actions {
+    align-items: center;
+  }
+
+  .gh-post-upgrade-actions .gh-button {
+    width: 100%;
+  }
+}
+
+/* Membership page — tiers grid */
+.gh-tiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--spacing-6);
+  width: var(--gh-container);
+  margin-inline: auto;
+  padding-block: var(--spacing-8);
+}
+
+.gh-tier {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-6);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--gh-radius-card);
+  background-color: var(--color-background-card);
+}
+
+.gh-tier-name {
+  margin: 0 0 var(--spacing-1);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.gh-tier-description {
+  margin: 0 0 var(--spacing-4);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.gh-tier-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  margin-bottom: var(--spacing-4);
+}
+
+.gh-tier-amount {
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+}
+
+.gh-tier-period {
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.gh-tier-benefits {
+  flex-grow: 1;
+  margin: 0 0 var(--spacing-5);
+  padding: 0;
+  list-style: none;
+}
+
+.gh-tier-benefits li {
+  position: relative;
+  padding: var(--spacing-1) 0 var(--spacing-1) var(--spacing-5);
+  font-size: var(--font-size-sm);
+}
+
+.gh-tier-benefits li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--gh-accent-text);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Comments */
+.gh-comments {
+  width: min(var(--gh-measure), calc(100% - 2 * var(--spacing-4)));
+  margin: var(--spacing-10) auto;
+}

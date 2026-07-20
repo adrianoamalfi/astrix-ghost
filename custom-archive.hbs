@@ -1,0 +1,63 @@
+{{!< default}}
+
+{{!-- Archive template: assign "Archive" to any page in Ghost admin. Shows the
+      page content, every public tag with its post count, then the full post
+      index. A small JS enhancement groups the flat list by year; without JS
+      the list stays flat with full dates. --}}
+
+{{#post}}
+<article class="gh-article gh-archive-page {{post_class}}">
+
+    <header class="gh-article-header gh-article-header--page">
+        {{> "breadcrumbs"}}
+
+        <h1 class="gh-article-title">{{title}}</h1>
+        {{#if custom_excerpt}}
+            <p class="gh-article-excerpt">{{custom_excerpt}}</p>
+        {{/if}}
+    </header>
+
+    <section class="gh-content gh-canvas"
+        data-copy="{{t "Copy"}}" data-copied="{{t "Copied"}}"
+        data-anchor-label="{{t "Copy link to this section"}}"
+        data-zoom-label="{{t "Zoom image"}}" data-close-label="{{t "Close"}}"
+        data-prev-label="{{t "Previous"}}" data-next-label="{{t "Next"}}">
+        {{content}}
+    </section>
+
+</article>
+{{/post}}
+
+{{#get "tags" limit="all" include="count.posts" order="count.posts desc" as |topics|}}
+    {{#if topics}}
+        <section class="gh-archive-tags gh-container-wide">
+            <h2 class="gh-section-title">{{t "Browse by topic"}}</h2>
+            <div class="gh-archive-tags-list">
+                {{#foreach topics}}
+                    <a class="gh-tag-chip gh-tag-chip--count" href="{{url}}">{{name}}<span class="gh-tag-chip-count">{{count.posts}}</span></a>
+                {{/foreach}}
+            </div>
+        </section>
+    {{/if}}
+{{/get}}
+
+{{#get "posts" limit="all" order="published_at desc" as |entries|}}
+    {{#if entries}}
+        <section class="gh-archive-index gh-container-wide">
+            <h2 class="gh-section-title">{{t "All posts"}}</h2>
+            <ol class="gh-archive-posts" id="gh-archive-posts">
+                {{#foreach entries}}
+                    <li class="gh-archive-post" data-year="{{date format="YYYY"}}">
+                        <a class="gh-archive-post-link" href="{{url}}">
+                            <time datetime="{{date format="YYYY-MM-DD"}}" data-in-year="{{date format="D MMM"}}">{{date format="D MMM YYYY"}}</time>
+                            <span class="gh-archive-post-title">{{title}}</span>
+                            {{#primary_tag}}
+                                <span class="gh-archive-post-tag">{{name}}</span>
+                            {{/primary_tag}}
+                        </a>
+                    </li>
+                {{/foreach}}
+            </ol>
+        </section>
+    {{/if}}
+{{/get}}

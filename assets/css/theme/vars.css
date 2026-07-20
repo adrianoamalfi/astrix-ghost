@@ -1,0 +1,92 @@
+/*
+ * Theme identity variables. Astryx rule: never override --color-* on :root —
+ * every theme-level knob is a NEW --gh-* variable mapped onto Astryx tokens.
+ * --gh-accent tracks the accent color chosen in Ghost Admin → Design.
+ * --gh-accent-2 is overridden from @custom.secondary_accent in default.hbs.
+ */
+:root {
+  /* color */
+  --gh-accent: var(--ghost-accent-color, var(--color-accent));
+  /* Accent as solid fill (buttons, badges, chips): raw on light, lifted on
+     dark so a dark admin accent doesn't merge with the dark canvas. Pairs
+     with --gh-on-accent. */
+  --gh-accent-fill: light-dark(var(--gh-accent), color-mix(in oklab, var(--gh-accent) 65%, var(--color-text-primary)));
+  --gh-accent-hover: color-mix(in oklab, var(--gh-accent-fill), var(--color-text-primary) 16%);
+  --gh-accent-muted: color-mix(in oklab, var(--gh-accent) 14%, transparent);
+  --gh-accent-soft: color-mix(in oklab, var(--gh-accent) 8%, var(--color-background-body));
+  /* Accent for thin lines (underlines, rules): mixed toward text-secondary
+     so it survives a dark admin accent on dark backgrounds. */
+  --gh-accent-line: color-mix(in oklab, var(--gh-accent) 60%, var(--color-text-secondary));
+  /* Accent as ink (text, icons, markers): raw accent on light, lifted
+     toward the ink ramp on dark so a dark admin accent stays readable. */
+  --gh-accent-text: light-dark(var(--gh-accent), color-mix(in oklab, var(--gh-accent) 40%, var(--color-text-primary)));
+  --gh-on-accent: #fff;
+
+  /* Readable secondary — Astryx's text-secondary lands at 4.2:1 on the body
+     bg at body sizes (AA needs 4.5:1). Mixing toward text-primary fixes both
+     schemes: darker on light, lighter on dark. Use for any secondary TEXT;
+     keep raw --color-text-secondary for decorative mixes. */
+  --gh-text-secondary: color-mix(in oklab, var(--color-text-secondary) 72%, var(--color-text-primary));
+
+  /* Gold — the second voice. Two roles only: interaction feedback (hover,
+     focus, selection) and value moments (premium, subscribe). Identity and
+     wayfinding stay on --gh-accent. The -text variant darkens on light
+     backgrounds to hold AA contrast; raw gold is text-safe only on dark. */
+  --gh-accent-2: #f5b301;
+  --gh-accent-2-text: light-dark(#7d6000, #f5b301);
+  --gh-accent-2-ink: color-mix(in oklab, var(--gh-accent-2) 24%, #000);
+
+  /* type families — Figtree (self-hosted) followed by the metrics-matched
+     'Figtree Fallback' to kill swap CLS, then the system stack. Astryx's
+     theme-neutral already begins its --font-family-* with Figtree, so we spell
+     out the system tail here instead of composing on top of it (which would
+     duplicate Figtree). A Ghost Admin custom font still wins via the unlayered
+     --gh-font-heading/body these only serve as the fallback for. */
+  --gh-font-fallback-tail: 'Figtree Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --gh-font-heading-fallback: 'Figtree', var(--gh-font-fallback-tail);
+  --gh-font-body-fallback: 'Figtree', var(--gh-font-fallback-tail);
+
+  /* display type — poster-sized, fluid */
+  --gh-display-1: clamp(2.75rem, 1.1rem + 5.6vw, 5.75rem);
+  --gh-display-2: clamp(2rem, 1.05rem + 3.2vw, 3.5rem);
+  --gh-display-3: clamp(1.5rem, 1.15rem + 1.5vw, 2.25rem);
+  --gh-display-tracking: -0.025em;
+  --gh-display-leading: 1.02;
+
+  /* type scale — Astryx type tokens are app-sized (base 0.875rem), so the
+     theme carries two baselines of its own:
+     ui: chrome text (nav, cards, footer) inherited from body;
+     prose: long-form article body, sized like reading apps (Medium: 20px
+     desktop / 18px mobile at ~1.6 leading, ~65ch measure). Prose leading is
+     tighter than ui because at 20px the extra leading reads as gaps. */
+  --gh-ui-size: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
+  --gh-ui-leading: 1.7;
+  --gh-prose-size: clamp(1.125rem, 1.083rem + 0.21vw, 1.25rem);
+  --gh-prose-leading: 1.6;
+  --gh-measure: 65ch;
+
+  /* layout */
+  --gh-container: min(1280px, 100% - 2 * var(--spacing-6));
+  --gh-container-wide: min(1600px, 100% - 2 * var(--spacing-6));
+  --gh-header-height: 64px;
+
+  /* surfaces — flat elevation: no drop shadows anywhere. Separation comes
+     from surface contrast, hairline borders and this 1px inner ring drawn
+     over media edges (pair with outline-offset: -1px; outline paints above
+     replaced content and follows border-radius, unlike inset box-shadow). */
+  --gh-radius-card: var(--radius-container);
+  --gh-radius-media: var(--radius-container);
+  --gh-media-ring: 1px solid color-mix(in oklab, var(--color-text-primary) 10%, transparent);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gh-display-1: clamp(2.25rem, 1.35rem + 9vw, 3.5rem);
+    --gh-display-2: clamp(1.875rem, 1.25rem + 6vw, 2.75rem);
+    --gh-display-3: clamp(1.375rem, 1.1rem + 3vw, 1.875rem);
+    --gh-container: min(1280px, 100% - 2 * var(--spacing-4));
+    --gh-container-wide: min(1600px, 100% - 2 * var(--spacing-4));
+    --gh-ui-size: 1.0625rem;
+    --gh-prose-size: 1.125rem;
+  }
+}

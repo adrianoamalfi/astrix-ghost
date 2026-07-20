@@ -1,0 +1,265 @@
+.gh-tag-chip {
+  display: inline-block;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-muted);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.gh-tag-chip:hover {
+  background-color: var(--gh-accent-fill);
+  color: var(--gh-on-accent);
+}
+
+.gh-archive-header {
+  position: relative;
+  width: 100%;
+  padding-block: var(--spacing-12) var(--spacing-8);
+  margin-bottom: var(--spacing-4);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.gh-archive-header--image {
+  min-height: 320px;
+  display: flex;
+  align-items: flex-end;
+  background-color: var(--color-background-inverted);
+}
+
+.gh-archive-header--image .gh-archive-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.gh-archive-header--image .gh-archive-backdrop img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gh-archive-header--image .gh-archive-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.75), rgb(0 0 0 / 0.2));
+}
+
+.gh-archive-inner {
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  min-width: 0;
+}
+
+.gh-archive-title {
+  margin: 0 0 var(--spacing-2);
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: var(--gh-display-1);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--gh-display-tracking);
+  line-height: var(--gh-display-leading);
+  overflow-wrap: anywhere;
+}
+
+.gh-archive-description {
+  max-width: 44rem;
+  margin: 0;
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-lg);
+  text-wrap: pretty;
+}
+
+.gh-archive-meta {
+  margin-top: var(--spacing-3);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.gh-author-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  min-width: 0;
+}
+
+.gh-author-header .gh-author-avatar {
+  width: 96px;
+  height: 96px;
+  outline: var(--gh-media-ring);
+  outline-offset: -1px;
+}
+
+.gh-author-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-3);
+}
+
+.gh-author-links[data-astryx-overflow-list] {
+  align-items: center;
+  max-width: 100%;
+}
+
+.gh-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-block: var(--spacing-12);
+}
+
+.gh-error-code {
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: clamp(5rem, 14vw, 12rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--gh-display-tracking);
+  line-height: 1;
+  color: var(--gh-accent-text);
+}
+
+.gh-error-description {
+  margin: var(--spacing-4) 0 var(--spacing-6);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-lg);
+}
+
+/* --- Archive page (custom-archive.hbs) ------------------------------- */
+
+.gh-archive-tags,
+.gh-archive-index {
+  padding-block: var(--spacing-8) 0;
+}
+
+.gh-archive-index {
+  padding-bottom: var(--spacing-10);
+}
+
+.gh-archive-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.gh-tag-chip-count {
+  margin-left: var(--spacing-2);
+  color: var(--gh-text-secondary);
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.gh-tag-chip:hover .gh-tag-chip-count {
+  color: inherit;
+}
+
+.gh-archive-year {
+  margin: var(--spacing-8) 0 var(--spacing-2);
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: var(--gh-display-3);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--gh-display-tracking);
+  line-height: var(--gh-display-leading);
+}
+
+.gh-archive-posts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gh-archive-post-link {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--spacing-4);
+  padding-block: var(--spacing-3);
+  border-bottom: var(--border-width) solid var(--color-border);
+  text-decoration: none;
+}
+
+.gh-archive-post-link time {
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.gh-archive-post-title {
+  font-weight: var(--font-weight-semibold);
+  text-wrap: pretty;
+}
+
+.gh-archive-post-link:hover .gh-archive-post-title {
+  color: var(--gh-accent-2-text);
+}
+
+.gh-archive-post-tag {
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .gh-archive-post-link {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-1);
+  }
+
+  .gh-archive-post-tag {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .gh-archive-header {
+    padding-block: var(--spacing-10) var(--spacing-7);
+  }
+
+  .gh-archive-header--image {
+    min-height: 280px;
+  }
+
+  .gh-author-header {
+    align-items: flex-start;
+    gap: var(--spacing-5);
+  }
+}
+
+@media (max-width: 640px) {
+  .gh-archive-header {
+    padding-block: var(--spacing-8) var(--spacing-6);
+  }
+
+  .gh-archive-header--image {
+    min-height: 240px;
+  }
+
+  .gh-archive-description {
+    font-size: var(--font-size-base);
+  }
+
+  .gh-author-header {
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .gh-author-header .gh-author-avatar {
+    width: 80px;
+    height: 80px;
+  }
+}

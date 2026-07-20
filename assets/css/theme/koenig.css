@@ -1,0 +1,188 @@
+/*
+ * Koenig editor card styling. Deliberately UNLAYERED (see screen.css):
+ * Ghost injects its own unlayered card CSS via {{ghost_head}}, and unlayered
+ * styles always beat layered ones — so these must live outside @layer too.
+ */
+
+/* Images & galleries */
+.kg-image-card img,
+.kg-gallery-image img {
+  border-radius: var(--gh-radius-media);
+}
+
+.kg-image-card.kg-width-full img,
+.kg-gallery-card.kg-width-full .kg-gallery-image img {
+  border-radius: 0;
+}
+
+.kg-card figcaption {
+  margin-top: var(--spacing-2);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+/* Bookmark */
+.kg-bookmark-card a.kg-bookmark-container,
+.kg-bookmark-card .kg-bookmark-container {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--gh-radius-card);
+  background-color: var(--color-background-card);
+  box-shadow: none;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  overflow: hidden;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.kg-bookmark-card .kg-bookmark-container:hover {
+  border-color: var(--color-border-emphasized);
+}
+
+.kg-bookmark-card .kg-bookmark-title {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.kg-bookmark-card .kg-bookmark-description,
+.kg-bookmark-card .kg-bookmark-metadata {
+  color: var(--gh-text-secondary);
+}
+
+/* Callout — hue variants mapped to Astryx light-dark() aware pairs */
+.kg-callout-card {
+  border-radius: var(--gh-radius-card);
+  padding: var(--spacing-4) var(--spacing-5);
+}
+
+.kg-callout-card.kg-callout-card-grey  { background-color: var(--color-background-gray); }
+.kg-callout-card.kg-callout-card-blue  { background-color: var(--color-background-blue); }
+.kg-callout-card.kg-callout-card-green { background-color: var(--color-background-green); }
+.kg-callout-card.kg-callout-card-yellow{ background-color: var(--color-background-yellow); }
+.kg-callout-card.kg-callout-card-red   { background-color: var(--color-background-red); }
+.kg-callout-card.kg-callout-card-pink  { background-color: var(--color-background-pink); }
+.kg-callout-card.kg-callout-card-purple{ background-color: var(--color-background-purple); }
+.kg-callout-card.kg-callout-card-accent{ background-color: var(--gh-accent-fill); color: var(--gh-on-accent); }
+.kg-callout-card.kg-callout-card-white {
+  background-color: var(--color-background-card);
+  border: var(--border-width) solid var(--color-border);
+}
+
+/* Toggle */
+.kg-toggle-card {
+  border-radius: var(--gh-radius-card);
+  background-color: var(--color-background-surface);
+  padding: var(--spacing-4) var(--spacing-5);
+}
+
+.kg-toggle-card .kg-toggle-heading-text {
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-weight: var(--font-weight-bold);
+}
+
+/* Button card */
+.kg-button-card a.kg-btn,
+.kg-button-card .kg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--size-element-lg);
+  padding: var(--spacing-2) var(--spacing-6);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-fill);
+  color: var(--gh-on-accent);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.kg-button-card a.kg-btn:hover {
+  background-color: var(--gh-accent-hover);
+  color: var(--gh-on-accent);
+}
+
+/* Header card */
+.kg-header-card {
+  border-radius: var(--gh-radius-card);
+  overflow: hidden;
+}
+
+.kg-header-card h2.kg-header-card-header,
+.kg-header-card .kg-header-card-heading {
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  letter-spacing: var(--gh-display-tracking);
+}
+
+/* Signup card — match the theme subscribe form */
+.kg-signup-card {
+  border-radius: var(--radius-page);
+  overflow: hidden;
+}
+
+.kg-signup-card .kg-signup-card-button,
+.kg-signup-card button {
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-semibold);
+}
+
+.kg-signup-card input[type="email"] {
+  border-radius: var(--radius-full);
+}
+
+/* Product card */
+.kg-product-card .kg-product-card-container {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--gh-radius-card);
+  background-color: var(--color-background-card);
+}
+
+.kg-product-card .kg-product-card-title {
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-weight: var(--font-weight-bold);
+}
+
+.kg-product-card a.kg-product-card-button {
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-fill);
+  color: var(--gh-on-accent);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Audio / video / file */
+.kg-audio-card,
+.kg-file-card .kg-file-card-container {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--gh-radius-card);
+  background-color: var(--color-background-card);
+  box-shadow: none;
+}
+
+.kg-video-card video,
+.kg-video-card .kg-video-container {
+  border-radius: var(--gh-radius-media);
+  overflow: hidden;
+}
+
+.kg-video-card.kg-width-full video,
+.kg-video-card.kg-width-full .kg-video-container {
+  border-radius: 0;
+}
+
+/* Embeds */
+.kg-embed-card iframe {
+  border-radius: var(--gh-radius-media);
+}
+
+/* Quote-with-cite spacing tune */
+.kg-blockquote-alt + figcaption,
+blockquote + .kg-card-citation {
+  text-align: center;
+}
+
+/* Ghost injects its own default paywall box (with unlayered CSS) into
+   {{content}} on gated posts; the theme renders the full .gh-post-upgrade
+   CTA right below — hide the injected duplicate so readers see one gate.
+   Must live in this unlayered file to beat Ghost's injected styles. */
+.gh-content .gh-post-upgrade-cta {
+  display: none;
+}

@@ -1,0 +1,10 @@
+{{!-- Shell filled by assets/js/modules/toc.js; stays hidden when the
+      article has fewer than two headings. Native disclosure: closed on
+      mobile (the JS opens it on desktop), so the index never pushes the
+      first paragraph below the fold on small screens. --}}
+<details class="gh-toc-details" id="gh-toc-details" hidden>
+    <summary class="gh-toc-summary">{{t "On this page"}}</summary>
+    <nav class="gh-toc" id="gh-toc" aria-label="{{t "Table of contents"}}">
+        <ol class="gh-toc-list"></ol>
+    </nav>
+</details>

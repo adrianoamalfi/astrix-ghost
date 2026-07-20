@@ -1,0 +1,20 @@
+{{!< default}}
+
+{{!-- Page-level h1 for archive/paginated routes (post cards use h3). Visually
+      hidden because the design has no archive header here. --}}
+<h1 class="u-visually-hidden">{{@site.title}}</h1>
+
+<div class="gh-feed-wrap">
+    <h2 class="u-visually-hidden">{{t "Latest posts"}}</h2>
+    {{#if posts}}
+        <div class="gh-feed {{#match @custom.feed_layout "Mosaic"}}gh-feed--mosaic{{else match @custom.feed_layout "List"}}gh-feed--list{{else}}gh-feed--bold-grid{{/match}}">
+            {{#foreach posts}}
+                {{> "post-card"}}
+            {{/foreach}}
+        </div>
+    {{else}}
+        {{> "empty-state"}}
+    {{/if}}
+</div>
+
+{{pagination}}
