@@ -1,0 +1,76 @@
+name: astrix-demo
+
+# A one-command, publishable demo of the Astrix theme.
+#   docker compose up -d              → http://localhost:8080
+#   DEMO=proof docker compose up -d   (after `docker compose down -v`)
+#
+# The `seed` service installs the theme from this repository and, on a fresh
+# volume, seeds the chosen demo publication (content + images). Ghost then boots
+# against it. See README.md in this folder.
+#
+# Note: shell variables inside `command` are written as $$VAR so Compose passes
+# them through instead of interpolating them itself.
+
+services:
+  seed:
+    image: alpine:3.20
+    volumes:
+      - content:/content
+      - ./seed:/seed:ro
+      - ..:/repo:ro
+    command:
+      - sh
+      - -euc
+      - |
+        mkdir -p /content/data /content/images /content/themes/astrix /content/settings /content/logs
+        # Content is seeded only on a fresh volume, so restarts keep your changes.
+        if [ ! -f /content/data/ghost.db ]; then
+          cp "/seed/${DEMO:-meridian}.db" /content/data/ghost.db
+          echo "seeded demo: ${DEMO:-meridian}"
+          # Ghost stores admin keys for its internal integrations in the database.
+          # Regenerate them so each deployment gets its own secrets rather than the
+          # (public) placeholders committed to this repository.
+          apk add --no-cache sqlite >/dev/null 2>&1
+          sqlite3 /content/data/ghost.db "SELECT id||'|'||length(secret) FROM api_keys;" |
+            while IFS='|' read -r id len; do
+              [ -z "$$id" ] && continue
+              new=$$(head -c 64 /dev/urandom | od -An -tx1 | tr -d ' \n' | cut -c1-"$$len")
+              sqlite3 /content/data/ghost.db "UPDATE api_keys SET secret='$$new' WHERE id='$$id';"
+            done
+          echo "rotated internal API keys"
+        else
+          echo "existing content kept (docker compose down -v to reset)"
+        fi
+        # posts reference these as /content/images/demo/<file>
+        mkdir -p /content/images/demo
+        cp -r /seed/images/. /content/images/demo/ 2>/dev/null || true
+        # The theme is always refreshed from the repo (runtime files only, as shipped in the zip).
+        rm -rf /content/themes/astrix
+        mkdir -p /content/themes/astrix/assets
+        cp -r /repo/*.hbs /repo/partials /repo/locales /repo/package.json /content/themes/astrix/
+        cp -r /repo/assets/built /repo/assets/fonts /content/themes/astrix/assets/
+        # The Ghost image runs as uid 1000.
+        chown -R 1000:1000 /content
+        echo "theme installed"
+
+  ghost:
+    image: ghost:6-alpine
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+    environment:
+      url: ${GHOST_URL:-http://localhost:8080}
+      NODE_ENV: ${GHOST_ENV:-production}
+      database__client: sqlite3
+      database__connection__filename: /var/lib/ghost/content/data/ghost.db
+      database__useNullAsDefault: "true"
+      # A public demo sends no mail; keep Ghost from retrying deliveries.
+      mail__transport: Direct
+    volumes:
+      - content:/var/lib/ghost/content
+    ports:
+      - "${PORT:-8080}:2368"
+    restart: unless-stopped
+
+volumes:
+  content:

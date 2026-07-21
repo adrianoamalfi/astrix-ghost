@@ -24,6 +24,15 @@ hero style, feed layout, and accent in Ghost Admin.
 > **[Browse the full showcase & documentation →](https://adrianoamalfi.github.io/astrix-ghost/)**
 > Every hero style, feed layout, dark mode, the reading experience, membership, and mobile — with screenshots.
 
+Prefer to click around instead? Run any of the four demos locally in one command:
+
+```bash
+cd demo && docker compose up -d      # → http://localhost:8080
+```
+
+All four publications ship as ready-made content — see [demo/README.md](demo/README.md)
+to switch between them or publish the demo on your own domain.
+
 ## Installation
 
 1. Download `astrix.zip` from the [latest release](https://github.com/adrianoamalfi/astrix-ghost/releases/latest).
