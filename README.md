@@ -10,10 +10,19 @@ elevation, motion, semantic typography) are extracted from
 CSS on top of that vocabulary. All color tokens use `light-dark()`, which is
 what makes the dark mode implementation a one-liner.
 
-| | |
+One theme, many voices. The same components dress up as a travel journal, a
+design magazine, a food publication, or a personal blog — just by changing the
+hero style, feed layout, and accent in Ghost Admin.
+
+|  |  |
 |---|---|
-| ![Homepage with the Poster hero, light scheme](docs/screenshots/home-light.png) | ![Homepage with the Poster hero, dark scheme](docs/screenshots/home-dark.png) |
-| ![Article with sticky table of contents, light scheme](docs/screenshots/article-light.png) | ![Article with sticky table of contents, dark scheme](docs/screenshots/article-dark.png) |
+| [**Meridian**](https://adrianoamalfi.github.io/astrix-ghost/#meridian) — travel & photography · *Poster hero, Mosaic feed* | [**Vellum**](https://adrianoamalfi.github.io/astrix-ghost/#vellum) — design & type · *Editorial hero, Bold grid* |
+| ![Meridian homepage](docs/screenshots/meridian/home-desktop-light.png) | ![Vellum homepage](docs/screenshots/vellum/home-desktop-light.png) |
+| [**The Proof**](https://adrianoamalfi.github.io/astrix-ghost/#the-proof) — food & membership · *Split hero, List feed* | [**Field Notes**](https://adrianoamalfi.github.io/astrix-ghost/#field-notes) — personal blog · *Personal hero* |
+| ![The Proof homepage](docs/screenshots/proof/home-desktop-light.png) | ![Field Notes homepage](docs/screenshots/fieldnotes/home-desktop-light.png) |
+
+> **[Browse the full showcase & documentation →](https://adrianoamalfi.github.io/astrix-ghost/)**
+> Every hero style, feed layout, dark mode, the reading experience, membership, and mobile — with screenshots.
 
 ## Installation
 
