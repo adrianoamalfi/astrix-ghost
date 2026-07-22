@@ -94,12 +94,23 @@ cd .. && npm run build && cd demo && docker compose restart
 - **Database.** Each site uses SQLite in its own volume, which keeps the stack to
   one container per site and makes the demo content a file you can ship. That is
   right for a read-only showcase; a real publication should use MySQL 8.
-- **Secrets.** The seeded databases ship with placeholder API keys, and the seed
-  step regenerates Ghost's internal integration keys on first run, so every
-  deployment gets its own.
+- **Secrets.** The demo databases are public, so every secret Ghost keeps inside
+  them — session secrets, the members/Ghost RSA keypairs, magic-link secrets and
+  the internal integration API keys — is a throwaway placeholder. On first boot
+  [`seed/rotate-secrets.sh`](seed/rotate-secrets.sh) replaces all of them, so a
+  deployment never runs on a secret anyone can read on GitHub. Ghost does not
+  regenerate these itself, which is why the script exists.
 - **Admin.** No admin account is provisioned — each demo owner has a fictional
-  address and an unusable password, so `/ghost` cannot be signed into. That is
-  deliberate for a public demo.
+  address and an unusable password, so `/ghost` cannot be signed into. It is
+  still served, though: on a public demo, put the admin behind Cloudflare Access
+  (or block `/ghost*` with a WAF rule) so the login and admin API are not
+  reachable at all.
+- **Updates.** The stack tracks `ghost:6-alpine`, but a running container keeps
+  the image it started with. Refresh it periodically — a public Ghost that never
+  gets patched is a liability:
+  ```bash
+  docker compose pull && docker compose up -d
+  ```
 - **Mail.** Outbound mail is not configured; subscribe forms accept input but
   send nothing.
 - **Content.** Publications, authors and copy are fictional. Imagery is

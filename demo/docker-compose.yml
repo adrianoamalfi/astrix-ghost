@@ -54,22 +54,17 @@ services:
       - sh
       - -euc
       - |
-        apk add --no-cache sqlite >/dev/null 2>&1
+        apk add --no-cache sqlite openssl >/dev/null 2>&1
         for d in meridian vellum proof fieldnotes; do
           base=/content/$$d
           mkdir -p "$$base/data" "$$base/images/demo" "$$base/settings" "$$base/logs"
           if [ ! -f "$$base/data/ghost.db" ]; then
             cp "/seed/$$d.db" "$$base/data/ghost.db"
-            # Ghost keeps admin keys for its internal integrations in the database.
-            # Regenerate them so this deployment gets its own secrets rather than
-            # the placeholders committed to the repository.
-            sqlite3 "$$base/data/ghost.db" "SELECT id||'|'||length(secret) FROM api_keys;" |
-              while IFS='|' read -r id len; do
-                [ -z "$$id" ] && continue
-                new=$$(head -c 64 /dev/urandom | od -An -tx1 | tr -d ' \n' | cut -c1-"$$len")
-                sqlite3 "$$base/data/ghost.db" "UPDATE api_keys SET secret='$$new' WHERE id='$$id';"
-              done
-            echo "seeded $$d (keys rotated)"
+            # The databases in this repo are public, so every secret Ghost keeps
+            # inside them is a throwaway placeholder. Replace them all now, so this
+            # deployment never runs on a secret anyone can read on GitHub.
+            sh /seed/rotate-secrets.sh "$$base/data/ghost.db" >/dev/null
+            echo "seeded $$d (secrets rotated)"
           else
             echo "$$d: existing content kept"
           fi
