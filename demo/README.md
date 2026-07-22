@@ -80,11 +80,35 @@ docker compose down                     # stop, keep content
 docker compose down -v                  # stop and wipe all four sites
 ```
 
-The theme is reinstalled from this repository on every start, so after editing
-it locally:
+## Updating the demo to a new theme version
+
+The sites serve the theme from this repository's working copy, and the seed step
+reinstalls it whenever containers are recreated. A plain `docker compose up -d`
+is **not** enough — the seed has already completed, so nothing is copied. Use:
 
 ```bash
-cd .. && npm run build && cd demo && docker compose restart
+./update.sh            # pull the latest commit, reinstall, restart
+./update.sh v0.2.0     # or pin the demo to a released tag
+```
+
+Which is just shorthand for:
+
+```bash
+git pull && docker compose up -d --force-recreate
+```
+
+Post content, members and images survive; only `docker compose down -v` wipes
+them. To update on every release without logging in, run `update.sh` from cron:
+
+```cron
+0 4 * * * /srv/astrix-ghost/demo/update.sh >> /var/log/astrix-demo.log 2>&1
+```
+
+When developing the theme locally, rebuild the assets first — `assets/built/` is
+what the demo copies:
+
+```bash
+cd .. && npm run build && cd demo && docker compose up -d --force-recreate
 ```
 
 ## Notes
