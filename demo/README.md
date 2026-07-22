@@ -4,12 +4,17 @@ Runs **all four demo publications at once** — each a full Ghost site with its 
 content, images, tags, authors and membership tiers — and publishes them through
 a single Cloudflare Tunnel.
 
-| Service | Publication | Shows off |
-|---|---|---|
-| `meridian` | Travel & photography journal | Poster hero, Mosaic feed, multiple authors |
-| `vellum` | Design & type journal | Editorial hero, Bold grid, typography specimen |
-| `proof` | Corner-bakery food magazine | Split hero, List feed, membership + gated content, pricing page |
-| `fieldnotes` | Personal blog | Personal hero, supporter tier |
+| Service | Publication | Posts | Authors | Shows off |
+|---|---|---|---|---|
+| `meridian` | Travel & photography journal | 12 | 3 | Poster hero, Mosaic feed, multiple authors, gallery cards |
+| `vellum` | Design & type journal | 12 | 3 | Editorial hero, Bold grid, **typography specimen** and an **every-card showcase** |
+| `proof` | Corner-bakery food magazine | 11 | 2 | Split hero, List feed, membership + gated content, pricing page |
+| `fieldnotes` | Personal blog | 10 | 1 | Personal hero, supporter tier |
+
+Two pages in Vellum exist purely to prove the theme out: `/the-specimen/` sets
+every prose element, and `/every-card/` renders every Ghost editor card —
+callouts, buttons, toggles, bookmarks, galleries and images at three widths.
+Every author has a generated avatar, so bylines and author pages are populated.
 
 ## Run it locally
 
