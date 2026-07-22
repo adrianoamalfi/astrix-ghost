@@ -1,76 +1,146 @@
 name: astrix-demo
 
-# A one-command, publishable demo of the Astrix theme.
-#   docker compose up -d              → http://localhost:8080
-#   DEMO=proof docker compose up -d   (after `docker compose down -v`)
+# All four Astrix demo publications, behind one Cloudflare Tunnel.
 #
-# The `seed` service installs the theme from this repository and, on a fresh
-# volume, seeds the chosen demo publication (content + images). Ghost then boots
-# against it. See README.md in this folder.
+#   cp .env.example .env      # set TUNNEL_TOKEN and the four public URLs
+#   docker compose up -d      # → four Ghost sites + the tunnel
 #
-# Note: shell variables inside `command` are written as $$VAR so Compose passes
-# them through instead of interpolating them itself.
+# Routing lives in the Cloudflare dashboard (Zero Trust → Networks → Tunnels →
+# your tunnel → Public Hostnames). Point each hostname at the container by name:
+#
+#   meridian.example.com    →  http://meridian:2368
+#   vellum.example.com      →  http://vellum:2368
+#   proof.example.com       →  http://proof:2368
+#   fieldnotes.example.com  →  http://fieldnotes:2368
+#
+# Ghost renders absolute URLs, so each site's `*_URL` in .env must match the
+# hostname you map above, or links, images and redirects will point elsewhere.
+#
+# Ports are published on 127.0.0.1 only: handy for local testing, never reachable
+# from the internet, so nothing bypasses the tunnel. To run without the tunnel:
+#   docker compose up -d meridian vellum proof fieldnotes
+#
+# Shell variables inside `command` are written as $$VAR so Compose passes them
+# through instead of interpolating them itself.
+
+x-ghost: &ghost
+  image: ghost:6-alpine
+  restart: unless-stopped
+  depends_on:
+    seed:
+      condition: service_completed_successfully
+
+x-ghost-env: &ghost-env
+  NODE_ENV: production
+  database__client: sqlite3
+  database__connection__filename: /var/lib/ghost/content/data/ghost.db
+  database__useNullAsDefault: "true"
+  # A public demo sends no mail; keep Ghost from retrying deliveries.
+  mail__transport: Direct
 
 services:
+  # Seeds every publication's content volume once, and (re)installs the theme
+  # from this repository into all four on every start.
   seed:
     image: alpine:3.20
     volumes:
-      - content:/content
+      - meridian:/content/meridian
+      - vellum:/content/vellum
+      - proof:/content/proof
+      - fieldnotes:/content/fieldnotes
       - ./seed:/seed:ro
       - ..:/repo:ro
     command:
       - sh
       - -euc
       - |
-        mkdir -p /content/data /content/images /content/themes/astrix /content/settings /content/logs
-        # Content is seeded only on a fresh volume, so restarts keep your changes.
-        if [ ! -f /content/data/ghost.db ]; then
-          cp "/seed/${DEMO:-meridian}.db" /content/data/ghost.db
-          echo "seeded demo: ${DEMO:-meridian}"
-          # Ghost stores admin keys for its internal integrations in the database.
-          # Regenerate them so each deployment gets its own secrets rather than the
-          # (public) placeholders committed to this repository.
-          apk add --no-cache sqlite >/dev/null 2>&1
-          sqlite3 /content/data/ghost.db "SELECT id||'|'||length(secret) FROM api_keys;" |
-            while IFS='|' read -r id len; do
-              [ -z "$$id" ] && continue
-              new=$$(head -c 64 /dev/urandom | od -An -tx1 | tr -d ' \n' | cut -c1-"$$len")
-              sqlite3 /content/data/ghost.db "UPDATE api_keys SET secret='$$new' WHERE id='$$id';"
-            done
-          echo "rotated internal API keys"
-        else
-          echo "existing content kept (docker compose down -v to reset)"
-        fi
-        # posts reference these as /content/images/demo/<file>
-        mkdir -p /content/images/demo
-        cp -r /seed/images/. /content/images/demo/ 2>/dev/null || true
-        # The theme is always refreshed from the repo (runtime files only, as shipped in the zip).
-        rm -rf /content/themes/astrix
-        mkdir -p /content/themes/astrix/assets
-        cp -r /repo/*.hbs /repo/partials /repo/locales /repo/package.json /content/themes/astrix/
-        cp -r /repo/assets/built /repo/assets/fonts /content/themes/astrix/assets/
-        # The Ghost image runs as uid 1000.
-        chown -R 1000:1000 /content
-        echo "theme installed"
+        apk add --no-cache sqlite >/dev/null 2>&1
+        for d in meridian vellum proof fieldnotes; do
+          base=/content/$$d
+          mkdir -p "$$base/data" "$$base/images/demo" "$$base/settings" "$$base/logs"
+          if [ ! -f "$$base/data/ghost.db" ]; then
+            cp "/seed/$$d.db" "$$base/data/ghost.db"
+            # Ghost keeps admin keys for its internal integrations in the database.
+            # Regenerate them so this deployment gets its own secrets rather than
+            # the placeholders committed to the repository.
+            sqlite3 "$$base/data/ghost.db" "SELECT id||'|'||length(secret) FROM api_keys;" |
+              while IFS='|' read -r id len; do
+                [ -z "$$id" ] && continue
+                new=$$(head -c 64 /dev/urandom | od -An -tx1 | tr -d ' \n' | cut -c1-"$$len")
+                sqlite3 "$$base/data/ghost.db" "UPDATE api_keys SET secret='$$new' WHERE id='$$id';"
+              done
+            echo "seeded $$d (keys rotated)"
+          else
+            echo "$$d: existing content kept"
+          fi
+          # posts reference these as /content/images/demo/<file>
+          cp -r /seed/images/. "$$base/images/demo/" 2>/dev/null || true
+          # the theme is always refreshed from the repo (runtime files only, as shipped in the zip)
+          rm -rf "$$base/themes/astrix"
+          mkdir -p "$$base/themes/astrix/assets"
+          cp -r /repo/*.hbs /repo/partials /repo/locales /repo/package.json "$$base/themes/astrix/"
+          cp -r /repo/assets/built /repo/assets/fonts "$$base/themes/astrix/assets/"
+          # the Ghost image runs as uid 1000
+          chown -R 1000:1000 "$$base"
+        done
+        echo "theme installed into all four"
 
-  ghost:
-    image: ghost:6-alpine
-    depends_on:
-      seed:
-        condition: service_completed_successfully
+  meridian:
+    <<: *ghost
     environment:
-      url: ${GHOST_URL:-http://localhost:8080}
-      NODE_ENV: ${GHOST_ENV:-production}
-      database__client: sqlite3
-      database__connection__filename: /var/lib/ghost/content/data/ghost.db
-      database__useNullAsDefault: "true"
-      # A public demo sends no mail; keep Ghost from retrying deliveries.
-      mail__transport: Direct
+      <<: *ghost-env
+      url: ${MERIDIAN_URL:-http://localhost:8081}
     volumes:
-      - content:/var/lib/ghost/content
+      - meridian:/var/lib/ghost/content
     ports:
-      - "${PORT:-8080}:2368"
+      - "127.0.0.1:8081:2368"
+
+  vellum:
+    <<: *ghost
+    environment:
+      <<: *ghost-env
+      url: ${VELLUM_URL:-http://localhost:8082}
+    volumes:
+      - vellum:/var/lib/ghost/content
+    ports:
+      - "127.0.0.1:8082:2368"
+
+  proof:
+    <<: *ghost
+    environment:
+      <<: *ghost-env
+      url: ${PROOF_URL:-http://localhost:8083}
+    volumes:
+      - proof:/var/lib/ghost/content
+    ports:
+      - "127.0.0.1:8083:2368"
+
+  fieldnotes:
+    <<: *ghost
+    environment:
+      <<: *ghost-env
+      url: ${FIELDNOTES_URL:-http://localhost:8084}
+    volumes:
+      - fieldnotes:/var/lib/ghost/content
+    ports:
+      - "127.0.0.1:8084:2368"
+
+  # Remotely-managed tunnel: it only needs the token, all routing is configured
+  # in the Cloudflare dashboard.
+  cloudflared:
+    image: cloudflare/cloudflared:latest
     restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
+    depends_on:
+      - meridian
+      - vellum
+      - proof
+      - fieldnotes
 
 volumes:
-  content:
+  meridian:
+  vellum:
+  proof:
+  fieldnotes:

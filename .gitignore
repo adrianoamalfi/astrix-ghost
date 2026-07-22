@@ -7,3 +7,5 @@ dist/
 AGENTS.md
 PRODUCT.md
 VISUAL_QA.md
+demo/.env
+.env

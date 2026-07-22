@@ -24,14 +24,15 @@ hero style, feed layout, and accent in Ghost Admin.
 > **[Browse the full showcase & documentation →](https://adrianoamalfi.github.io/astrix-ghost/)**
 > Every hero style, feed layout, dark mode, the reading experience, membership, and mobile — with screenshots.
 
-Prefer to click around instead? Run any of the four demos locally in one command:
+Prefer to click around instead? Run all four demos locally in one command:
 
 ```bash
-cd demo && docker compose up -d      # → http://localhost:8080
+cd demo && docker compose up -d meridian vellum proof fieldnotes
+# → localhost:8081 · 8082 · 8083 · 8084
 ```
 
-All four publications ship as ready-made content — see [demo/README.md](demo/README.md)
-to switch between them or publish the demo on your own domain.
+All four publications ship as ready-made content, and the same stack publishes
+them through a Cloudflare Tunnel — see [demo/README.md](demo/README.md).
 
 ## Installation
 
