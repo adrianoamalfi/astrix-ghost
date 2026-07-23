@@ -1,0 +1,44 @@
+/* Print styles — strip site chrome so a printed article is just the article.
+   Hides navigation, reading aids, and conversion/engagement surfaces that
+   waste paper and ink, and collapses the article to a single column. */
+@media print {
+  /* Site + reading chrome */
+  .gh-header,
+  .gh-progress,
+  .gh-toc-column,
+  .gh-featured,
+  .gh-subscribe-band,
+  .gh-related,
+  .gh-comments,
+  .gh-post-nav,
+  .gh-footer,
+  .gh-heading-anchor {
+    display: none !important;
+  }
+
+  /* One column once the TOC sidebar is gone */
+  .gh-article-layout.has-toc {
+    grid-template-columns: 1fr;
+  }
+
+  /* Ink-friendly: flat background, solid text, no decorative surfaces */
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Avoid orphaned headings and split media */
+  h2,
+  h3,
+  h4,
+  figure,
+  img {
+    break-inside: avoid;
+  }
+
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+}
