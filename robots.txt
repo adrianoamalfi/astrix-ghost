@@ -1,9 +1,11 @@
 # robots.txt — Astrix theme
 # Placed in the theme root, this file overrides Ghost's default robots.txt.
-# Served as a static file (no Handlebars), so the Sitemap URL below is a
-# relative path. For a fully-qualified Sitemap directive (recommended by
-# search + AI crawlers), replace it with your absolute URL, e.g.
+# Served as a static file (no Handlebars), so it can't emit an absolute URL.
+# The Sitemap directive must be a fully-qualified URL (a relative path is
+# invalid and ignored by crawlers), so add your own once, e.g.
 #   Sitemap: https://example.com/sitemap.xml
+# Ghost also serves /sitemap.xml on your domain, which crawlers discover on
+# their own, so a missing directive is not fatal.
 
 # --- All crawlers (mirrors Ghost's default disallow rules) -----------------
 User-agent: *
@@ -42,4 +44,5 @@ Disallow: /email/
 Disallow: /p/
 Disallow: /r/
 
-Sitemap: /sitemap.xml
+# Add your absolute sitemap URL here, e.g.
+# Sitemap: https://example.com/sitemap.xml
