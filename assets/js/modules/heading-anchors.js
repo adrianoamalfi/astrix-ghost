@@ -35,14 +35,17 @@ export function initHeadingAnchors() {
         const url = `${location.origin}${location.pathname}#${heading.id}`;
         // Announce only on real success (aria-label change on the focused
         // anchor is read out); restore the copy label afterwards.
-        navigator.clipboard.writeText(url).then(() => {
-          anchor.setAttribute('aria-label', copiedLabel);
-          anchor.classList.add('is-copied');
-          setTimeout(() => {
-            anchor.setAttribute('aria-label', label);
-            anchor.classList.remove('is-copied');
-          }, 1500);
-        }).catch(() => {});
+        navigator.clipboard
+          .writeText(url)
+          .then(() => {
+            anchor.setAttribute('aria-label', copiedLabel);
+            anchor.classList.add('is-copied');
+            setTimeout(() => {
+              anchor.setAttribute('aria-label', label);
+              anchor.classList.remove('is-copied');
+            }, 1500);
+          })
+          .catch(() => {});
       });
     });
   });

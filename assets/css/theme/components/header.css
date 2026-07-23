@@ -14,7 +14,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  content: "";
+  content: '';
   background-color: color-mix(in oklab, var(--color-background-body) 82%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -24,7 +24,7 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  content: "";
+  content: '';
   pointer-events: none;
   background-color: color-mix(in oklab, var(--color-background-inverted) 42%, transparent);
   opacity: 0;
@@ -145,11 +145,11 @@
   display: none;
 }
 
-html[data-scheme="dark"] #gh-scheme-toggle .gh-icon-sun {
+html[data-scheme='dark'] #gh-scheme-toggle .gh-icon-sun {
   display: none;
 }
 
-html[data-scheme="dark"] #gh-scheme-toggle .gh-icon-moon {
+html[data-scheme='dark'] #gh-scheme-toggle .gh-icon-moon {
   display: block;
 }
 

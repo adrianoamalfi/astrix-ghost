@@ -171,25 +171,34 @@
     "dev:sync": "browser-sync start --proxy localhost:2368 --files \"assets/built/*\" \"**/*.hbs\" --no-open --no-notify",
     "dev": "npm run tokens && concurrently -n css,js,sync \"npm:dev:css\" \"npm:dev:js\" \"npm:dev:sync\"",
     "test": "gscan .",
+    "test:unit": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "check:i18n": "node scripts/check-i18n.mjs",
     "check:a11y": "node scripts/check-a11y.mjs",
-    "check": "npm run build && npm test && npm run check:i18n && npm run check:a11y",
+    "check": "npm run build && npm test && npm run check:i18n && npm run check:a11y && npm run test:unit && npm run lint && npm run format:check",
     "smoke": "node scripts/smoke-routes.mjs",
-    "zip": "npm run check && mkdir -p dist && rm -f dist/astrix.zip && zip -r dist/astrix.zip . -x \"node_modules/*\" \"dist/*\" \"scripts/*\" \"assets/css/*\" \"assets/js/*\" \".git/*\" \".claude/*\" \"AGENTS.md\" \"VISUAL_QA.md\" \"PRODUCT.md\" \"DESIGN.md\" \".impeccable/*\" \".github/*\" \"docs/*\" \"demo/*\" \"CONTRIBUTING.md\" \"CODE_OF_CONDUCT.md\" \"SECURITY.md\" \"CHANGELOG.md\" \"postcss.config.cjs\" \"package-lock.json\" \"*.map\" \".DS_Store\" \"*/.DS_Store\" \".gitignore\"",
+    "zip": "npm run check && mkdir -p dist && rm -f dist/astrix.zip && zip -r dist/astrix.zip . -x \"node_modules/*\" \"dist/*\" \"scripts/*\" \"test/*\" \"assets/css/*\" \"assets/js/*\" \".git/*\" \".claude/*\" \"AGENTS.md\" \"VISUAL_QA.md\" \"PRODUCT.md\" \"DESIGN.md\" \".impeccable/*\" \".github/*\" \"docs/*\" \"demo/*\" \"CONTRIBUTING.md\" \"CODE_OF_CONDUCT.md\" \"SECURITY.md\" \"CHANGELOG.md\" \"postcss.config.cjs\" \"eslint.config.js\" \".prettierrc\" \".prettierignore\" \"package-lock.json\" \"*.map\" \".DS_Store\" \"*/.DS_Store\" \".gitignore\"",
     "release": "npm run zip && node scripts/release-summary.mjs"
   },
   "devDependencies": {
     "@astryxdesign/cli": "^0.1.3",
     "@astryxdesign/core": "^0.1.3",
     "@astryxdesign/theme-neutral": "^0.1.3",
+    "@eslint/js": "^10.0.1",
     "browser-sync": "^3.0.3",
     "concurrently": "^9.1.2",
     "cssnano": "^7.0.6",
     "esbuild": "^0.25.5",
+    "eslint": "^10.7.0",
+    "globals": "^17.7.0",
     "gscan": "^6.4.1",
     "postcss": "^8.5.3",
     "postcss-cli": "^11.0.0",
     "postcss-custom-media": "^12.0.1",
-    "postcss-import": "^16.1.0"
+    "postcss-import": "^16.1.0",
+    "prettier": "^3.9.6",
+    "vitest": "^4.1.10"
   }
 }

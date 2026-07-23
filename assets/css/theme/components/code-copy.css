@@ -19,8 +19,9 @@
   color: inherit;
   cursor: pointer;
   opacity: 0.55;
-  transition: opacity var(--duration-fast) var(--ease-standard),
-              background-color var(--duration-fast) var(--ease-standard);
+  transition:
+    opacity var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
 }
 
 .gh-content pre:hover .gh-code-copy,

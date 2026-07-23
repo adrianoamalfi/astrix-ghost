@@ -82,7 +82,7 @@ export function initInfiniteScroll() {
     (entries) => {
       if (entries.some((entry) => entry.isIntersecting)) loadNext();
     },
-    { rootMargin: '900px 0px' }
+    { rootMargin: '900px 0px' },
   );
 
   observer.observe(nav);

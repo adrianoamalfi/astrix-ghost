@@ -25,7 +25,7 @@
   text-underline-offset: 0.18em;
 }
 
-.gh-breadcrumbs span[aria-hidden="true"] {
+.gh-breadcrumbs span[aria-hidden='true'] {
   color: var(--color-text-disabled);
 }
 

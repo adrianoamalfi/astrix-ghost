@@ -11,25 +11,25 @@
        theme.vars, theme.base, theme.layout, theme.components,
        theme.prose, theme.utilities, theme.print;
 
-@import "theme/breakpoints.css";
-@import "theme/fonts.css";
-@import "vendor/astryx-reset.css";
-@import "vendor/astryx-tokens.css";
-@import "vendor/astryx-theme-neutral.css";
+@import 'theme/breakpoints.css';
+@import 'theme/fonts.css';
+@import 'vendor/astryx-reset.css';
+@import 'vendor/astryx-tokens.css';
+@import 'vendor/astryx-theme-neutral.css';
 
-@import "theme/vars.css" layer(theme.vars);
-@import "theme/base.css" layer(theme.base);
-@import "theme/layout.css" layer(theme.layout);
+@import 'theme/vars.css' layer(theme.vars);
+@import 'theme/base.css' layer(theme.base);
+@import 'theme/layout.css' layer(theme.layout);
 
-@import "theme/components/buttons.css" layer(theme.components);
-@import "theme/components/header.css" layer(theme.components);
-@import "theme/components/breadcrumbs.css" layer(theme.components);
-@import "theme/components/hero.css" layer(theme.components);
-@import "theme/components/cards.css" layer(theme.components);
-@import "theme/components/archive.css" layer(theme.components);
-@import "theme/components/footer.css" layer(theme.components);
-@import "theme/components/members.css" layer(theme.components);
-@import "theme/components/pagination.css" layer(theme.components);
+@import 'theme/components/buttons.css' layer(theme.components);
+@import 'theme/components/header.css' layer(theme.components);
+@import 'theme/components/breadcrumbs.css' layer(theme.components);
+@import 'theme/components/hero.css' layer(theme.components);
+@import 'theme/components/cards.css' layer(theme.components);
+@import 'theme/components/archive.css' layer(theme.components);
+@import 'theme/components/footer.css' layer(theme.components);
+@import 'theme/components/members.css' layer(theme.components);
+@import 'theme/components/pagination.css' layer(theme.components);
 
-@import "theme/utilities.css" layer(theme.utilities);
-@import "theme/print.css" layer(theme.print);
+@import 'theme/utilities.css' layer(theme.utilities);
+@import 'theme/print.css' layer(theme.print);

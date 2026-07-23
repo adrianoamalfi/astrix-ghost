@@ -51,7 +51,9 @@ for (const file of walk('.')) {
 }
 
 const defaultTemplate = readFileSync(join(root, 'default.hbs'), 'utf8');
-const skipTarget = defaultTemplate.match(/<a\b[^>]*class="[^"]*gh-skip-link[^"]*"[^>]*href="#([^"]+)"/)?.[1];
+const skipTarget = defaultTemplate.match(
+  /<a\b[^>]*class="[^"]*gh-skip-link[^"]*"[^>]*href="#([^"]+)"/,
+)?.[1];
 if (!skipTarget) {
   errors.push('default.hbs: skip link missing');
 } else if (!defaultTemplate.includes(`id="${skipTarget}"`)) {

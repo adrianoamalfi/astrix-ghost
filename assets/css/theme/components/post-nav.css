@@ -48,7 +48,7 @@
 }
 
 .gh-post-nav-kicker::before {
-  content: "← ";
+  content: '← ';
 }
 
 .gh-post-nav-link--next .gh-post-nav-kicker::before {
@@ -56,7 +56,7 @@
 }
 
 .gh-post-nav-link--next .gh-post-nav-kicker::after {
-  content: " →";
+  content: ' →';
 }
 
 .gh-post-nav-title {

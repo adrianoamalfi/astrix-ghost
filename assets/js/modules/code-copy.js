@@ -28,7 +28,7 @@ export function initCodeCopy() {
       button.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(code.innerText.replace(/\n+$/, ''));
-        } catch (e) {
+        } catch {
           return;
         }
         button.classList.add('is-copied');
