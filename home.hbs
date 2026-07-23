@@ -59,7 +59,12 @@
         {{/if}}
     {{/match}}
 
-    {{!-- Main feed (posts already shown above are skipped to avoid duplication) --}}
+    {{!-- Main feed (posts already shown above are skipped to avoid duplication).
+          force_lazy=featured keeps these cards out of the LCP preload race: when
+          a hero/slider is above (featured is non-empty) the first card is never
+          the LCP, so it must not claim fetchpriority=high alongside the hero.
+          When there are no featured posts (text intro above), featured is empty
+          and falsy, so the first card stays eager as the likely LCP. --}}
     <section class="gh-feed-wrap">
         <h2 class="gh-section-title gh-container-wide">{{t "Latest posts"}}</h2>
         <div class="gh-feed {{#match @custom.feed_layout "Mosaic"}}gh-feed--mosaic{{else match @custom.feed_layout "List"}}gh-feed--list{{else}}gh-feed--bold-grid{{/match}}">
@@ -67,15 +72,15 @@
                 {{#if @custom.show_featured_slider}}
                     {{!-- slider shows the featured posts above; skip them here to avoid duplicates --}}
                     {{#unless this.featured}}
-                        {{> "post-card"}}
+                        {{> "post-card" force_lazy=featured}}
                     {{/unless}}
                 {{else match @custom.header_style "Personal"}}
                     {{!-- personal hero + no slider: nothing shown above, show every post --}}
-                    {{> "post-card"}}
+                    {{> "post-card" force_lazy=featured}}
                 {{else}}
                     {{!-- no slider: only the hero (first featured) is shown above --}}
                     {{#match id "!=" featured.[0].id}}
-                        {{> "post-card"}}
+                        {{> "post-card" force_lazy=featured}}
                     {{/match}}
                 {{/if}}
             {{/foreach}}
