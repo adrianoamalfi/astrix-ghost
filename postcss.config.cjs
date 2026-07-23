@@ -1,6 +1,9 @@
 module.exports = {
   plugins: [
     require('postcss-import')(),
+    // Resolve @custom-media (theme/breakpoints.css) after imports are inlined,
+    // before cssnano runs. Keeps every breakpoint value in one place.
+    require('postcss-custom-media')(),
     require('cssnano')({
       preset: ['default', {
         // Modern CSS the theme relies on must pass through untouched.

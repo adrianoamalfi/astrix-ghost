@@ -1,0 +1,20 @@
+/*
+ * Responsive breakpoints — the single source of truth.
+ *
+ * CSS custom properties can't be used inside media-query conditions, so the
+ * breakpoints are centralised here as @custom-media (resolved at build time by
+ * postcss-custom-media). Change a value once here and every `@media (--name)`
+ * across the theme follows. Imported first in both screen.css and post.css.
+ *
+ * Naming: --to-* is a max-width (styles apply at that width and below),
+ * --from-* is a min-width (that width and up).
+ */
+@custom-media --to-xs (max-width: 420px);
+@custom-media --to-sm (max-width: 560px);
+@custom-media --to-sm-wide (max-width: 600px);
+@custom-media --to-mobile (max-width: 640px);
+@custom-media --from-mobile (min-width: 641px);
+@custom-media --to-tablet (max-width: 900px);
+@custom-media --to-tablet-wide (max-width: 1000px);
+@custom-media --to-desktop (max-width: 1199px);
+@custom-media --from-desktop (min-width: 1200px);

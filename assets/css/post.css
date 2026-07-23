@@ -12,6 +12,7 @@
        theme.vars, theme.base, theme.layout, theme.components,
        theme.prose, theme.utilities;
 
+@import "theme/breakpoints.css";
 @import "theme/components/toc.css" layer(theme.components);
 @import "theme/components/progress.css" layer(theme.components);
 @import "theme/components/code-copy.css" layer(theme.components);

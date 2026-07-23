@@ -223,7 +223,7 @@
   white-space: nowrap;
 }
 
-@media (max-width: 640px) {
+@media (--to-mobile) {
   .gh-archive-post-link {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--spacing-1);
@@ -234,7 +234,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (--to-tablet) {
   .gh-archive-header {
     padding-block: var(--spacing-10) var(--spacing-7);
   }
@@ -249,7 +249,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (--to-mobile) {
   .gh-archive-header {
     padding-block: var(--spacing-8) var(--spacing-6);
   }

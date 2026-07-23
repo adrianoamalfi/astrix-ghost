@@ -404,7 +404,7 @@
   max-width: 100%;
 }
 
-@media (max-width: 900px) {
+@media (--to-tablet) {
   .gh-article-header {
     padding-block: var(--spacing-9) var(--spacing-7);
   }
@@ -418,7 +418,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (--to-mobile) {
   .gh-article-header {
     padding-block: var(--spacing-8) var(--spacing-6);
   }
