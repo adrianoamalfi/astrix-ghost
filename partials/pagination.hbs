@@ -1,7 +1,8 @@
 {{!-- A single page needs no pagination — don't render a lone "Page 1 of 1" --}}
 {{#match pagination.pages ">" 1}}
 <nav class="gh-pagination" data-astryx-pagination="compact" aria-label="{{t "Pagination"}}"
-     data-loading="{{t "Loading…"}}">
+     data-loading="{{t "Loading…"}}"
+     data-error="{{t "Couldn’t load more posts"}}">
     {{#if pagination.prev}}
         <a class="gh-button gh-button--ghost gh-pagination-link" href="{{page_url pagination.prev}}" rel="prev">{{t "Newer posts"}}</a>
     {{else}}
