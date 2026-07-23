@@ -3,8 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Astrix — a bold, image-led Ghost theme</title>
-<meta name="description" content="Astrix is a bold, image-led Ghost theme built on the Astryx design tokens. Four hero styles, three feed layouts, native dark mode, membership, and a first-class reading experience.">
+<title>Astrix Ghost Theme — free open-source Ghost CMS theme</title>
+<meta name="description" content="Astrix is a free, open-source Ghost CMS theme for publishers, blogs, magazines, and membership sites. Four live demos, four hero styles, three feed layouts, native dark mode, membership, and a first-class reading experience.">
+<meta name="keywords" content="Astrix Ghost Theme, free Ghost CMS theme, open-source Ghost theme, Ghost theme, Ghost CMS, Ghost blog theme, Ghost magazine theme, Ghost membership theme, dark mode Ghost theme">
+<meta property="og:title" content="Astrix Ghost Theme — free open-source Ghost CMS theme">
+<meta property="og:description" content="A bold, image-led Ghost theme with live demos, editorial layouts, dark mode, membership, and long-form reading tools.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adrianoamalfi.github.io/astrix-ghost/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -69,6 +74,9 @@
   .demo .role{color:var(--accent-2);filter:brightness(.8);font-weight:600;font-size:.85rem;letter-spacing:.04em}
   @media (prefers-color-scheme:dark){.demo .role{filter:none}}
   .demo p{color:var(--ink-soft);font-size:.98rem;margin:.6rem 0 0}
+  .demo .actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}
+  .demo .actions a{font-size:.85rem;font-weight:700;color:var(--accent)}
+  .demo .actions a:hover{text-decoration:underline}
   .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
   .tag{font-size:.76rem;font-weight:600;padding:.2rem .6rem;border-radius:999px;background:color-mix(in oklab,var(--accent) 12%,transparent);color:var(--accent)}
 
@@ -126,11 +134,12 @@
 </header>
 
 <div class="hero wrap">
-  <span class="eyebrow">Ghost ≥ 6.0 theme</span>
-  <h1>One theme.<br>Many voices.</h1>
-  <p class="lead">A bold, image-led Ghost theme built on the Astryx design tokens — four hero styles, three feed layouts, native dark mode, and a reading experience that gets out of the way.</p>
+    <span class="eyebrow">Free open-source Ghost CMS theme</span>
+    <h1>One theme.<br>Many voices.</h1>
+  <p class="lead">Astrix Ghost Theme is a bold, image-led theme for Ghost CMS — four live demo publications, four hero styles, three feed layouts, native dark mode, membership, and a reading experience that gets out of the way.</p>
   <div class="cta">
     <a class="btn" href="https://github.com/adrianoamalfi/astrix-ghost/releases/latest">Download the theme</a>
+    <a class="btn ghost" href="#demos">Try live demos</a>
     <a class="btn ghost" href="https://github.com/adrianoamalfi/astrix-ghost">View on GitHub</a>
   </div>
   <div class="rule"></div>
@@ -138,9 +147,9 @@
 
 <section id="demos">
   <div class="wrap">
-    <span class="eyebrow">Four demos, one codebase</span>
-    <h2 class="section">The same theme, four publications</h2>
-    <p class="sub">Astrix ships one set of components. Change the hero style, feed layout, and accent colour in Ghost Admin, and the same theme becomes a travel journal, a design magazine, a food publication, or a personal blog.</p>
+    <span class="eyebrow">Live Ghost demos, one codebase</span>
+    <h2 class="section">The same Ghost theme, four publications</h2>
+    <p class="sub">Astrix ships one set of components. Change the hero style, feed layout, and accent colour in Ghost Admin, and the same open-source Ghost theme becomes a travel journal, a design magazine, a food publication, or a personal blog.</p>
     <div class="demos">
 
       <article class="demo" id="meridian">
@@ -149,6 +158,7 @@
           <div class="role">Travel &amp; photography</div>
           <h3>Meridian</h3>
           <p>Slow, first-person dispatches from specific places, photo-led. Shows the theme at its most image-forward.</p>
+          <div class="actions"><a href="https://astrix-meridian.adrianoamalfi.com/">Open live demo</a></div>
           <div class="tags"><span class="tag">Poster hero</span><span class="tag">Mosaic feed</span><span class="tag">Terracotta accent</span><span class="tag">Multi-author</span></div>
         </div>
       </article>
@@ -159,6 +169,7 @@
           <div class="role">Design &amp; type</div>
           <h3>Vellum</h3>
           <p>A type-forward journal on design and the craft of making things. Restrained, editorial, opinionated.</p>
+          <div class="actions"><a href="https://astrix-vellum.adrianoamalfi.com/">Open live demo</a></div>
           <div class="tags"><span class="tag">Editorial hero</span><span class="tag">Bold grid</span><span class="tag">Navy accent</span><span class="tag">Multi-author</span></div>
         </div>
       </article>
@@ -169,6 +180,7 @@
           <div class="role">Food &amp; membership</div>
           <h3>The Proof</h3>
           <p>Recipes and essays from a small corner bakery — with paid membership, gated recipes, and a pricing page.</p>
+          <div class="actions"><a href="https://astrix-proof.adrianoamalfi.com/">Open live demo</a></div>
           <div class="tags"><span class="tag">Split hero</span><span class="tag">List feed</span><span class="tag">Red-earth accent</span><span class="tag">Membership</span></div>
         </div>
       </article>
@@ -179,6 +191,7 @@
           <div class="role">Personal blog</div>
           <h3>Field Notes</h3>
           <p>One maker's notes on creative work. The Personal hero puts the author front and centre, with a supporter tier.</p>
+          <div class="actions"><a href="https://astrix-fieldnotes.adrianoamalfi.com/">Open live demo</a></div>
           <div class="tags"><span class="tag">Personal hero</span><span class="tag">Mosaic feed</span><span class="tag">Green accent</span><span class="tag">Paid tier</span></div>
         </div>
       </article>
@@ -319,7 +332,7 @@
 
 <footer class="site">
   <div class="wrap">
-    <p><b>Astrix</b> — an open-source Ghost theme. Released under the <a href="https://github.com/adrianoamalfi/astrix-ghost/blob/main/LICENSE">MIT License</a>.</p>
+    <p><b>Astrix Ghost Theme</b> — a free, open-source Ghost CMS theme. Released under the <a href="https://github.com/adrianoamalfi/astrix-ghost/blob/main/LICENSE">MIT License</a>.</p>
     <p>Demo publications, authors, and copy are fictional. Demo imagery is illustrative placeholder photography (via <a href="https://loremflickr.com">LoremFlickr</a> / <a href="https://picsum.photos">Lorem Picsum</a>); publishers supply their own. Type set in <a href="https://github.com/erikdkennedy/figtree">Figtree</a> (SIL OFL 1.1).</p>
     <p style="margin-top:1.2rem"><a href="https://github.com/adrianoamalfi/astrix-ghost">GitHub</a> · <a href="https://github.com/adrianoamalfi/astrix-ghost/releases/latest">Download</a> · <a href="https://github.com/adrianoamalfi/astrix-ghost/blob/main/DESIGN.md">DESIGN.md</a></p>
   </div>

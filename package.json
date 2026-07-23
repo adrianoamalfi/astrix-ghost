@@ -1,6 +1,6 @@
 {
   "name": "astrix",
-  "description": "A bold, expressive personal blog theme for Ghost, built on the Astryx design system tokens.",
+  "description": "A free, open-source Ghost CMS theme for image-led blogs, magazines, publishers, and membership sites.",
   "version": "0.2.1",
   "license": "MIT",
   "author": {
@@ -16,7 +16,13 @@
   "homepage": "https://github.com/adrianoamalfi/astrix-ghost",
   "keywords": [
     "ghost",
-    "ghost-theme"
+    "ghost-theme",
+    "ghost-cms",
+    "ghost-blog-theme",
+    "ghost-magazine-theme",
+    "open-source-ghost-theme",
+    "free-ghost-theme",
+    "dark-mode"
   ],
   "engines": {
     "ghost": ">=6.0.0"

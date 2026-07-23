@@ -1,6 +1,7 @@
-# Astrix
+# Astrix Ghost Theme
 
-A bold, expressive personal blog theme for **Ghost ≥ 6.0**, built on the
+A free, open-source Ghost CMS theme for **Ghost ≥ 6.0**. Astrix is a bold,
+image-led editorial theme built on the
 [Astryx design system](https://www.npmjs.com/package/@astryxdesign/core) design tokens.
 
 Astryx components are React-only, so the theme consumes Astryx as a
@@ -10,21 +11,26 @@ elevation, motion, semantic typography) are extracted from
 CSS on top of that vocabulary. All color tokens use `light-dark()`, which is
 what makes the dark mode implementation a one-liner.
 
-One theme, many voices. The same components dress up as a travel journal, a
+One theme, many voices. The same Ghost theme dresses up as a travel journal, a
 design magazine, a food publication, or a personal blog — just by changing the
 hero style, feed layout, and accent in Ghost Admin.
 
+**Live Ghost demos:** [Meridian](https://astrix-meridian.adrianoamalfi.com/) ·
+[Vellum](https://astrix-vellum.adrianoamalfi.com/) ·
+[The Proof](https://astrix-proof.adrianoamalfi.com/) ·
+[Field Notes](https://astrix-fieldnotes.adrianoamalfi.com/)
+
 |  |  |
 |---|---|
-| [**Meridian**](https://adrianoamalfi.github.io/astrix-ghost/#meridian) — travel & photography · *Poster hero, Mosaic feed* | [**Vellum**](https://adrianoamalfi.github.io/astrix-ghost/#vellum) — design & type · *Editorial hero, Bold grid* |
+| [**Meridian**](https://astrix-meridian.adrianoamalfi.com/) — travel & photography · *Poster hero, Mosaic feed* | [**Vellum**](https://astrix-vellum.adrianoamalfi.com/) — design & type · *Editorial hero, Bold grid* |
 | ![Meridian homepage](docs/screenshots/meridian/home-desktop-light.png) | ![Vellum homepage](docs/screenshots/vellum/home-desktop-light.png) |
-| [**The Proof**](https://adrianoamalfi.github.io/astrix-ghost/#the-proof) — food & membership · *Split hero, List feed* | [**Field Notes**](https://adrianoamalfi.github.io/astrix-ghost/#field-notes) — personal blog · *Personal hero* |
+| [**The Proof**](https://astrix-proof.adrianoamalfi.com/) — food & membership · *Split hero, List feed* | [**Field Notes**](https://astrix-fieldnotes.adrianoamalfi.com/) — personal blog · *Personal hero* |
 | ![The Proof homepage](docs/screenshots/proof/home-desktop-light.png) | ![Field Notes homepage](docs/screenshots/fieldnotes/home-desktop-light.png) |
 
 > **[Browse the full showcase & documentation →](https://adrianoamalfi.github.io/astrix-ghost/)**
 > Every hero style, feed layout, dark mode, the reading experience, membership, and mobile — with screenshots.
 
-Prefer to click around instead? Run all four demos locally in one command:
+Prefer local demo sites? Run all four Ghost publications in one command:
 
 ```bash
 cd demo && docker compose up -d meridian vellum proof fieldnotes
