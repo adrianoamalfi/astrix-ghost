@@ -2,13 +2,7 @@
  * Builds the table of contents from .gh-content h2/h3 into the #gh-toc
  * shell, with an IntersectionObserver scrollspy. Hidden below 2 headings.
  */
-function slugify(text) {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\p{L}\p{N}]+/gu, '-')
-    .replace(/(^-|-$)/g, '');
-}
+import { slugify } from './utils.js';
 
 // A heading id with malformed percent-encoding (e.g. a lone `%` from pasted
 // content) makes decodeURIComponent throw a URIError; fall back to the raw
