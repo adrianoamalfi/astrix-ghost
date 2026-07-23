@@ -3,6 +3,12 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.2.1 — Small fixes
+
+- Point the footer theme credit to `https://adrianoamalfi.com/astrix/`.
+- Make the inline-code chip clearly visible in both light and dark (the old
+  `--color-background-muted` was ~5% opacity and read as unstyled).
+
 ## 0.2.0 — Hardening, i18n, performance & new features
 
 A broad quality pass closing 31 tracked issues (five more were closed as

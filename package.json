@@ -1,7 +1,7 @@
 {
   "name": "astrix",
   "description": "A bold, expressive personal blog theme for Ghost, built on the Astryx design system tokens.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "author": {
     "name": "Adriano Amalfi",
