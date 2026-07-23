@@ -15,6 +15,7 @@ export function initInfiniteScroll() {
 
   const label = nav.querySelector('.gh-pagination-label');
   const loadingText = nav.dataset.loading;
+  const errorText = nav.dataset.error;
   let nextUrl = link.href;
   let busy = false;
 
@@ -65,8 +66,12 @@ export function initInfiniteScroll() {
         observer.observe(nav);
       }
     } catch {
-      if (label && idleText) label.textContent = idleText;
-      restoreClassic();
+      // Stop auto-loading at once so a failing URL isn't retried on every
+      // scroll, tell the reader why (the label is aria-live=polite, so it's
+      // announced), then fall back to classic prev/next pagination.
+      observer.disconnect();
+      if (label) label.textContent = errorText || idleText || '';
+      setTimeout(restoreClassic, 3000);
     } finally {
       feed.removeAttribute('aria-busy');
       busy = false;
