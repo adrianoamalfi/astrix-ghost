@@ -23,6 +23,9 @@
                     {{#if twitter}}<a class="gh-tag-chip" href="{{social_url type="twitter"}}" target="_blank" rel="me noopener noreferrer">{{t "Twitter"}}</a>{{/if}}
                     {{#if facebook}}<a class="gh-tag-chip" href="{{social_url type="facebook"}}" target="_blank" rel="me noopener noreferrer">{{t "Facebook"}}</a>{{/if}}
                 </div>
+                {{!-- Site-wide icon links, incl. the custom accounts (GitHub,
+                      Hugging Face, email, custom URL) Ghost doesn't manage. --}}
+                {{> "social-links"}}
             </div>
         </div>
     </div>
