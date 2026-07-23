@@ -119,6 +119,29 @@ export function initLightbox() {
     if (e.target === overlay) close();
   });
 
+  // Horizontal swipe navigates the gallery on touch devices.
+  let touchStartX = 0;
+  let touchStartY = 0;
+  overlay.addEventListener(
+    'touchstart',
+    (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    },
+    { passive: true },
+  );
+  overlay.addEventListener(
+    'touchend',
+    (e) => {
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      const dy = e.changedTouches[0].screenY - touchStartY;
+      // Only treat mostly-horizontal moves past a threshold as swipes, so
+      // vertical scrolls and taps (which close via the click handler) are left alone.
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+    },
+    { passive: true },
+  );
+
   document.addEventListener('keydown', (e) => {
     if (overlay.hidden) return;
     if (e.key === 'Escape') close();
