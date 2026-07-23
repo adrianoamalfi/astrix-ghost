@@ -17,6 +17,7 @@ function slugify(text) {
 export function initHeadingAnchors() {
   document.querySelectorAll('.gh-content').forEach((content) => {
     const label = content.dataset.anchorLabel || 'Copy link to this section';
+    const copiedLabel = content.dataset.anchorCopiedLabel || 'Copied';
     const headings = content.querySelectorAll('h2, h3');
     const seen = new Set();
 
@@ -38,9 +39,16 @@ export function initHeadingAnchors() {
       anchor.addEventListener('click', () => {
         if (!navigator.clipboard) return;
         const url = `${location.origin}${location.pathname}#${heading.id}`;
-        navigator.clipboard.writeText(url).catch(() => {});
-        anchor.classList.add('is-copied');
-        setTimeout(() => anchor.classList.remove('is-copied'), 1500);
+        // Announce only on real success (aria-label change on the focused
+        // anchor is read out); restore the copy label afterwards.
+        navigator.clipboard.writeText(url).then(() => {
+          anchor.setAttribute('aria-label', copiedLabel);
+          anchor.classList.add('is-copied');
+          setTimeout(() => {
+            anchor.setAttribute('aria-label', label);
+            anchor.classList.remove('is-copied');
+          }, 1500);
+        }).catch(() => {});
       });
     });
   });
