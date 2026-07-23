@@ -10,6 +10,17 @@ function slugify(text) {
     .replace(/(^-|-$)/g, '');
 }
 
+// A heading id with malformed percent-encoding (e.g. a lone `%` from pasted
+// content) makes decodeURIComponent throw a URIError; fall back to the raw
+// value so one bad heading can't crash the whole scrollspy.
+function safeDecode(value) {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 export function initToc() {
   const toc = document.getElementById('gh-toc');
   const details = document.getElementById('gh-toc-details');
@@ -90,7 +101,7 @@ export function initToc() {
   // can't do this: it never demotes an entry when scrolling back up, so the
   // highlight lagged one section behind on upward reads.
   const links = new Map(
-    Array.from(toc.querySelectorAll('a')).map((a) => [decodeURIComponent(a.hash.slice(1)), a])
+    Array.from(toc.querySelectorAll('a')).map((a) => [safeDecode(a.hash.slice(1)), a])
   );
   let activeLink = null;
 
