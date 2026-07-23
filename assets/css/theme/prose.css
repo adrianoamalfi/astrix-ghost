@@ -294,7 +294,9 @@
 .gh-content code {
   padding: 0.15em 0.4em;
   border-radius: var(--radius-inner);
-  background-color: var(--color-background-muted);
+  /* An ink tint (not --color-background-muted, which is ~5% and near-invisible)
+     so the chip reads clearly in both light and dark. */
+  background-color: color-mix(in oklab, var(--color-text-primary) 10%, transparent);
   font-family: var(--font-family-code);
   font-size: 0.875em;
 }
