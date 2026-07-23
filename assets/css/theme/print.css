@@ -12,7 +12,9 @@
   .gh-comments,
   .gh-post-nav,
   .gh-footer,
-  .gh-heading-anchor {
+  .gh-heading-anchor,
+  .gh-back-to-top,
+  .gh-share {
     display: none !important;
   }
 
