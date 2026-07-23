@@ -15,17 +15,24 @@
 
         {{#if feature_image}}
             <figure class="gh-article-image">
-                <img
-                    srcset="{{img_url feature_image size="m" format="webp"}} 640w,
-                            {{img_url feature_image size="l" format="webp"}} 1024w,
-                            {{img_url feature_image size="xl" format="webp"}} 1920w"
-                    sizes="(max-width: 1600px) 100vw, 1600px"
-                    src="{{img_url feature_image size="xl" format="webp"}}"
-                    width="1920" height="1080"
-                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-                    decoding="async"
-                    fetchpriority="high"
-                >
+                <picture>
+                    <source type="image/avif"
+                        srcset="{{img_url feature_image size="m" format="avif"}} 640w,
+                                {{img_url feature_image size="l" format="avif"}} 1024w,
+                                {{img_url feature_image size="xl" format="avif"}} 1920w"
+                        sizes="(max-width: 1600px) 100vw, 1600px">
+                    <img
+                        srcset="{{img_url feature_image size="m" format="webp"}} 640w,
+                                {{img_url feature_image size="l" format="webp"}} 1024w,
+                                {{img_url feature_image size="xl" format="webp"}} 1920w"
+                        sizes="(max-width: 1600px) 100vw, 1600px"
+                        src="{{img_url feature_image size="xl" format="webp"}}"
+                        width="1920" height="1080"
+                        alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                        decoding="async"
+                        fetchpriority="high"
+                    >
+                </picture>
             </figure>
         {{/if}}
     {{/if}}
