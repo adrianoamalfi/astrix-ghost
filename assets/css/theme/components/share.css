@@ -1,0 +1,29 @@
+/* Post share row — aligned to the prose measure, separated by a hairline. */
+.gh-share {
+  width: min(var(--gh-measure), calc(100% - 2 * var(--spacing-4)));
+  margin: var(--spacing-8) auto 0;
+  padding-top: var(--spacing-6);
+  border-top: var(--border-width) solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+.gh-share-label {
+  margin-right: var(--spacing-1);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.gh-share .gh-icon-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Copy-link success tick: the accent's response colour, matching the rest of
+   the "reader acted" feedback in the theme. */
+.gh-share-copy.is-copied {
+  color: var(--gh-accent-2-text);
+}

@@ -1,0 +1,44 @@
+{{!-- Post share row. URL-only share intents (no title param) so they work
+      without JS and need no encode helper; the networks read the title/card
+      from the post's Open Graph tags. The copy button is enhanced by
+      share.js. Context: a post object. --}}
+<div class="gh-share">
+    <span class="gh-share-label">{{t "Share"}}</span>
+    <a
+        class="gh-icon-button"
+        href="https://twitter.com/intent/tweet?url={{url absolute="true"}}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="{{t "Share on X (Twitter)"}}"
+        data-tooltip
+        >{{> "icons/social/x"}}</a
+    >
+    <a
+        class="gh-icon-button"
+        href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="{{t "Share on Facebook"}}"
+        data-tooltip
+        >{{> "icons/social/facebook"}}</a
+    >
+    <a
+        class="gh-icon-button"
+        href="https://www.linkedin.com/sharing/share-offsite/?url={{url absolute="true"}}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="{{t "Share on LinkedIn"}}"
+        data-tooltip
+        >{{> "icons/social/linkedin"}}</a
+    >
+    <button
+        class="gh-icon-button gh-share-copy"
+        type="button"
+        data-share-url="{{url absolute="true"}}"
+        data-copied-label="{{t "Copied"}}"
+        aria-label="{{t "Copy link"}}"
+        data-tooltip
+    >
+        {{> "icons/link"}}
+    </button>
+</div>
