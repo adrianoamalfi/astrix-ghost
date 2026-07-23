@@ -72,7 +72,7 @@
   color: var(--gh-accent-2-text);
 }
 
-@media (max-width: 640px) {
+@media (--to-mobile) {
   .gh-post-nav {
     grid-template-columns: 1fr;
     gap: var(--spacing-3);

@@ -194,7 +194,7 @@
   outline-offset: -1px;
 }
 
-@media (max-width: 900px) {
+@media (--to-tablet) {
   .gh-hero {
     min-height: min(76vh, 680px);
     margin-bottom: var(--spacing-8);
@@ -215,7 +215,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (--to-mobile) {
   .gh-hero {
     min-height: min(72vh, 560px);
     margin-bottom: var(--spacing-7);
@@ -292,7 +292,7 @@
   margin-top: var(--spacing-6);
 }
 
-@media (max-width: 900px) {
+@media (--to-tablet) {
   .gh-personal {
     grid-template-columns: 1fr;
   }
@@ -329,14 +329,14 @@
   --gh-track-fade: 4.5rem;
 }
 
-@media (max-width: 900px) {
+@media (--to-tablet) {
   .gh-featured-track {
     grid-auto-columns: min(360px, 72vw);
     gap: var(--spacing-4);
   }
 }
 
-@media (max-width: 640px) {
+@media (--to-mobile) {
   .gh-featured {
     margin-bottom: var(--spacing-8);
   }

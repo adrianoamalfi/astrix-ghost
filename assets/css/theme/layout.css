@@ -58,14 +58,14 @@
   min-width: 0;
 }
 
-@media (max-width: 1199px) {
+@media (--to-desktop) {
   .gh-article-layout {
     width: var(--gh-container);
     margin-inline: auto;
   }
 }
 
-@media (max-width: 640px) {
+@media (--to-mobile) {
   .gh-canvas {
     grid-template-columns:
       [full-start] minmax(var(--spacing-4), 1fr)
@@ -83,7 +83,7 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (--from-desktop) {
   .gh-article-layout.has-toc {
     grid-template-columns: 240px minmax(0, 1fr) 240px;
   }

@@ -29,7 +29,7 @@
   color: var(--color-text-disabled);
 }
 
-@media (max-width: 640px) {
+@media (--to-mobile) {
   .gh-breadcrumbs {
     justify-content: flex-start;
     margin-bottom: var(--spacing-3);

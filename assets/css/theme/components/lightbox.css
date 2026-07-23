@@ -103,7 +103,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (--to-sm-wide) {
   .gh-lightbox-nav {
     position: absolute;
     bottom: var(--spacing-4);

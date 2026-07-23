@@ -111,7 +111,7 @@
   color: var(--color-error);
 }
 
-@media (max-width: 560px) {
+@media (--to-sm) {
   .gh-members-form {
     flex-direction: column;
   }
@@ -204,7 +204,7 @@
   text-underline-offset: 0.18em;
 }
 
-@media (max-width: 560px) {
+@media (--to-sm) {
   .gh-post-upgrade-actions {
     align-items: center;
   }

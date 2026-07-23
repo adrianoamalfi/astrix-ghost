@@ -79,7 +79,7 @@
   --gh-media-ring: 1px solid color-mix(in oklab, var(--color-text-primary) 10%, transparent);
 }
 
-@media (max-width: 640px) {
+@media (--to-mobile) {
   :root {
     --gh-display-1: clamp(2.25rem, 1.35rem + 9vw, 3.5rem);
     --gh-display-2: clamp(1.875rem, 1.25rem + 6vw, 2.75rem);

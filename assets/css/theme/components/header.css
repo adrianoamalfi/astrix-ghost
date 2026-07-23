@@ -158,7 +158,7 @@ html[data-scheme="dark"] #gh-scheme-toggle .gh-icon-moon {
   display: none;
 }
 
-@media (max-width: 900px) {
+@media (--to-tablet) {
   body.has-menu-open {
     overflow: hidden;
     touch-action: none;
@@ -277,7 +277,7 @@ html[data-scheme="dark"] #gh-scheme-toggle .gh-icon-moon {
   }
 }
 
-@media (max-width: 420px) {
+@media (--to-xs) {
   .gh-nav {
     width: min(22rem, calc(100vw - var(--spacing-4)));
     padding-inline: var(--spacing-3);

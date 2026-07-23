@@ -92,7 +92,7 @@
 }
 
 /* Below the breakpoint the TOC is a closed disclosure above the article */
-@media (max-width: 1199px) {
+@media (--to-desktop) {
   .gh-toc-details {
     position: static;
     max-height: none;
@@ -103,7 +103,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (--to-mobile) {
   .gh-toc-details {
     margin-bottom: var(--spacing-5);
     padding: var(--spacing-3);

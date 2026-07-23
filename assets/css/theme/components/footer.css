@@ -116,7 +116,7 @@
 }
 
 /* Wide screens: nav reads as a right-aligned column, mirroring the identity block */
-@media (min-width: 641px) {
+@media (--from-mobile) {
   .gh-footer-nav ul {
     align-items: flex-end;
     text-align: right;

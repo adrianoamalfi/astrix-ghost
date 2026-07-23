@@ -11,6 +11,7 @@
        theme.vars, theme.base, theme.layout, theme.components,
        theme.prose, theme.utilities, theme.print;
 
+@import "theme/breakpoints.css";
 @import "theme/fonts.css";
 @import "vendor/astryx-reset.css";
 @import "vendor/astryx-tokens.css";
