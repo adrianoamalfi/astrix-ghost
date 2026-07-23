@@ -16,8 +16,9 @@ Disallow: /members/
 # --- AI / agent crawlers ---------------------------------------------------
 # Astrix welcomes AI agents: each notable bot is listed explicitly so the
 # policy is discoverable. Agents may fetch public content but not the admin,
-# members, or email areas. To BLOCK any bot, change its group's `Allow: /`
-# to `Disallow: /`.
+# members, email, preview, or share areas. Named user-agent groups fully
+# override the wildcard group above, so every disallow must be repeated here.
+# To BLOCK any bot, change its group's `Allow: /` to `Disallow: /`.
 User-agent: GPTBot
 User-agent: OAI-SearchBot
 User-agent: ChatGPT-User
@@ -38,5 +39,7 @@ Allow: /
 Disallow: /ghost/
 Disallow: /members/
 Disallow: /email/
+Disallow: /p/
+Disallow: /r/
 
 Sitemap: /sitemap.xml
