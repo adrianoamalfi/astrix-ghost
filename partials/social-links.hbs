@@ -5,40 +5,40 @@
       hardcoded; only configured accounts render. RSS is always available. --}}
 <div class="gh-social-links">
     {{#if @site.facebook}}
-        <a class="gh-icon-button" href="{{social_url type="facebook"}}" target="_blank" rel="me noopener" aria-label="Facebook" data-tooltip>{{> "icons/social/facebook"}}</a>
+        <a class="gh-icon-button" href="{{social_url type="facebook"}}" target="_blank" rel="me noopener noreferrer" aria-label="Facebook" data-tooltip>{{> "icons/social/facebook"}}</a>
     {{/if}}
     {{#if @site.twitter}}
-        <a class="gh-icon-button" href="{{social_url type="twitter"}}" target="_blank" rel="me noopener" aria-label="X (Twitter)" data-tooltip>{{> "icons/social/x"}}</a>
+        <a class="gh-icon-button" href="{{social_url type="twitter"}}" target="_blank" rel="me noopener noreferrer" aria-label="X (Twitter)" data-tooltip>{{> "icons/social/x"}}</a>
     {{/if}}
     {{#if @site.threads}}
-        <a class="gh-icon-button" href="{{social_url type="threads"}}" target="_blank" rel="me noopener" aria-label="Threads" data-tooltip>{{> "icons/social/threads"}}</a>
+        <a class="gh-icon-button" href="{{social_url type="threads"}}" target="_blank" rel="me noopener noreferrer" aria-label="Threads" data-tooltip>{{> "icons/social/threads"}}</a>
     {{/if}}
     {{#if @site.bluesky}}
-        <a class="gh-icon-button" href="{{social_url type="bluesky"}}" target="_blank" rel="me noopener" aria-label="Bluesky" data-tooltip>{{> "icons/social/bluesky"}}</a>
+        <a class="gh-icon-button" href="{{social_url type="bluesky"}}" target="_blank" rel="me noopener noreferrer" aria-label="Bluesky" data-tooltip>{{> "icons/social/bluesky"}}</a>
     {{/if}}
     {{#if @site.mastodon}}
-        <a class="gh-icon-button" href="{{social_url type="mastodon"}}" target="_blank" rel="me noopener" aria-label="Mastodon" data-tooltip>{{> "icons/social/mastodon"}}</a>
+        <a class="gh-icon-button" href="{{social_url type="mastodon"}}" target="_blank" rel="me noopener noreferrer" aria-label="Mastodon" data-tooltip>{{> "icons/social/mastodon"}}</a>
     {{/if}}
     {{#if @site.tiktok}}
-        <a class="gh-icon-button" href="{{social_url type="tiktok"}}" target="_blank" rel="me noopener" aria-label="TikTok" data-tooltip>{{> "icons/social/tiktok"}}</a>
+        <a class="gh-icon-button" href="{{social_url type="tiktok"}}" target="_blank" rel="me noopener noreferrer" aria-label="TikTok" data-tooltip>{{> "icons/social/tiktok"}}</a>
     {{/if}}
     {{#if @site.youtube}}
-        <a class="gh-icon-button" href="{{social_url type="youtube"}}" target="_blank" rel="me noopener" aria-label="YouTube" data-tooltip>{{> "icons/social/youtube"}}</a>
+        <a class="gh-icon-button" href="{{social_url type="youtube"}}" target="_blank" rel="me noopener noreferrer" aria-label="YouTube" data-tooltip>{{> "icons/social/youtube"}}</a>
     {{/if}}
     {{#if @site.instagram}}
-        <a class="gh-icon-button" href="{{social_url type="instagram"}}" target="_blank" rel="me noopener" aria-label="Instagram" data-tooltip>{{> "icons/social/instagram"}}</a>
+        <a class="gh-icon-button" href="{{social_url type="instagram"}}" target="_blank" rel="me noopener noreferrer" aria-label="Instagram" data-tooltip>{{> "icons/social/instagram"}}</a>
     {{/if}}
     {{#if @site.linkedin}}
-        <a class="gh-icon-button" href="{{social_url type="linkedin"}}" target="_blank" rel="me noopener" aria-label="LinkedIn" data-tooltip>{{> "icons/social/linkedin"}}</a>
+        <a class="gh-icon-button" href="{{social_url type="linkedin"}}" target="_blank" rel="me noopener noreferrer" aria-label="LinkedIn" data-tooltip>{{> "icons/social/linkedin"}}</a>
     {{/if}}
     {{#if @custom.social_github}}
-        <a class="gh-icon-button" href="https://github.com/{{@custom.social_github}}" target="_blank" rel="me noopener" aria-label="GitHub" data-tooltip>{{> "icons/social/github"}}</a>
+        <a class="gh-icon-button" href="https://github.com/{{@custom.social_github}}" target="_blank" rel="me noopener noreferrer" aria-label="GitHub" data-tooltip>{{> "icons/social/github"}}</a>
     {{/if}}
     {{#if @custom.social_huggingface}}
-        <a class="gh-icon-button" href="https://huggingface.co/{{@custom.social_huggingface}}" target="_blank" rel="me noopener" aria-label="Hugging Face" data-tooltip>{{> "icons/social/huggingface"}}</a>
+        <a class="gh-icon-button" href="https://huggingface.co/{{@custom.social_huggingface}}" target="_blank" rel="me noopener noreferrer" aria-label="Hugging Face" data-tooltip>{{> "icons/social/huggingface"}}</a>
     {{/if}}
     {{#if @custom.social_custom_url}}
-        <a class="gh-icon-button" href="{{@custom.social_custom_url}}" target="_blank" rel="me noopener" aria-label="{{t "Website"}}" data-tooltip>{{> "icons/social/globe"}}</a>
+        <a class="gh-icon-button" href="{{@custom.social_custom_url}}" target="_blank" rel="me noopener noreferrer" aria-label="{{t "Website"}}" data-tooltip>{{> "icons/social/globe"}}</a>
     {{/if}}
     {{#if @custom.social_email}}
         <a class="gh-icon-button" href="mailto:{{@custom.social_email}}" aria-label="Email" data-tooltip>{{> "icons/social/mail"}}</a>
