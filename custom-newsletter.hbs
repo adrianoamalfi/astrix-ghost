@@ -1,0 +1,62 @@
+{{!< default}}
+
+{{!-- Newsletter archive: in Ghost admin, create a page and pick the
+      "Newsletter" template. Shows the page content, a prominent subscribe
+      form, then the past editions.
+
+      "Editions" are posts carrying the internal tag #newsletter (referenced in
+      the filter below as tag:hash-newsletter). Internal tags are hidden from
+      readers, so tag your sent newsletters with #newsletter and they show up
+      here without appearing as a public tag. --}}
+
+{{#post}}
+<article class="gh-article gh-newsletter-page {{post_class}}">
+    <header class="gh-article-header gh-article-header--page">
+        {{> "breadcrumbs"}}
+        <span class="u-kicker">{{t "Newsletter"}}</span>
+        <h1 class="gh-article-title">{{title}}</h1>
+        {{#if custom_excerpt}}
+            <p class="gh-article-excerpt">{{custom_excerpt}}</p>
+        {{/if}}
+    </header>
+
+    {{#if content}}
+        <section
+            class="gh-content gh-canvas"
+            data-copy="{{t "Copy"}}"
+            data-copied="{{t "Copied"}}"
+            data-anchor-label="{{t "Copy link to this section"}}"
+            data-anchor-copied-label="{{t "Copied"}}"
+            data-zoom-label="{{t "Zoom image"}}"
+            data-close-label="{{t "Close"}}"
+            data-prev-label="{{t "Previous"}}"
+            data-next-label="{{t "Next"}}"
+        >
+            {{content}}
+        </section>
+    {{/if}}
+</article>
+{{/post}}
+
+{{> "subscribe-form"}}
+
+{{#get "posts" filter="tag:hash-newsletter" limit="24" order="published_at desc" as |editions|}}
+    {{#if editions}}
+        <section class="gh-archive-index gh-container-wide">
+            <h2 class="gh-section-title">{{t "Past editions"}}</h2>
+            <ol class="gh-archive-posts">
+                {{#foreach editions}}
+                    <li class="gh-archive-post">
+                        <a class="gh-archive-post-link" href="{{url}}">
+                            <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+                            <span class="gh-archive-post-title">{{title}}</span>
+                            {{#primary_tag}}
+                                <span class="gh-archive-post-tag">{{name}}</span>
+                            {{/primary_tag}}
+                        </a>
+                    </li>
+                {{/foreach}}
+            </ol>
+        </section>
+    {{/if}}
+{{/get}}
