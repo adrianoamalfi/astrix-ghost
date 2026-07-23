@@ -42,7 +42,6 @@ body {
 :focus-visible {
   outline: 2px solid var(--gh-accent-2-text);
   outline-offset: 2px;
-  border-radius: var(--radius-inner);
 }
 
 a {
