@@ -2,18 +2,7 @@
  * Builds the table of contents from .gh-content h2/h3 into the #gh-toc
  * shell, with an IntersectionObserver scrollspy. Hidden below 2 headings.
  */
-import { slugify } from './utils.js';
-
-// A heading id with malformed percent-encoding (e.g. a lone `%` from pasted
-// content) makes decodeURIComponent throw a URIError; fall back to the raw
-// value so one bad heading can't crash the whole scrollspy.
-function safeDecode(value) {
-  try {
-    return decodeURIComponent(value);
-  } catch {
-    return value;
-  }
-}
+import { slugify, safeDecode } from './utils.js';
 
 export function initToc() {
   const toc = document.getElementById('gh-toc');
@@ -26,7 +15,7 @@ export function initToc() {
   // the outline. Header cards stay: their heading is an intentional section.
   const EXCLUDE_CARDS = '.kg-signup-card, .kg-product-card, .kg-toggle-card';
   const headings = Array.from(content.querySelectorAll('h2, h3')).filter(
-    (heading) => !heading.closest(EXCLUDE_CARDS)
+    (heading) => !heading.closest(EXCLUDE_CARDS),
   );
   if (headings.length < 2) {
     const column = toc.closest('.gh-toc-column');
@@ -43,7 +32,10 @@ export function initToc() {
   const uniqueHeadingId = (heading) => {
     const base = heading.id || slugify(heading.textContent) || 'section';
     let id = base;
-    while (seen.has(id) || (document.getElementById(id) && document.getElementById(id) !== heading)) {
+    while (
+      seen.has(id) ||
+      (document.getElementById(id) && document.getElementById(id) !== heading)
+    ) {
       id += '-x';
     }
     seen.add(id);
@@ -95,7 +87,7 @@ export function initToc() {
   // can't do this: it never demotes an entry when scrolling back up, so the
   // highlight lagged one section behind on upward reads.
   const links = new Map(
-    Array.from(toc.querySelectorAll('a')).map((a) => [safeDecode(a.hash.slice(1)), a])
+    Array.from(toc.querySelectorAll('a')).map((a) => [safeDecode(a.hash.slice(1)), a]),
   );
   let activeLink = null;
 
@@ -113,7 +105,8 @@ export function initToc() {
   };
 
   const headerHeight =
-    parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gh-header-height')) || 64;
+    parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gh-header-height')) ||
+    64;
   // just past the anchors' scroll-margin-top, so a TOC jump lands "inside" its own section
   const readingLine = headerHeight + 24;
 

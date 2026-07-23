@@ -9,3 +9,14 @@ export function slugify(text) {
     .replace(/[^\p{L}\p{N}]+/gu, '-')
     .replace(/(^-|-$)/g, '');
 }
+
+// A string with malformed percent-encoding (e.g. a lone `%` from pasted
+// content) makes decodeURIComponent throw a URIError; fall back to the raw
+// value so one bad heading id can't crash a whole module.
+export function safeDecode(value) {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
