@@ -2,15 +2,18 @@
       mid-body, shaving the request off the critical path. Mirrors the srcset
       and sizes of the hero/feature image element so the browser preloads the
       exact candidate it will render. --}}
+{{!-- Preload AVIF to match the picture source the browser will pick. The type
+      hint means browsers without AVIF support skip this preload and discover
+      the WebP image in the body instead (a small, shrinking cohort). --}}
 {{#is "post"}}{{#post}}{{#if feature_image}}
-    <link rel="preload" as="image" fetchpriority="high"
-        href="{{img_url feature_image size="xl" format="webp"}}"
-        imagesrcset="{{img_url feature_image size="m" format="webp"}} 640w, {{img_url feature_image size="l" format="webp"}} 1024w, {{img_url feature_image size="xl" format="webp"}} 1920w, {{img_url feature_image size="xxl" format="webp"}} 2400w"
+    <link rel="preload" as="image" fetchpriority="high" type="image/avif"
+        href="{{img_url feature_image size="xl" format="avif"}}"
+        imagesrcset="{{img_url feature_image size="m" format="avif"}} 640w, {{img_url feature_image size="l" format="avif"}} 1024w, {{img_url feature_image size="xl" format="avif"}} 1920w, {{img_url feature_image size="xxl" format="avif"}} 2400w"
         imagesizes="(max-width: 1600px) 100vw, 1600px">
 {{/if}}{{/post}}{{/is}}
 {{#is "page"}}{{#post}}{{#if @page.show_title_and_feature_image}}{{#if feature_image}}
-    <link rel="preload" as="image" fetchpriority="high"
-        href="{{img_url feature_image size="xl" format="webp"}}"
-        imagesrcset="{{img_url feature_image size="m" format="webp"}} 640w, {{img_url feature_image size="l" format="webp"}} 1024w, {{img_url feature_image size="xl" format="webp"}} 1920w"
+    <link rel="preload" as="image" fetchpriority="high" type="image/avif"
+        href="{{img_url feature_image size="xl" format="avif"}}"
+        imagesrcset="{{img_url feature_image size="m" format="avif"}} 640w, {{img_url feature_image size="l" format="avif"}} 1024w, {{img_url feature_image size="xl" format="avif"}} 1920w"
         imagesizes="(max-width: 1600px) 100vw, 1600px">
 {{/if}}{{/if}}{{/post}}{{/is}}

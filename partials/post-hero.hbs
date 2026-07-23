@@ -35,18 +35,25 @@
     </div>
     {{#if feature_image}}
         <a class="gh-hero-editorial-media" href="{{url}}">
-            <img
-                srcset="{{img_url feature_image size="m" format="webp"}} 640w,
-                        {{img_url feature_image size="l" format="webp"}} 1024w,
-                        {{img_url feature_image size="xl" format="webp"}} 1920w"
-                sizes="(max-width: 1600px) 100vw, 1600px"
-                src="{{img_url feature_image size="xl" format="webp"}}"
-                width="2100" height="900"
-                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-                decoding="async"
-                fetchpriority="high"
-                style="view-transition-name: gh-post-{{id}}"
-            >
+            <picture>
+                <source type="image/avif"
+                    srcset="{{img_url feature_image size="m" format="avif"}} 640w,
+                            {{img_url feature_image size="l" format="avif"}} 1024w,
+                            {{img_url feature_image size="xl" format="avif"}} 1920w"
+                    sizes="(max-width: 1600px) 100vw, 1600px">
+                <img
+                    srcset="{{img_url feature_image size="m" format="webp"}} 640w,
+                            {{img_url feature_image size="l" format="webp"}} 1024w,
+                            {{img_url feature_image size="xl" format="webp"}} 1920w"
+                    sizes="(max-width: 1600px) 100vw, 1600px"
+                    src="{{img_url feature_image size="xl" format="webp"}}"
+                    width="2100" height="900"
+                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                    decoding="async"
+                    fetchpriority="high"
+                    style="view-transition-name: gh-post-{{id}}"
+                >
+            </picture>
         </a>
     {{/if}}
 </section>
@@ -83,18 +90,25 @@
     </div>
     {{#if feature_image}}
         <a class="gh-hero-split-media" href="{{url}}">
-            <img
-                srcset="{{img_url feature_image size="m" format="webp"}} 640w,
-                        {{img_url feature_image size="l" format="webp"}} 1024w,
-                        {{img_url feature_image size="xl" format="webp"}} 1920w"
-                sizes="(max-width: 900px) 100vw, 50vw"
-                src="{{img_url feature_image size="l" format="webp"}}"
-                width="1200" height="900"
-                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-                decoding="async"
-                fetchpriority="high"
-                style="view-transition-name: gh-post-{{id}}"
-            >
+            <picture>
+                <source type="image/avif"
+                    srcset="{{img_url feature_image size="m" format="avif"}} 640w,
+                            {{img_url feature_image size="l" format="avif"}} 1024w,
+                            {{img_url feature_image size="xl" format="avif"}} 1920w"
+                    sizes="(max-width: 900px) 100vw, 50vw">
+                <img
+                    srcset="{{img_url feature_image size="m" format="webp"}} 640w,
+                            {{img_url feature_image size="l" format="webp"}} 1024w,
+                            {{img_url feature_image size="xl" format="webp"}} 1920w"
+                    sizes="(max-width: 900px) 100vw, 50vw"
+                    src="{{img_url feature_image size="l" format="webp"}}"
+                    width="1200" height="900"
+                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                    decoding="async"
+                    fetchpriority="high"
+                    style="view-transition-name: gh-post-{{id}}"
+                >
+            </picture>
         </a>
     {{/if}}
 </section>
@@ -104,19 +118,27 @@
 <section class="gh-hero gh-hero--poster{{#unless feature_image}} gh-hero--no-image{{/unless}}" data-astryx-media="dark">
     {{#if feature_image}}
         <div class="gh-hero-media">
-            <img
-                srcset="{{img_url feature_image size="m" format="webp"}} 640w,
-                        {{img_url feature_image size="l" format="webp"}} 1024w,
-                        {{img_url feature_image size="xl" format="webp"}} 1920w,
-                        {{img_url feature_image size="xxl" format="webp"}} 2400w"
-                sizes="100vw"
-                src="{{img_url feature_image size="xl" format="webp"}}"
-                width="1920" height="1080"
-                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-                decoding="async"
-                fetchpriority="high"
-                style="view-transition-name: gh-post-{{id}}"
-            >
+            <picture>
+                <source type="image/avif"
+                    srcset="{{img_url feature_image size="m" format="avif"}} 640w,
+                            {{img_url feature_image size="l" format="avif"}} 1024w,
+                            {{img_url feature_image size="xl" format="avif"}} 1920w,
+                            {{img_url feature_image size="xxl" format="avif"}} 2400w"
+                    sizes="100vw">
+                <img
+                    srcset="{{img_url feature_image size="m" format="webp"}} 640w,
+                            {{img_url feature_image size="l" format="webp"}} 1024w,
+                            {{img_url feature_image size="xl" format="webp"}} 1920w,
+                            {{img_url feature_image size="xxl" format="webp"}} 2400w"
+                    sizes="100vw"
+                    src="{{img_url feature_image size="xl" format="webp"}}"
+                    width="1920" height="1080"
+                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                    decoding="async"
+                    fetchpriority="high"
+                    style="view-transition-name: gh-post-{{id}}"
+                >
+            </picture>
         </div>
         <div class="gh-hero-scrim"></div>
     {{/if}}

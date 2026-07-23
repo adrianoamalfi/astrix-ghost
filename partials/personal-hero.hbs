@@ -30,17 +30,23 @@
             </div>
 
             {{#if @custom.personal_hero_portrait}}
-                <img
-                    class="gh-personal-portrait"
-                    srcset="{{img_url @custom.personal_hero_portrait size="m" format="webp"}} 640w,
-                            {{img_url @custom.personal_hero_portrait size="l" format="webp"}} 1024w"
-                    sizes="(max-width: 900px) 60vw, 420px"
-                    src="{{img_url @custom.personal_hero_portrait size="l" format="webp"}}"
-                    width="840" height="1050"
-                    alt="{{@site.title}}"
-                    decoding="async"
-                    fetchpriority="high"
-                >
+                <picture>
+                    <source type="image/avif"
+                        srcset="{{img_url @custom.personal_hero_portrait size="m" format="avif"}} 640w,
+                                {{img_url @custom.personal_hero_portrait size="l" format="avif"}} 1024w"
+                        sizes="(max-width: 900px) 60vw, 420px">
+                    <img
+                        class="gh-personal-portrait"
+                        srcset="{{img_url @custom.personal_hero_portrait size="m" format="webp"}} 640w,
+                                {{img_url @custom.personal_hero_portrait size="l" format="webp"}} 1024w"
+                        sizes="(max-width: 900px) 60vw, 420px"
+                        src="{{img_url @custom.personal_hero_portrait size="l" format="webp"}}"
+                        width="840" height="1050"
+                        alt="{{@site.title}}"
+                        decoding="async"
+                        fetchpriority="high"
+                    >
+                </picture>
             {{/if}}
         </div>
     </div>

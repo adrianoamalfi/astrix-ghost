@@ -61,6 +61,13 @@ img {
   height: auto;
 }
 
+/* <picture> only wraps the AVIF/WebP <source> + <img> for format negotiation;
+   it must be layout-neutral so existing `.container img` rules, object-fit and
+   percentage heights keep resolving against the real parent. */
+picture {
+  display: contents;
+}
+
 .gh-skip-link {
   position: absolute;
   top: var(--spacing-2);
