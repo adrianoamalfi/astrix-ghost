@@ -25,7 +25,7 @@ function apply(scheme) {
 function stored() {
   try {
     return normalize(localStorage.getItem(STORAGE_KEY));
-  } catch (e) {
+  } catch {
     return null;
   }
 }
@@ -42,7 +42,9 @@ function store(scheme) {
     } else {
       localStorage.setItem(STORAGE_KEY, scheme);
     }
-  } catch (e) { /* storage unavailable */ }
+  } catch {
+    /* storage unavailable */
+  }
 }
 
 export function initColorScheme() {
@@ -59,8 +61,7 @@ export function initColorScheme() {
   if (!button) return;
 
   const updateLabel = () => {
-    const label = button.getAttribute(`data-label-${current}`) ||
-      button.getAttribute('aria-label');
+    const label = button.getAttribute(`data-label-${current}`) || button.getAttribute('aria-label');
     button.setAttribute('aria-label', label);
     button.title = label;
   };

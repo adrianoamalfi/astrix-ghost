@@ -56,7 +56,9 @@ for (const name of localeFiles) {
   const localePath = `locales/${name}`;
   const translations = JSON.parse(readFileSync(join(root, localePath), 'utf8'));
   const missing = [...templateKeys].filter((key) => !(key in translations)).sort();
-  const unused = Object.keys(translations).filter((key) => !templateKeys.has(key)).sort();
+  const unused = Object.keys(translations)
+    .filter((key) => !templateKeys.has(key))
+    .sort();
 
   if (missing.length) {
     if (REQUIRED_LOCALES.has(name)) {
@@ -84,4 +86,6 @@ if (hasError) {
 }
 
 const required = [...REQUIRED_LOCALES].join(', ');
-console.log(`i18n: ok ${templateKeys.size} template keys across ${localeFiles.length} locale(s) (${required} required)`);
+console.log(
+  `i18n: ok ${templateKeys.size} template keys across ${localeFiles.length} locale(s) (${required} required)`,
+);

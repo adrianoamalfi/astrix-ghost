@@ -55,14 +55,31 @@
   padding: var(--spacing-4) var(--spacing-5);
 }
 
-.kg-callout-card.kg-callout-card-grey  { background-color: var(--color-background-gray); }
-.kg-callout-card.kg-callout-card-blue  { background-color: var(--color-background-blue); }
-.kg-callout-card.kg-callout-card-green { background-color: var(--color-background-green); }
-.kg-callout-card.kg-callout-card-yellow{ background-color: var(--color-background-yellow); }
-.kg-callout-card.kg-callout-card-red   { background-color: var(--color-background-red); }
-.kg-callout-card.kg-callout-card-pink  { background-color: var(--color-background-pink); }
-.kg-callout-card.kg-callout-card-purple{ background-color: var(--color-background-purple); }
-.kg-callout-card.kg-callout-card-accent{ background-color: var(--gh-accent-fill); color: var(--gh-on-accent); }
+.kg-callout-card.kg-callout-card-grey {
+  background-color: var(--color-background-gray);
+}
+.kg-callout-card.kg-callout-card-blue {
+  background-color: var(--color-background-blue);
+}
+.kg-callout-card.kg-callout-card-green {
+  background-color: var(--color-background-green);
+}
+.kg-callout-card.kg-callout-card-yellow {
+  background-color: var(--color-background-yellow);
+}
+.kg-callout-card.kg-callout-card-red {
+  background-color: var(--color-background-red);
+}
+.kg-callout-card.kg-callout-card-pink {
+  background-color: var(--color-background-pink);
+}
+.kg-callout-card.kg-callout-card-purple {
+  background-color: var(--color-background-purple);
+}
+.kg-callout-card.kg-callout-card-accent {
+  background-color: var(--gh-accent-fill);
+  color: var(--gh-on-accent);
+}
 .kg-callout-card.kg-callout-card-white {
   background-color: var(--color-background-card);
   border: var(--border-width) solid var(--color-border);
@@ -125,7 +142,7 @@
   font-weight: var(--font-weight-semibold);
 }
 
-.kg-signup-card input[type="email"] {
+.kg-signup-card input[type='email'] {
   border-radius: var(--radius-full);
 }
 

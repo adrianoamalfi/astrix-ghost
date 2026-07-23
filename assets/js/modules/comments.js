@@ -28,12 +28,15 @@ export function initComments() {
     return;
   }
 
-  const observer = new IntersectionObserver((entries, obs) => {
-    if (entries.some((entry) => entry.isIntersecting)) {
-      obs.disconnect();
-      mount();
-    }
-  }, { rootMargin: '600px 0px' });
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        obs.disconnect();
+        mount();
+      }
+    },
+    { rootMargin: '600px 0px' },
+  );
 
   observer.observe(section);
 }

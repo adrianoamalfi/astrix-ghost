@@ -207,10 +207,13 @@
 .gh-card--locked .gh-card-media::after {
   position: absolute;
   inset: 0;
-  content: "";
+  content: '';
   pointer-events: none;
-  background:
-    linear-gradient(180deg, color-mix(in oklab, var(--color-background-inverted) 18%, transparent), color-mix(in oklab, var(--color-background-inverted) 54%, transparent));
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-background-inverted) 18%, transparent),
+    color-mix(in oklab, var(--color-background-inverted) 54%, transparent)
+  );
 }
 
 .gh-card--locked .gh-card-media img {
@@ -286,7 +289,7 @@
   color: var(--gh-accent-2-ink);
 }
 
-.gh-card-lock-badge[data-astryx-badge="members"] {
+.gh-card-lock-badge[data-astryx-badge='members'] {
   background-color: var(--color-background-inverted);
   /* text on an inverted surface = the body background color (flips with it) */
   color: var(--color-background-body);
@@ -303,7 +306,11 @@
   aspect-ratio: 16 / 7;
   border: var(--border-width) solid var(--color-border);
   background:
-    radial-gradient(400px 200px at 80% -20%, color-mix(in oklab, var(--gh-accent-2) 16%, transparent), transparent),
+    radial-gradient(
+      400px 200px at 80% -20%,
+      color-mix(in oklab, var(--gh-accent-2) 16%, transparent),
+      transparent
+    ),
     color-mix(in oklab, var(--gh-accent) 8%, var(--color-background-muted));
 }
 
@@ -386,7 +393,7 @@
 }
 
 .gh-card-meta .gh-meta-divider::before {
-  content: "·";
+  content: '·';
   color: var(--color-text-disabled);
 }
 

@@ -302,7 +302,8 @@
 .gh-content pre {
   /* right side reserves the copy button's corner (see code-copy.css);
      this shorthand wins the layer order, so the reserve must live here */
-  padding: var(--spacing-5) calc(var(--spacing-8) + 2 * var(--spacing-2)) var(--spacing-5) var(--spacing-5);
+  padding: var(--spacing-5) calc(var(--spacing-8) + 2 * var(--spacing-2)) var(--spacing-5)
+    var(--spacing-5);
   border-radius: var(--gh-radius-card);
   background-color: var(--color-syntax-background, var(--color-background-inverted));
   overflow-x: auto;

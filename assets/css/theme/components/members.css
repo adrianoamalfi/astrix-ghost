@@ -12,13 +12,17 @@
   border-radius: var(--radius-page);
   padding: clamp(var(--spacing-8), 6vw, var(--spacing-12));
   background:
-    radial-gradient(900px 400px at 90% -20%, color-mix(in oklab, var(--gh-accent-2) 12%, transparent), transparent),
+    radial-gradient(
+      900px 400px at 90% -20%,
+      color-mix(in oklab, var(--gh-accent-2) 12%, transparent),
+      transparent
+    ),
     var(--color-background-surface);
   overflow: hidden;
   text-align: center;
 }
 
-.gh-subscribe-band[data-astryx-banner="subscribe"] .gh-subscribe {
+.gh-subscribe-band[data-astryx-banner='subscribe'] .gh-subscribe {
   border: var(--border-width) solid color-mix(in oklab, var(--gh-accent) 24%, transparent);
 }
 
@@ -54,7 +58,7 @@
   margin-inline: auto;
 }
 
-.gh-members-form input[type="email"] {
+.gh-members-form input[type='email'] {
   flex-grow: 1;
   min-width: 0;
   min-height: var(--size-element-lg);
@@ -67,7 +71,7 @@
   font-family: inherit;
 }
 
-.gh-members-form input[type="email"]:focus-visible {
+.gh-members-form input[type='email']:focus-visible {
   outline: 2px solid var(--gh-accent-2-text);
   outline-offset: 1px;
   border-color: var(--gh-accent-2-text);
@@ -128,8 +132,16 @@
   border-radius: var(--radius-page);
   border: var(--border-width) solid color-mix(in oklab, var(--gh-accent) 38%, transparent);
   background:
-    radial-gradient(700px 260px at 50% -10%, color-mix(in oklab, var(--gh-accent) 26%, transparent), transparent),
-    linear-gradient(145deg, var(--color-background-surface), color-mix(in oklab, var(--color-background-surface) 90%, var(--gh-accent-2)));
+    radial-gradient(
+      700px 260px at 50% -10%,
+      color-mix(in oklab, var(--gh-accent) 26%, transparent),
+      transparent
+    ),
+    linear-gradient(
+      145deg,
+      var(--color-background-surface),
+      color-mix(in oklab, var(--color-background-surface) 90%, var(--gh-accent-2))
+    );
   color: var(--gh-upgrade-text);
   text-align: center;
 }
@@ -278,7 +290,7 @@
 }
 
 .gh-tier-benefits li::before {
-  content: "✓";
+  content: '✓';
   position: absolute;
   left: 0;
   color: var(--gh-accent-text);

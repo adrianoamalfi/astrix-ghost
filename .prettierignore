@@ -1,0 +1,16 @@
+node_modules
+dist
+assets/built
+assets/css/vendor
+package-lock.json
+
+# Ghost Handlebars templates: Prettier's glimmer parser mangles Ghost-specific
+# helpers ({{#foreach}}, {{> "partial"}}, subexpressions), so leave .hbs alone.
+**/*.hbs
+
+# Docs and generated content keep their own hand-formatting
+**/*.md
+.claude
+.impeccable
+demo
+docs

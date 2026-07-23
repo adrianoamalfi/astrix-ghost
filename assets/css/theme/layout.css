@@ -111,7 +111,13 @@
   content-visibility: auto;
 }
 
-.gh-related { contain-intrinsic-size: auto 480px; }
+.gh-related {
+  contain-intrinsic-size: auto 480px;
+}
 /* sized to the empty state (title + CTA); real threads re-measure on inject */
-.gh-comments { contain-intrinsic-size: auto 320px; }
-.gh-footer { contain-intrinsic-size: auto 320px; }
+.gh-comments {
+  contain-intrinsic-size: auto 320px;
+}
+.gh-footer {
+  contain-intrinsic-size: auto 320px;
+}

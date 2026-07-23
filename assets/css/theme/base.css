@@ -102,7 +102,7 @@ picture {
 }
 
 .gh-section-title::after {
-  content: "";
+  content: '';
   flex-grow: 1;
   height: 3px;
   border-radius: var(--radius-full);

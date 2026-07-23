@@ -40,7 +40,7 @@
 
 /* chevron: down when closed, up when open */
 .gh-toc-summary::after {
-  content: "";
+  content: '';
   flex-shrink: 0;
   width: 7px;
   height: 7px;

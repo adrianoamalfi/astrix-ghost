@@ -12,13 +12,13 @@
        theme.vars, theme.base, theme.layout, theme.components,
        theme.prose, theme.utilities;
 
-@import "theme/breakpoints.css";
-@import "theme/components/toc.css" layer(theme.components);
-@import "theme/components/progress.css" layer(theme.components);
-@import "theme/components/code-copy.css" layer(theme.components);
-@import "theme/components/lightbox.css" layer(theme.components);
-@import "theme/components/post-nav.css" layer(theme.components);
+@import 'theme/breakpoints.css';
+@import 'theme/components/toc.css' layer(theme.components);
+@import 'theme/components/progress.css' layer(theme.components);
+@import 'theme/components/code-copy.css' layer(theme.components);
+@import 'theme/components/lightbox.css' layer(theme.components);
+@import 'theme/components/post-nav.css' layer(theme.components);
 
-@import "theme/prose.css" layer(theme.prose);
+@import 'theme/prose.css' layer(theme.prose);
 
-@import "theme/koenig.css";
+@import 'theme/koenig.css';

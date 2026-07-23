@@ -10,7 +10,10 @@
   /* Accent as solid fill (buttons, badges, chips): raw on light, lifted on
      dark so a dark admin accent doesn't merge with the dark canvas. Pairs
      with --gh-on-accent. */
-  --gh-accent-fill: light-dark(var(--gh-accent), color-mix(in oklab, var(--gh-accent) 65%, var(--color-text-primary)));
+  --gh-accent-fill: light-dark(
+    var(--gh-accent),
+    color-mix(in oklab, var(--gh-accent) 65%, var(--color-text-primary))
+  );
   --gh-accent-hover: color-mix(in oklab, var(--gh-accent-fill), var(--color-text-primary) 16%);
   --gh-accent-muted: color-mix(in oklab, var(--gh-accent) 14%, transparent);
   --gh-accent-soft: color-mix(in oklab, var(--gh-accent) 8%, var(--color-background-body));
@@ -19,14 +22,21 @@
   --gh-accent-line: color-mix(in oklab, var(--gh-accent) 60%, var(--color-text-secondary));
   /* Accent as ink (text, icons, markers): raw accent on light, lifted
      toward the ink ramp on dark so a dark admin accent stays readable. */
-  --gh-accent-text: light-dark(var(--gh-accent), color-mix(in oklab, var(--gh-accent) 40%, var(--color-text-primary)));
+  --gh-accent-text: light-dark(
+    var(--gh-accent),
+    color-mix(in oklab, var(--gh-accent) 40%, var(--color-text-primary))
+  );
   --gh-on-accent: #fff;
 
   /* Readable secondary — Astryx's text-secondary lands at 4.2:1 on the body
      bg at body sizes (AA needs 4.5:1). Mixing toward text-primary fixes both
      schemes: darker on light, lighter on dark. Use for any secondary TEXT;
      keep raw --color-text-secondary for decorative mixes. */
-  --gh-text-secondary: color-mix(in oklab, var(--color-text-secondary) 72%, var(--color-text-primary));
+  --gh-text-secondary: color-mix(
+    in oklab,
+    var(--color-text-secondary) 72%,
+    var(--color-text-primary)
+  );
 
   /* Gold — the second voice. Two roles only: interaction feedback (hover,
      focus, selection) and value moments (premium, subscribe). Identity and
@@ -42,7 +52,9 @@
      out the system tail here instead of composing on top of it (which would
      duplicate Figtree). A Ghost Admin custom font still wins via the unlayered
      --gh-font-heading/body these only serve as the fallback for. */
-  --gh-font-fallback-tail: 'Figtree Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --gh-font-fallback-tail:
+    'Figtree Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
   --gh-font-heading-fallback: 'Figtree', var(--gh-font-fallback-tail);
   --gh-font-body-fallback: 'Figtree', var(--gh-font-fallback-tail);
 
