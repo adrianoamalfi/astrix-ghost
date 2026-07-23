@@ -19,8 +19,8 @@
                     <span class="gh-form-cta">{{t "Subscribe"}}</span>
                     <span class="gh-form-loading">{{t "Sending…"}}</span>
                 </button>
-                <p class="gh-form-feedback gh-form-feedback--success" id="gh-members-success">{{t "Great! Check your inbox and click the link to confirm."}}</p>
-                <p class="gh-form-feedback gh-form-feedback--error" id="gh-members-error" data-members-error></p>
+                <p class="gh-form-feedback gh-form-feedback--success" id="gh-members-success" role="status" aria-live="polite">{{t "Great! Check your inbox and click the link to confirm."}}</p>
+                <p class="gh-form-feedback gh-form-feedback--error" id="gh-members-error" data-members-error role="alert" aria-live="assertive"></p>
             </form>
         </div>
     </div>
