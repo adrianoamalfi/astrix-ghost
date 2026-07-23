@@ -28,8 +28,8 @@ Ghost caches templates: restart it after editing `.hbs` files.
 - **Source lives in `assets/css` and `assets/js`**; `assets/built/` is
   generated (commit the rebuilt bundles with your change).
 - **i18n**: every user-facing string goes through `{{t}}` with keys in both
-  `locales/en.json` and `locales/it.json`. New locales are very welcome —
-  copy `en.json` and translate.
+  `locales/en.json` and `locales/it.json`. New locales are very welcome — see
+  [Translations](#translations) below.
 - **Accessibility**: keep focus states, aria labels and 44px touch targets
   intact; `npm run check:a11y` guards the basics.
 
@@ -41,6 +41,27 @@ Ghost caches templates: restart it after editing `.hbs` files.
 4. Keep PRs focused — one concern per PR.
 
 CI runs the same `npm run check` on every PR.
+
+## Translations
+
+Locales live in `locales/<lang>.json`, keyed by
+[IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag) (`fr`,
+`de`, `es`, `pt-BR`, …). Ghost loads the file matching the site's
+**Publication language** (Settings → General), falling back to `en`.
+
+To add a language:
+
+1. Copy `locales/en.json` to `locales/<lang>.json` — keep every key, translate
+   only the values. Keep `{placeholders}` like `{page}` / `{siteTitle}` and
+   the `%` plural marker (`% posts`) intact.
+2. Run `npm run check:i18n`. It lists any keys your locale is still missing.
+   `en` and `it` are maintained locales and must be complete; any other locale
+   is treated as a community translation — the check reports how far behind it
+   is but never fails CI, so an untranslated key just falls back to English.
+3. Restart Ghost to pick up the new locale, then set the Publication language
+   to test it.
+4. Open a PR. Partial translations are fine — a mostly-translated locale beats
+   none, and later PRs can fill the gaps.
 
 ## Reporting bugs
 
