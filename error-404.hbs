@@ -1,7 +1,8 @@
 {{!< default}}
 
 <section class="gh-error gh-container">
-    <div class="gh-error-code">404</div>
+    <h1 class="u-visually-hidden">{{t "Page not found"}}</h1>
+    <div class="gh-error-code" aria-hidden="true">404</div>
     <p class="gh-error-description">{{t "The page you were looking for doesn't exist or has been moved."}}</p>
     <div class="gh-post-upgrade-actions">
         <a class="gh-button" href="{{@site.url}}">{{t "Back to home"}}</a>
