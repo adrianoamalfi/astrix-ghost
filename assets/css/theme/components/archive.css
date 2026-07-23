@@ -139,6 +139,15 @@
   font-size: var(--font-size-lg);
 }
 
+/* Own layout so the 404 no longer borrows the membership CTA's class */
+.gh-error-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+}
+
 /* --- Archive page (custom-archive.hbs) ------------------------------- */
 
 .gh-archive-tags,
