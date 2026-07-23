@@ -8,6 +8,8 @@ import { initLightbox } from './modules/lightbox.js';
 import { initComments } from './modules/comments.js';
 import { initArchive } from './modules/archive.js';
 import { initInfiniteScroll } from './modules/infinite-scroll.js';
+import { initBackToTop } from './modules/back-to-top.js';
+import { initShare } from './modules/share.js';
 
 initColorScheme();
 initToc();
@@ -19,3 +21,5 @@ initLightbox();
 initComments();
 initArchive();
 initInfiniteScroll();
+initBackToTop();
+initShare();

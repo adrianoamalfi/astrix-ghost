@@ -18,6 +18,7 @@
 @import 'theme/components/code-copy.css' layer(theme.components);
 @import 'theme/components/lightbox.css' layer(theme.components);
 @import 'theme/components/post-nav.css' layer(theme.components);
+@import 'theme/components/share.css' layer(theme.components);
 
 @import 'theme/prose.css' layer(theme.prose);
 

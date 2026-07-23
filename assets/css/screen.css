@@ -30,6 +30,7 @@
 @import 'theme/components/footer.css' layer(theme.components);
 @import 'theme/components/members.css' layer(theme.components);
 @import 'theme/components/pagination.css' layer(theme.components);
+@import 'theme/components/back-to-top.css' layer(theme.components);
 
 @import 'theme/utilities.css' layer(theme.utilities);
 @import 'theme/print.css' layer(theme.print);
