@@ -83,6 +83,15 @@
   display: inline-flex;
 }
 
+/* Defensive: while Portal is submitting, block a second click on the button.
+   Portal dedupes internally, but a slow request otherwise leaves the button
+   fully clickable. (aria-disabled/disabled would need JS the theme doesn't
+   ship — Portal owns the form's runtime state.) */
+.gh-members-form.loading .gh-button {
+  pointer-events: none;
+  cursor: progress;
+}
+
 .gh-form-feedback {
   display: none;
   flex-basis: 100%;
