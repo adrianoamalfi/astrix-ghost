@@ -1,0 +1,48 @@
+/* Floating back-to-top control (toggled via the `hidden` attribute by
+   back-to-top.js). Sits below the sticky header/overlays in the z-order. */
+.gh-back-to-top {
+  position: fixed;
+  right: clamp(var(--spacing-4), 4vw, var(--spacing-8));
+  bottom: clamp(var(--spacing-4), 4vw, var(--spacing-8));
+  bottom: max(clamp(var(--spacing-4), 4vw, var(--spacing-8)), env(safe-area-inset-bottom));
+  z-index: 40;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-element-lg);
+  height: var(--size-element-lg);
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-fill);
+  color: var(--gh-on-accent);
+  box-shadow: 0 6px 16px color-mix(in oklab, var(--gh-accent) 35%, transparent);
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.gh-back-to-top[hidden] {
+  display: none;
+}
+
+.gh-back-to-top svg {
+  width: 22px;
+  height: 22px;
+}
+
+.gh-back-to-top:hover {
+  background-color: var(--gh-accent-text);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gh-back-to-top {
+    transition: background-color var(--duration-fast) var(--ease-standard);
+  }
+
+  .gh-back-to-top:hover {
+    transform: none;
+  }
+}
