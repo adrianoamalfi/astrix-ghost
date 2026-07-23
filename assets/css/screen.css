@@ -9,7 +9,7 @@
  */
 @layer reset, astryx-base, astryx-theme,
        theme.vars, theme.base, theme.layout, theme.components,
-       theme.prose, theme.utilities;
+       theme.prose, theme.utilities, theme.print;
 
 @import "theme/fonts.css";
 @import "vendor/astryx-reset.css";
@@ -31,3 +31,4 @@
 @import "theme/components/pagination.css" layer(theme.components);
 
 @import "theme/utilities.css" layer(theme.utilities);
+@import "theme/print.css" layer(theme.print);
