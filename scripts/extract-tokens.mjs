@@ -51,10 +51,19 @@ copyFileSync(
   require.resolve('@astryxdesign/core/reset.css'),
   join(vendorDir, 'astryx-reset.css')
 );
-copyFileSync(
+// theme-neutral ships ~250 lines of .astryx-* component class rules
+// (heading / text / badge / button / banner / switch / progressbar / card /
+// section) that this theme never uses — it styles components via the
+// [data-astryx-*] attributes and bare elements instead. Strip those class
+// rules (~4 KB of dead CSS on every page); no rule mixes a class with an
+// attribute or element selector, so dropping whole .astryx-* blocks is safe.
+const themeNeutralCss = readFileSync(
   require.resolve('@astryxdesign/theme-neutral/theme.css'),
-  join(vendorDir, 'astryx-theme-neutral.css')
+  'utf8'
 );
+const strippedRules = (themeNeutralCss.match(/\.astryx-[^{}]*\{[^{}]*\}/g) || []).length;
+const themeNeutralLean = themeNeutralCss.replace(/[ \t]*\.astryx-[^{}]*\{[^{}]*\}\n?/g, '');
+writeFileSync(join(vendorDir, 'astryx-theme-neutral.css'), themeNeutralLean);
 
 const varCount = (readFileSync(join(vendorDir, 'astryx-tokens.css'), 'utf8').match(/--[\w-]+\s*:/g) || []).length;
-console.log(`extract-tokens: wrote astryx-tokens.css (${tokenRules.length} rules, ${varCount} custom properties), copied reset + theme-neutral.`);
+console.log(`extract-tokens: wrote astryx-tokens.css (${tokenRules.length} rules, ${varCount} custom properties), copied reset, theme-neutral (stripped ${strippedRules} unused .astryx-* rules).`);

@@ -253,253 +253,57 @@
     --shadow-inset-error: inset 0px 0px 0px 2px #e33f4a4D;
   }
 
-  .astryx-heading.level-1 {
-    font-family: var(--font-family-heading);
-    font-size: var(--text-heading-1-size);
-    font-weight: var(--text-heading-1-weight);
-    line-height: var(--text-heading-1-leading);
-  }
 
-  .astryx-heading.level-2 {
-    font-family: var(--font-family-heading);
-    font-size: var(--text-heading-2-size);
-    font-weight: var(--text-heading-2-weight);
-    line-height: var(--text-heading-2-leading);
-  }
 
-  .astryx-heading.level-3 {
-    font-family: var(--font-family-heading);
-    font-size: var(--text-heading-3-size);
-    font-weight: var(--text-heading-3-weight);
-    line-height: var(--text-heading-3-leading);
-  }
 
-  .astryx-heading.level-4 {
-    font-family: var(--font-family-heading);
-    font-size: var(--text-heading-4-size);
-    font-weight: var(--text-heading-4-weight);
-    line-height: var(--text-heading-4-leading);
-  }
 
-  .astryx-heading.level-5 {
-    font-family: var(--font-family-heading);
-    font-size: var(--text-heading-5-size);
-    font-weight: var(--text-heading-5-weight);
-    line-height: var(--text-heading-5-leading);
-  }
 
-  .astryx-heading.level-6 {
-    font-family: var(--font-family-heading);
-    font-size: var(--text-heading-6-size);
-    font-weight: var(--text-heading-6-weight);
-    line-height: var(--text-heading-6-leading);
-  }
 
-  .astryx-text.body {
-    font-family: var(--font-family-body);
-    font-size: var(--text-body-size);
-    line-height: var(--text-body-leading);
-  }
 
-  .astryx-text.large {
-    font-family: var(--font-family-body);
-    font-size: var(--text-large-size);
-    line-height: var(--text-large-leading);
-  }
 
-  .astryx-text.label {
-    font-family: var(--font-family-body);
-    font-size: var(--text-label-size);
-    line-height: var(--text-label-leading);
-  }
 
-  .astryx-text.code {
-    font-family: var(--font-family-code);
-    font-size: var(--text-code-size);
-    line-height: var(--text-code-leading);
-  }
 
-  .astryx-text.supporting {
-    font-family: var(--font-family-body);
-    font-size: var(--text-supporting-size);
-    line-height: var(--text-supporting-leading);
-  }
 
-  .astryx-text.display-1 {
-    font-family: var(--font-family-heading);
-    font-size: var(--text-display-1-size);
-    line-height: var(--text-display-1-leading);
-  }
 
-  .astryx-text.display-2 {
-    font-family: var(--font-family-heading);
-    font-size: var(--text-display-2-size);
-    line-height: var(--text-display-2-leading);
-  }
 
-  .astryx-text.display-3 {
-    font-family: var(--font-family-heading);
-    font-size: var(--text-display-3-size);
-    line-height: var(--text-display-3-leading);
-  }
 
-  .astryx-button.destructive {
-    background-color: var(--color-error-muted);
-    color: var(--color-error);
-  }
 
-  .astryx-badge.info {
-    background-color: light-dark(#0074e2, #6d9cfe);
-    color: light-dark(#ffffff, #171717);
-  }
 
-  .astryx-badge.neutral {
-    background-color: var(--color-background-gray);
-    color: var(--color-text-gray);
-  }
 
-  .astryx-badge.success {
-    background-color: light-dark(#198100, #64af4c);
-    color: light-dark(#ffffff, #171717);
-  }
 
-  .astryx-badge.warning {
-    background-color: #ffce2f;
-    color: #171717;
-  }
 
-  .astryx-badge.error {
-    background-color: light-dark(#e33f4a, #ff705d);
-    color: light-dark(#ffffff, #171717);
-  }
 
-  .astryx-badge.red {
-    background-color: var(--color-background-red);
-    color: var(--color-text-red);
-  }
 
-  .astryx-badge.orange {
-    background-color: var(--color-background-orange);
-    color: var(--color-text-orange);
-  }
 
-  .astryx-badge.yellow {
-    background-color: var(--color-background-yellow);
-    color: var(--color-text-yellow);
-  }
 
-  .astryx-badge.green {
-    background-color: var(--color-background-green);
-    color: var(--color-text-green);
-  }
 
-  .astryx-badge.teal {
-    background-color: var(--color-background-teal);
-    color: var(--color-text-teal);
-  }
 
-  .astryx-badge.cyan {
-    background-color: var(--color-background-cyan);
-    color: var(--color-text-cyan);
-  }
 
-  .astryx-badge.blue {
-    background-color: var(--color-background-blue);
-    color: var(--color-text-blue);
-  }
 
-  .astryx-badge.purple {
-    background-color: var(--color-background-purple);
-    color: var(--color-text-purple);
-  }
 
-  .astryx-badge.pink {
-    background-color: var(--color-background-pink);
-    color: var(--color-text-pink);
-  }
 
-  .astryx-badge.gray {
-    background-color: var(--color-background-gray);
-    color: var(--color-text-gray);
-  }
 
-  .astryx-banner.info {
-    background-color: var(--color-background-blue);
-    --color-accent-muted: transparent;
-    --color-text-primary: var(--color-text-blue);
-    --color-text-secondary: var(--color-text-blue);
-    --color-accent: var(--color-text-blue);
-  }
 
-  .astryx-banner.success {
-    --color-text-primary: var(--color-text-green);
-    --color-text-secondary: var(--color-text-green);
-    --color-success: var(--color-text-green);
-  }
 
-  .astryx-banner.warning {
-    --color-text-primary: var(--color-text-yellow);
-    --color-text-secondary: var(--color-text-yellow);
-    --color-warning: var(--color-text-yellow);
-  }
 
-  .astryx-banner.error {
-    --color-text-primary: var(--color-text-red);
-    --color-text-secondary: var(--color-text-red);
-    --color-error: var(--color-text-red);
-  }
 
-  .astryx-switch {
-    --color-background-gray: var(--color-border-emphasized);
-  }
 
-  .astryx-progressbar {
-    --color-background-muted: var(--color-border-emphasized);
-  }
 
-  .astryx-progressbar.accent {
-    --color-accent: #0074e2;
-  }
 
-  .astryx-progressbar.success {
-    --color-success: #198100;
-  }
 
-  .astryx-progressbar.warning {
-    --color-warning: #ffce2f;
-  }
 
-  .astryx-progressbar.error {
-    --color-error: #e33f4a;
-  }
 
-  .astryx-card {
-    --astryx-card-padding: var(--spacing-3);
-  }
 
-  .astryx-section {
-    --astryx-section-padding: var(--spacing-3);
-  }
 
-  .astryx-text.primary { color: var(--color-text-primary); }
 
-  .astryx-heading.primary { color: var(--color-text-primary); }
 
-  .astryx-text.secondary { color: var(--color-text-secondary); }
 
-  .astryx-heading.secondary { color: var(--color-text-secondary); }
 
-  .astryx-text.disabled { color: var(--color-text-disabled); }
 
-  .astryx-heading.disabled { color: var(--color-text-disabled); }
 
-  .astryx-text.placeholder { color: var(--color-text-secondary); }
 
-  .astryx-heading.placeholder { color: var(--color-text-secondary); }
 
-  .astryx-text.accent { color: var(--color-text-accent); }
 
-  .astryx-heading.accent { color: var(--color-text-accent); }
 }
 }
 
