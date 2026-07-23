@@ -29,6 +29,10 @@ const forbidden = [
   /^PRODUCT\.md$/,
   /^package-lock\.json$/,
   /^postcss\.config\.cjs$/,
+  /^test\//,
+  /^eslint\.config\./,
+  /^\.prettier/,
+  /^vitest\.config\./,
   /\.map$/,
 ];
 

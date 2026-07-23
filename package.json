@@ -179,7 +179,7 @@
     "check:a11y": "node scripts/check-a11y.mjs",
     "check": "npm run build && npm test && npm run check:i18n && npm run check:a11y && npm run test:unit && npm run lint && npm run format:check",
     "smoke": "node scripts/smoke-routes.mjs",
-    "zip": "npm run check && mkdir -p dist && rm -f dist/astrix.zip && zip -r dist/astrix.zip . -x \"node_modules/*\" \"dist/*\" \"scripts/*\" \"test/*\" \"assets/css/*\" \"assets/js/*\" \".git/*\" \".claude/*\" \"AGENTS.md\" \"VISUAL_QA.md\" \"PRODUCT.md\" \"DESIGN.md\" \".impeccable/*\" \".github/*\" \"docs/*\" \"demo/*\" \"CONTRIBUTING.md\" \"CODE_OF_CONDUCT.md\" \"SECURITY.md\" \"CHANGELOG.md\" \"postcss.config.cjs\" \"eslint.config.js\" \".prettierrc\" \".prettierignore\" \"package-lock.json\" \"*.map\" \".DS_Store\" \"*/.DS_Store\" \".gitignore\"",
+    "zip": "npm run check && mkdir -p dist && rm -f dist/astrix.zip && zip -r dist/astrix.zip . -x \"node_modules/*\" \"dist/*\" \"scripts/*\" \"test/*\" \"assets/css/*\" \"assets/js/*\" \".git/*\" \".claude/*\" \"AGENTS.md\" \"VISUAL_QA.md\" \"PRODUCT.md\" \"DESIGN.md\" \".impeccable/*\" \".github/*\" \"docs/*\" \"demo/*\" \"CONTRIBUTING.md\" \"CODE_OF_CONDUCT.md\" \"SECURITY.md\" \"CHANGELOG.md\" \"postcss.config.cjs\" \"eslint.config.mjs\" \".prettierrc\" \".prettierignore\" \"vitest.config.*\" \"package-lock.json\" \"*.map\" \".DS_Store\" \"*/.DS_Store\" \".gitignore\"",
     "release": "npm run zip && node scripts/release-summary.mjs"
   },
   "devDependencies": {
