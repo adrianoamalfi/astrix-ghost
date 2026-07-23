@@ -83,6 +83,19 @@ ghost restart
 Locale changes and `package.json` changes require a Ghost restart; template
 changes only need a browser refresh in development mode.
 
+### Vendor CSS and the `@astryxdesign` dependency
+
+The Astryx design system is a **build-time** dependency, not a runtime one.
+`npm run tokens` (part of `npm run build`) reads `@astryxdesign/core` and
+`@astryxdesign/theme-neutral` and writes the token / reset / theme CSS into
+`assets/css/vendor/`. **Those generated files are committed to the repo**, so
+the shippable theme (the `assets/built/` bundle and the upload zip) never
+depends on the packages being available — a checkout can be styled and zipped
+from the committed vendor CSS alone. You only need `npm run tokens` (and the
+`@astryxdesign` packages installed) when you deliberately bump the upstream
+design system. If the packages were ever unavailable on npm, editing theme CSS
+in `assets/css/theme/` and running `build:css` / `build:js` still works.
+
 Run `npm run check` before publishing changes. `npm run zip` runs the same
 validation before creating the upload package. The generated zip contains
 runtime assets only; source CSS/JS stays in the repository.
