@@ -3,6 +3,20 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.2.3 — Hotfix: 0.2.2 broke every page
+
+0.2.2 shipped a helper call written inside a CSS comment in the `<style>`
+block of `default.hbs`. Handlebars parses templates in full and knows nothing
+about CSS comments, so `{{asset}}` was evaluated with no argument and Ghost
+threw `assetPath.match is not a function` while rendering any page. Upgrade
+straight past 0.2.2.
+
+- Reword the comment so no helper call is left in a CSS context.
+- Emit the inline @font-face URL with a triple-stache: inside `<style>` HTML
+  entities are not decoded, so an escaped `=` would corrupt the `?v=` query.
+- Add template tests covering both failure modes. gscan compiles templates but
+  never invokes helpers, so nothing in the quality gate caught this.
+
 ## 0.2.2 — Critical-path fixes
 
 - Preload the homepage LCP feature image. It was already preloaded on posts
