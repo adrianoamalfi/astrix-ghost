@@ -17,7 +17,11 @@ straight past 0.2.2.
 - Add template tests covering both failure modes. gscan compiles templates but
   never invokes helpers, so nothing in the quality gate caught this.
 
-## 0.2.2 — Critical-path fixes
+## 0.2.2 — Critical-path fixes (withdrawn)
+
+Withdrawn: this release could not render any page (see 0.2.3). It was pulled
+from the releases page and its tag deleted. Everything below shipped in 0.2.3
+instead — kept here so the history stays readable.
 
 - Preload the homepage LCP feature image. It was already preloaded on posts
   and pages, but never on the home page, where the hero image was discovered
