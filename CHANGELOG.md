@@ -3,6 +3,19 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.2.2 — Critical-path fixes
+
+- Preload the homepage LCP feature image. It was already preloaded on posts
+  and pages, but never on the home page, where the hero image was discovered
+  mid-body. The `srcset`/`sizes` mirror the variant each `header_style`
+  actually renders, so the browser preloads the exact candidate it paints.
+- Stop downloading the Figtree Latin subset twice. The preload used the
+  version-hashed `{{asset}}` URL while the `@font-face` used a bare relative
+  `url()`; the two never matched, so the preloaded font was discarded and
+  fetched again. The primary Latin face now lives inline in `default.hbs` and
+  shares one URL with the preload.
+- Preconnect to `cdn.jsdelivr.net`, which serves Ghost Portal and sodo-search.
+
 ## 0.2.1 — Small fixes
 
 - Point the footer theme credit to `https://adrianoamalfi.com/astrix/`.
