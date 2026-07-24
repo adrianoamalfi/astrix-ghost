@@ -3,6 +3,23 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.2.4 — Correct LCP preload, clean audit
+
+- Fix the homepage preload for the Personal header style. When a hero portrait
+  is set it renders above the feed and *is* the LCP, but 0.2.3 preloaded the
+  first featured card instead — the wrong image, which cost an extra download
+  rather than saving one. The portrait now gets the preload, and the featured
+  card only when no portrait is set. Verified against a running Ghost: the LCP
+  image and the font are each fetched exactly once.
+- Patch three high-severity advisories in the build toolchain (`immutable`,
+  `brace-expansion`) via npm `overrides`. `npm audit fix --force` would have
+  downgraded browser-sync to 1.9.2, so the overrides are pinned instead and
+  browser-sync was smoke-tested on the newer immutable. Dev-only: no runtime
+  dependency ships with the theme. `npm audit` is now clean.
+- `npm run smoke` asserts that every LCP preload matches the image the page
+  actually renders. A mismatch is invisible to gscan and to the unit tests but
+  silently doubles a download, so it needs a live render to catch.
+
 ## 0.2.3 — Hotfix: 0.2.2 broke every page
 
 0.2.2 shipped a helper call written inside a CSS comment in the `<style>`

@@ -22,6 +22,52 @@ function fail(message) {
   process.exitCode = 1;
 }
 
+const collapse = (value) => value.replace(/\s+/g, ' ').trim();
+
+function attr(tag, name) {
+  const match = tag.match(new RegExp(`${name}="([\\s\\S]*?)"`));
+  return match ? collapse(match[1]) : null;
+}
+
+/*
+ * An LCP preload only helps if it names the exact candidate the page paints.
+ * Get the srcset or sizes wrong and the browser downloads a second image
+ * instead of reusing the preloaded one — worse than no preload at all. This
+ * compares the <link rel=preload as=image> against the first AVIF <source>,
+ * which is the element the preload is meant to mirror. Only a live render
+ * catches a mismatch, which is why it lives here and not in the unit tests.
+ */
+function checkPreloadMatchesRender(name, path, html) {
+  const preloads = html.match(/<link rel="preload" as="image"[\s\S]*?>/g) || [];
+  if (preloads.length === 0) return;
+
+  if (preloads.length > 1) {
+    fail(`${name} ${path} emits ${preloads.length} image preloads, expected at most 1`);
+    return;
+  }
+
+  const source = (html.match(/<source type="image\/avif"[\s\S]*?>/) || [])[0];
+  if (!source) {
+    fail(`${name} ${path} preloads an image but renders no AVIF source to match it`);
+    return;
+  }
+
+  for (const [preloadAttr, renderAttr] of [
+    ['imagesrcset', 'srcset'],
+    ['imagesizes', 'sizes'],
+  ]) {
+    const preloaded = attr(preloads[0], preloadAttr);
+    const rendered = attr(source, renderAttr);
+    if (preloaded !== rendered) {
+      fail(
+        `${name} ${path} preload ${preloadAttr} does not match the rendered ${renderAttr}\n` +
+          `    preload: ${preloaded}\n` +
+          `    render : ${rendered}`,
+      );
+    }
+  }
+}
+
 for (const route of routes) {
   const url = new URL(route.path, baseUrl);
   let response;
@@ -54,6 +100,7 @@ for (const route of routes) {
         fail(`${route.name} ${route.path} missing ${label}`);
       }
     }
+    checkPreloadMatchesRender(route.name, route.path, html);
   }
 
   console.log(`smoke: ${route.name} ${route.path} ${response.status}`);

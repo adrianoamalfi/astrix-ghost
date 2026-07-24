@@ -1,7 +1,7 @@
 {
   "name": "astrix",
   "description": "A free, open-source Ghost CMS theme for image-led blogs, magazines, publishers, and membership sites.",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "author": {
     "name": "Adriano Amalfi",
@@ -187,6 +187,10 @@
     "smoke": "node scripts/smoke-routes.mjs",
     "zip": "npm run check && mkdir -p dist && rm -f dist/astrix.zip && zip -r dist/astrix.zip . -x \"node_modules/*\" \"dist/*\" \"scripts/*\" \"test/*\" \"assets/css/*\" \"assets/js/*\" \".git/*\" \".claude/*\" \"AGENTS.md\" \"VISUAL_QA.md\" \"PRODUCT.md\" \"DESIGN.md\" \".impeccable/*\" \".github/*\" \"docs/*\" \"demo/*\" \"CONTRIBUTING.md\" \"CODE_OF_CONDUCT.md\" \"SECURITY.md\" \"CHANGELOG.md\" \"postcss.config.cjs\" \"eslint.config.mjs\" \".prettierrc\" \".prettierignore\" \"vitest.config.*\" \"package-lock.json\" \"*.map\" \".DS_Store\" \"*/.DS_Store\" \".gitignore\"",
     "release": "npm run zip && node scripts/release-summary.mjs"
+  },
+  "overrides": {
+    "brace-expansion@1": "^1.1.16",
+    "immutable": "^4.3.9"
   },
   "devDependencies": {
     "@astryxdesign/cli": "^0.1.3",
