@@ -22,3 +22,12 @@
   text-transform: uppercase;
   color: var(--gh-accent-text);
 }
+
+/* On a forced-dark media band the kicker sits on a photograph, and an
+   admin-chosen accent has no contrast contract with an arbitrary image
+   (measured 2.25:1 at 12px on a real cover). Primary ink instead. The
+   override lives here, next to the utility: theme.utilities outranks
+   theme.components in the layer order, so a component rule cannot win. */
+[data-astryx-media='dark'] .u-kicker {
+  color: var(--color-text-primary);
+}

@@ -1,0 +1,42 @@
+/*
+ * Author avatar. Shared by the post/page byline and the author archive, so it
+ * belongs to screen.css — which every context loads. It used to live in
+ * prose.css, imported only by post.css: on the author page the base rules never
+ * arrived, and the avatar rendered as an unclipped, unmasked square (computed
+ * `border-radius: 0` / `object-fit: fill`), with the fallback printing the whole
+ * name instead of its initial. Surfaces set --gh-avatar-size; nothing else.
+ */
+.gh-author-avatar {
+  --gh-avatar-size: 36px;
+  --gh-avatar-ring: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: var(--gh-avatar-size);
+  height: var(--gh-avatar-size);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: var(--gh-avatar-ring) solid var(--color-background-body);
+}
+
+/*
+ * No profile image: the template prints the full name and CSS keeps only its
+ * initial. ::first-letter applies to block containers only, so the fallback
+ * cannot be the inline-flex box that centres the <img> — as flex the rule is
+ * inert, font-size: 0 wins, and the circle paints empty. inline-block plus a
+ * line-height matched to the content box does the centring instead.
+ */
+.gh-author-avatar--fallback {
+  display: inline-block;
+  line-height: calc(var(--gh-avatar-size) - 2 * var(--gh-avatar-ring));
+  text-align: center;
+  background-color: var(--gh-accent-muted);
+  color: var(--color-text-primary);
+  font-size: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.gh-author-avatar--fallback::first-letter {
+  font-size: var(--font-size-sm);
+}

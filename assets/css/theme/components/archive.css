@@ -90,30 +90,102 @@
   font-weight: var(--font-weight-medium);
 }
 
+/* --- Author masthead ------------------------------------------------- */
+
+/* No cover_image: the band still needs to read as a masthead, so it gets its
+   own surface over the canvas plus the accent wash used by the intro hero.
+   Depth by contrast and hairline, never shadow. */
+.gh-author-band--plain {
+  background:
+    radial-gradient(1200px 480px at 88% -20%, var(--gh-accent-muted), transparent),
+    var(--color-background-surface);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+/* The avatar's 2px ring exists to separate stacked bylines from the page
+   background; on this band that background is the surface, so it has to match
+   or it reads as a stray grey halo. The media ring does the edge work. */
+.gh-author-band--plain .gh-author-avatar {
+  border-color: var(--color-background-surface);
+}
+
+/* With a cover the band carries a bio and a meta line, not just a title, so it
+   is taller and its scrim is deeper than the tag archive's. */
+.gh-author-band.gh-archive-header--image {
+  min-height: clamp(320px, 32vw, 420px);
+}
+
+/* Measured against a bright cover, not eyeballed: the identity block sits in
+   the lower half, so that half has to stay dark enough for 17px body text and
+   a 12px kicker (4.5:1), while the top still reads as a photograph. */
+.gh-author-band.gh-archive-header--image .gh-archive-scrim {
+  background:
+    /* top vignette: the breadcrumbs sit against the brightest part of most
+       covers, where the bottom-up scrim has all but faded out */
+    linear-gradient(to bottom, rgb(0 0 0 / 0.55) 0%, rgb(0 0 0 / 0.12) 28%, transparent 45%),
+    linear-gradient(
+      to top,
+      rgb(0 0 0 / 0.9) 0%,
+      rgb(0 0 0 / 0.78) 30%,
+      rgb(0 0 0 / 0.58) 60%,
+      rgb(0 0 0 / 0.25) 100%
+    );
+}
+
+/* Over a photograph the secondary bio and breadcrumbs lose their footing — a
+   mid-grey has no contract with an arbitrary image. Both go to primary ink;
+   hierarchy is carried by size, not by tint. The kicker needs the same
+   treatment but is a utility, so its override lives in utilities.css. */
+.gh-author-band.gh-archive-header--image .gh-archive-description,
+.gh-author-band.gh-archive-header--image .gh-breadcrumbs {
+  color: var(--color-text-primary);
+}
+
 .gh-author-header {
   display: flex;
   align-items: center;
-  gap: var(--spacing-6);
+  gap: clamp(var(--spacing-5), 4vw, var(--spacing-8));
+  min-width: 0;
+}
+
+.gh-author-identity {
   min-width: 0;
 }
 
 .gh-author-header .gh-author-avatar {
-  width: 96px;
-  height: 96px;
+  --gh-avatar-size: clamp(88px, 9vw, 128px);
+  flex: 0 0 auto;
   outline: var(--gh-media-ring);
   outline-offset: -1px;
+}
+
+/* The initial has to scale with the avatar; the 36px byline size would float
+   in the middle of a 128px circle. */
+.gh-author-header .gh-author-avatar--fallback::first-letter {
+  font-size: var(--gh-display-3);
+}
+
+.gh-author-header .gh-archive-description {
+  max-width: 60ch;
 }
 
 .gh-author-links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-3);
-  margin-top: var(--spacing-3);
+  gap: var(--spacing-1);
+  /* optical alignment: the round icon buttons carry inner padding */
+  margin: var(--spacing-3) 0 0 calc(-1 * var(--spacing-2));
 }
 
 .gh-author-links[data-astryx-overflow-list] {
   align-items: center;
   max-width: 100%;
+}
+
+/* An author with no accounts of their own would otherwise leave an empty flex
+   box holding its top margin open. */
+.gh-author-links:not(:has(a)) {
+  display: none;
 }
 
 .gh-error {
@@ -243,6 +315,10 @@
     min-height: 280px;
   }
 
+  .gh-author-band.gh-archive-header--image {
+    min-height: 300px;
+  }
+
   .gh-author-header {
     align-items: flex-start;
     gap: var(--spacing-5);
@@ -262,13 +338,26 @@
     font-size: var(--font-size-base);
   }
 
+  .gh-author-band.gh-archive-header--image {
+    min-height: 260px;
+  }
+
+  /* Stacked, the identity block fills most of the band, so the readable zone
+     has to reach much higher than it does on a wide viewport. */
+  .gh-author-band.gh-archive-header--image .gh-archive-scrim {
+    background:
+      linear-gradient(to bottom, rgb(0 0 0 / 0.55) 0%, rgb(0 0 0 / 0.2) 22%, transparent 40%),
+      linear-gradient(
+        to top,
+        rgb(0 0 0 / 0.9) 0%,
+        rgb(0 0 0 / 0.82) 45%,
+        rgb(0 0 0 / 0.66) 75%,
+        rgb(0 0 0 / 0.35) 100%
+      );
+  }
+
   .gh-author-header {
     flex-direction: column;
     gap: var(--spacing-4);
-  }
-
-  .gh-author-header .gh-author-avatar {
-    width: 80px;
-    height: 80px;
   }
 }

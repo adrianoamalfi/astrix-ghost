@@ -367,6 +367,7 @@
 }
 
 .gh-card-meta .gh-meta-author-avatar {
+  --gh-avatar-size: var(--spacing-6);
   width: var(--spacing-6);
   height: var(--spacing-6);
   flex-basis: var(--spacing-6);
@@ -381,7 +382,13 @@
   object-fit: cover;
 }
 
+/* Same block-container constraint as .gh-author-avatar--fallback: ::first-letter
+   never applies to a flex box, so the initial only paints on an inline-block
+   centred by line-height. See components/avatar.css. */
 .gh-meta-author-avatar--fallback {
+  display: inline-block;
+  line-height: calc(var(--gh-avatar-size, var(--spacing-7)) - 2 * var(--border-width) * 2);
+  text-align: center;
   background-color: var(--gh-accent-muted);
   color: var(--color-text-primary);
   font-size: 0;

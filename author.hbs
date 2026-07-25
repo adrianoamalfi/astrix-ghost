@@ -1,31 +1,66 @@
 {{!< default}}
 
 {{#author}}
-<header class="gh-archive-header">
+{{!-- Author masthead. With a cover_image it becomes the same full-bleed poster
+      band the tag archive uses (backdrop + scrim, forced dark so tokens resolve
+      against the photo); without one — the common case, since Ghost leaves
+      cover_image empty by default — it sits on a surface band with a faint
+      accent wash, the same treatment as the intro hero on the homepage. --}}
+<header class="gh-archive-header gh-author-band{{#if cover_image}} gh-archive-header--image{{else}} gh-author-band--plain{{/if}}"{{#if cover_image}} data-astryx-media="dark"{{/if}}>
+    {{#if cover_image}}
+        <div class="gh-archive-backdrop">
+            <picture>
+                <source type="image/avif"
+                    srcset="{{img_url cover_image size="m" format="avif"}} 640w,
+                            {{img_url cover_image size="l" format="avif"}} 1024w,
+                            {{img_url cover_image size="xl" format="avif"}} 1920w"
+                    sizes="100vw">
+                <img
+                    srcset="{{img_url cover_image size="m" format="webp"}} 640w,
+                            {{img_url cover_image size="l" format="webp"}} 1024w,
+                            {{img_url cover_image size="xl" format="webp"}} 1920w"
+                    sizes="100vw"
+                    src="{{img_url cover_image size="xl" format="webp"}}"
+                    width="1920" height="1080"
+                    alt="" loading="eager" fetchpriority="high" decoding="async">
+            </picture>
+        </div>
+        <div class="gh-archive-scrim"></div>
+    {{/if}}
     <div class="gh-archive-inner">
         {{> "breadcrumbs"}}
 
         <div class="gh-author-header">
+            {{!-- alt="" / aria-hidden: the name sits in the h1 right beside the
+                  avatar, so a described image would announce it twice. --}}
             {{#if profile_image}}
-                <img class="gh-author-avatar" data-astryx-avatar="lg" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
+                <img class="gh-author-avatar" data-astryx-avatar="lg"
+                    srcset="{{img_url profile_image size="s" format="webp"}} 320w,
+                            {{img_url profile_image size="m" format="webp"}} 640w"
+                    sizes="(max-width: 640px) 88px, 128px"
+                    src="{{img_url profile_image size="s" format="webp"}}"
+                    width="320" height="320"
+                    alt="" loading="eager" decoding="async">
             {{else}}
                 <span class="gh-author-avatar gh-author-avatar--fallback" data-astryx-avatar="lg" aria-hidden="true">{{name}}</span>
             {{/if}}
-            <div>
+            <div class="gh-author-identity">
                 <span class="u-kicker">{{t "Author"}}</span>
                 <h1 class="gh-archive-title">{{name}}</h1>
                 {{#if bio}}
                     <p class="gh-archive-description">{{bio}}</p>
                 {{/if}}
+                <p class="gh-archive-meta">
+                    {{#if location}}<span>{{location}}</span> <span aria-hidden="true">·</span> {{/if}}<span>{{plural ../pagination.total empty=(t "No posts") singular=(t "% post") plural=(t "% posts")}}</span>
+                </p>
+                {{!-- The author's own accounts only. The publication's social
+                      accounts live in the footer, on every page; repeating them
+                      here would read as if they belonged to this person. --}}
                 <div class="gh-author-links" data-astryx-overflow-list>
-                    {{#if location}}<span class="gh-archive-meta">{{location}}</span>{{/if}}
-                    {{#if website}}<a class="gh-tag-chip" href="{{website}}" target="_blank" rel="me noopener noreferrer">{{t "Website"}}</a>{{/if}}
-                    {{#if twitter}}<a class="gh-tag-chip" href="{{social_url type="twitter"}}" target="_blank" rel="me noopener noreferrer">{{t "Twitter"}}</a>{{/if}}
-                    {{#if facebook}}<a class="gh-tag-chip" href="{{social_url type="facebook"}}" target="_blank" rel="me noopener noreferrer">{{t "Facebook"}}</a>{{/if}}
+                    {{#if website}}<a class="gh-icon-button" href="{{website}}" target="_blank" rel="me noopener noreferrer" aria-label="{{t "Website"}}" data-tooltip>{{> "icons/social/globe"}}</a>{{/if}}
+                    {{#if twitter}}<a class="gh-icon-button" href="{{social_url type="twitter"}}" target="_blank" rel="me noopener noreferrer" aria-label="{{t "X (Twitter)"}}" data-tooltip>{{> "icons/social/x"}}</a>{{/if}}
+                    {{#if facebook}}<a class="gh-icon-button" href="{{social_url type="facebook"}}" target="_blank" rel="me noopener noreferrer" aria-label="{{t "Facebook"}}" data-tooltip>{{> "icons/social/facebook"}}</a>{{/if}}
                 </div>
-                {{!-- Site-wide icon links, incl. the custom accounts (GitHub,
-                      Hugging Face, email, custom URL) Ghost doesn't manage. --}}
-                {{> "social-links"}}
             </div>
         </div>
     </div>

@@ -113,7 +113,10 @@
   min-width: 0;
 }
 
-.gh-meta-author > span {
+/* The truncation belongs to the name span only. Without the :not() it also
+   caught the no-photo avatar, whose font-size is 0 — making 28ch resolve to 0
+   and collapsing the circle to its 4px of border. */
+.gh-meta-author > span:not(.gh-meta-author-avatar) {
   min-width: 0;
   max-width: 28ch;
   overflow: hidden;
@@ -122,6 +125,7 @@
 }
 
 .gh-meta-author-avatar {
+  --gh-avatar-size: var(--spacing-7);
   width: var(--spacing-7);
   height: var(--spacing-7);
   flex: 0 0 var(--spacing-7);
@@ -243,7 +247,7 @@
     max-width: 100%;
   }
 
-  .gh-meta-author > span {
+  .gh-meta-author > span:not(.gh-meta-author-avatar) {
     max-width: calc(100vw - (2 * var(--spacing-4)) - var(--spacing-8));
   }
 }

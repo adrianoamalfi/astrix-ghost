@@ -24,6 +24,7 @@
 @import 'theme/components/buttons.css' layer(theme.components);
 @import 'theme/components/header.css' layer(theme.components);
 @import 'theme/components/breadcrumbs.css' layer(theme.components);
+@import 'theme/components/avatar.css' layer(theme.components);
 @import 'theme/components/hero.css' layer(theme.components);
 @import 'theme/components/cards.css' layer(theme.components);
 @import 'theme/components/archive.css' layer(theme.components);

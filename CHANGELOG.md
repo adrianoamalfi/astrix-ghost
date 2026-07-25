@@ -3,6 +3,37 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.2.5 — Author page
+
+- The author masthead now uses the author's `cover_image`: a full-bleed poster
+  band with the same backdrop/scrim mechanics as the tag archive, forced dark,
+  with the cover preloaded from `<head>` as the LCP. Without a cover — Ghost's
+  default — the band sits on the page surface with a faint accent wash instead
+  of dissolving into the canvas. Every text layer over a cover was measured
+  against the brightest image on the site rather than eyeballed: kicker, title,
+  bio and meta all clear WCAG AA at the worst pixel, on mobile and desktop.
+- Fix the author avatar, which never received its base styles. They lived in
+  `prose.css`, which only `post.css` imports and which `default.hbs` loads on
+  `post, page` alone — so on the author page the avatar rendered as an
+  unclipped square with `object-fit: fill`, stretching any non-square photo.
+  They now live in `components/avatar.css`, loaded by `screen.css` everywhere.
+  The avatar is also fluid (88→128px), served with a `srcset`, and eagerly
+  fetched, since it is the LCP on a coverless author page.
+- Fix the no-photo fallback avatar in both the author masthead and post
+  bylines. `::first-letter` never applies to a flex box, so `font-size: 0` hid
+  the name and nothing replaced it: the circle painted empty. In cards the
+  circle collapsed entirely, because the name-truncation rule also caught the
+  avatar and `28ch` at `font-size: 0` resolves to `max-width: 0`.
+- The author header shows the author's own accounts only. It used to repeat
+  the publication's full social row — the same icons the footer already
+  carries on every page — under a person's name, which read as theirs.
+- Add the post count (and location, when set) to the author masthead, and stop
+  reserving space for a links row that has no links.
+- The kicker over a photo band (author and tag alike) goes to primary ink. In
+  `--gh-accent-text` on a real cover it measured 2.25:1 at 12px: the admin
+  accent has no contrast contract with an arbitrary image, which is exactly
+  what the Derived Accent Rule is about.
+
 ## 0.2.4 — Correct LCP preload, clean audit
 
 - Fix the homepage preload for the Personal header style. When a hero portrait

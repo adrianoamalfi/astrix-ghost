@@ -61,28 +61,8 @@
   min-width: 0;
 }
 
-.gh-author-avatar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-full);
-  object-fit: cover;
-  border: 2px solid var(--color-background-body);
-}
-
-.gh-author-avatar--fallback {
-  background-color: var(--gh-accent-muted);
-  color: var(--color-text-primary);
-  font-size: 0;
-  font-weight: var(--font-weight-bold);
-}
-
-.gh-author-avatar--fallback::first-letter {
-  font-size: var(--font-size-sm);
-}
+/* .gh-author-avatar lives in components/avatar.css — the author archive needs
+   it too, and only screen.css is loaded everywhere. */
 
 .gh-article-authors a {
   font-weight: var(--font-weight-semibold);
