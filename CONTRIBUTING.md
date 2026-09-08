@@ -49,6 +49,9 @@ Locales live in `locales/<lang>.json`, keyed by
 `de`, `es`, `pt-BR`, …). Ghost loads the file matching the site's
 **Publication language** (Settings → General), falling back to `en`.
 
+Shipped today: `en` and `it` (maintained), plus `de`, `es`, `fr`, `pt` and
+`nl` as community translations. Corrections and new languages are welcome.
+
 To add a language:
 
 1. Copy `locales/en.json` to `locales/<lang>.json` — keep every key, translate
