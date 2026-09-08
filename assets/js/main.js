@@ -1,25 +1,18 @@
+/*
+ * Astrix — site-wide JavaScript, loaded on every page from default.hbs.
+ * Post/page-only modules (toc, progress, code-copy, heading-anchors,
+ * lightbox, share) live in post.js, loaded conditionally on those contexts.
+ */
 import { initColorScheme } from './modules/color-scheme.js';
-import { initToc } from './modules/toc.js';
-import { initProgress } from './modules/progress.js';
 import { initNav } from './modules/nav.js';
-import { initCodeCopy } from './modules/code-copy.js';
-import { initHeadingAnchors } from './modules/heading-anchors.js';
-import { initLightbox } from './modules/lightbox.js';
 import { initComments } from './modules/comments.js';
 import { initArchive } from './modules/archive.js';
 import { initInfiniteScroll } from './modules/infinite-scroll.js';
 import { initBackToTop } from './modules/back-to-top.js';
-import { initShare } from './modules/share.js';
 
 initColorScheme();
-initToc();
-initProgress();
 initNav();
-initCodeCopy();
-initHeadingAnchors();
-initLightbox();
 initComments();
 initArchive();
 initInfiniteScroll();
 initBackToTop();
-initShare();

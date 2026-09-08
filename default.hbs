@@ -97,6 +97,7 @@
     </button>
 
     <script defer src="{{asset "built/main.js"}}"></script>
+    {{#is "post, page"}}<script defer src="{{asset "built/post.js"}}"></script>{{/is}}
     {{ghost_foot}}
 </body>
 </html>
