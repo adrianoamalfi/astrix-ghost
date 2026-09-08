@@ -19,7 +19,7 @@
                         sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
                         src="{{img_url feature_image size="m" format="webp"}}"
                         width="1200" height="800"
-                        alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                        alt="{{feature_image_alt}}"
                         {{#has index="0"}}{{#unless force_lazy}}loading="eager" fetchpriority="high"{{else}}loading="lazy"{{/unless}}{{else}}loading="lazy"{{/has}}
                         decoding="async"
                         style="view-transition-name: gh-post-{{id}}"
@@ -60,7 +60,7 @@
                         <span class="gh-meta-author">
                             {{#match @custom.show_author_meta "Name and avatar"}}
                                 {{#if profile_image}}
-                                    <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
+                                    <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="" loading="lazy" decoding="async">
                                 {{else}}
                                     <span class="gh-meta-author-avatar gh-meta-author-avatar--fallback" aria-hidden="true">{{name}}</span>
                                 {{/if}}

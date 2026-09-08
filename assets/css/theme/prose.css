@@ -78,7 +78,15 @@
 
 .gh-article-image img {
   width: 100%;
-  height: auto;
+  /* Ghost can't expose the real image dimensions to the template, so the
+     width/height attributes are a fixed 1920×1080. With height:auto that made
+     the browser reserve a 16:9 box, then reflow to the true ratio on load — a
+     CLS hit on the LCP element for every non-16:9 feature image. A fixed
+     aspect-ratio here overrides the attribute ratio: the reserved box is
+     always right, at the cost of cropping non-3:2 images (consistent with the
+     hero and card media, which already crop). */
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
   border-radius: var(--gh-radius-media);
   outline: var(--gh-media-ring);
   outline-offset: -1px;

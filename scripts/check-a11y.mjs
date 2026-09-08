@@ -41,6 +41,18 @@ for (const file of walk('.')) {
     const line = lineNumber(content, match.index);
     if (!/\salt=/.test(tag)) errors.push(`${file}:${line} image missing alt`);
     if (!/\sdecoding=/.test(tag)) errors.push(`${file}:${line} image missing decoding`);
+
+    // An image whose alt is the post title or author name repeats text that
+    // sits right next to it (the <h1>/card link, the byline link), so a screen
+    // reader announces it twice. Those images are decorative-adjacent and must
+    // carry alt="". {{@site.title}} on the logo is fine — there the image *is*
+    // the link's only content.
+    const alt = tag.match(/\salt="([^"]*)"/)?.[1];
+    if (alt && /\{\{\s*(?:title|name)\s*\}\}/.test(alt)) {
+      errors.push(
+        `${file}:${line} image alt is {{title}}/{{name}} — use alt="" when the same text is adjacent`,
+      );
+    }
   }
 
   for (const match of content.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g)) {

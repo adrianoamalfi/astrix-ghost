@@ -28,6 +28,14 @@
         imagesrcset="{{img_url cover_image size="m" format="avif"}} 640w, {{img_url cover_image size="l" format="avif"}} 1024w, {{img_url cover_image size="xl" format="avif"}} 1920w"
         imagesizes="100vw">
 {{/if}}{{/with}}{{/is}}
+{{!-- Tag archive: same as the author band — the feature_image backdrop is the
+      LCP whenever the tag has one. Mirrors the <picture> in tag.hbs. --}}
+{{#is "tag"}}{{#with tag}}{{#if feature_image}}
+    <link rel="preload" as="image" fetchpriority="high" type="image/avif"
+        href="{{img_url feature_image size="xl" format="avif"}}"
+        imagesrcset="{{img_url feature_image size="m" format="avif"}} 640w, {{img_url feature_image size="l" format="avif"}} 1024w, {{img_url feature_image size="xl" format="avif"}} 1920w"
+        imagesizes="100vw">
+{{/if}}{{/with}}{{/is}}
 {{!-- Homepage LCP. Which element that is depends on @custom.header_style: the
       Personal portrait when one is set, otherwise the first featured post's
       feature_image (via post-hero, or the first post-card in the Personal
