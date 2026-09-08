@@ -54,7 +54,8 @@ them through a Cloudflare Tunnel — see [demo/README.md](demo/README.md).
 - **Membership-ready** — subscribe forms, Portal integration, tier-aware gated-content CTAs, `custom-membership` page template with a pricing grid.
 - **Reading experience** — sticky table of contents with scrollspy, reading progress bar, related posts, native Ghost comments, ~68ch measure with fluid prose scale.
 - **Native Ghost search** (sodo-search) and styled Koenig cards (callouts, bookmarks, galleries, toggles, signup, product, audio/video/file…).
-- **i18n** — Italian and English locales; every UI string goes through `{{t}}`.
+- **i18n** — English and Italian (maintained) plus German, Spanish, French,
+  Portuguese and Dutch; every UI string goes through `{{t}}`.
 - Ghost **custom fonts** supported (`--gh-font-heading` / `--gh-font-body`).
 
 ## Browser support
