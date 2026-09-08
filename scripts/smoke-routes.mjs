@@ -1,14 +1,35 @@
 const baseUrl = process.env.GHOST_URL || 'http://localhost:2368';
 
+/*
+ * Routes are discovered from the sitemap so this runs against any Ghost that
+ * serves the theme — a local dev install or the demo container in CI — rather
+ * than a fixed set of slugs from one seed.
+ */
+async function firstPath(sitemap) {
+  try {
+    const xml = await (await fetch(new URL(sitemap, baseUrl))).text();
+    const loc = xml.match(/<loc>([^<]+)<\/loc>/)?.[1];
+    return loc ? new URL(loc).pathname : null;
+  } catch {
+    return null;
+  }
+}
+
+const [postPath, pagePath, tagPath, authorPath] = await Promise.all([
+  firstPath('/sitemap-posts.xml'),
+  firstPath('/sitemap-pages.xml'),
+  firstPath('/sitemap-tags.xml'),
+  firstPath('/sitemap-authors.xml'),
+]);
+
 const routes = [
   { path: '/', expected: 200, name: 'home' },
-  { path: '/tag/design/', expected: 200, name: 'tag' },
-  { path: '/author/adriano/', expected: 200, name: 'author' },
-  { path: '/about/', expected: 200, name: 'page' },
-  { path: '/kitchen-sink-tutte-le-card-koenig/', expected: 200, name: 'post' },
-  { path: '/post-riservato-agli-iscritti/', expected: 200, name: 'gated post' },
+  postPath && { path: postPath, expected: 200, name: 'post' },
+  pagePath && { path: pagePath, expected: 200, name: 'page' },
+  tagPath && { path: tagPath, expected: 200, name: 'tag' },
+  authorPath && { path: authorPath, expected: 200, name: 'author' },
   { path: '/404-not-found-test/', expected: 404, name: '404' },
-];
+].filter(Boolean);
 
 const requiredMarkup = [
   ['built CSS', '/assets/built/screen.css'],

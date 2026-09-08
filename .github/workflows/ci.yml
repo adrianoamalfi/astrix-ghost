@@ -19,6 +19,47 @@ jobs:
       - run: npm ci
       - run: npm run check
 
+  # Render the theme in a real Ghost (one demo publication) and check the final
+  # DOM: axe-core (contrast, heading order, names, ARIA) in light and dark, the
+  # route smoke test, and a layout-shift budget. Everything in `check` is static
+  # analysis of the .hbs sources; this is the only job that sees what Ghost
+  # actually paints.
+  rendered:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Boot a Ghost demo publication
+        working-directory: demo
+        run: docker compose up -d vellum
+      - name: Wait for Ghost to answer
+        run: |
+          for i in $(seq 1 90); do
+            curl -sf -o /dev/null http://localhost:8082/ && exit 0
+            sleep 2
+          done
+          echo "::error::Ghost did not come up on :8082"
+          docker compose -f demo/docker-compose.yml logs --no-color
+          exit 1
+      - name: Smoke routes
+        run: GHOST_URL=http://localhost:8082 node scripts/smoke-routes.mjs
+      - name: Rendered a11y + CLS
+        run: GHOST_URL=http://localhost:8082 node scripts/check-rendered.mjs
+      - name: Ghost logs
+        if: always()
+        run: docker compose -f demo/docker-compose.yml logs --no-color > ghost-demo.log || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ghost-demo-log
+          path: ghost-demo.log
+          if-no-files-found: ignore
+
   # On version tags: build the installable theme zip and attach it to the release
   package:
     if: startsWith(github.ref, 'refs/tags/v')
