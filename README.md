@@ -23,9 +23,9 @@ hero style, feed layout, and accent in Ghost Admin.
 |  |  |
 |---|---|
 | [**Meridian**](https://astrix-meridian.adrianoamalfi.com/) — travel & photography · *Poster hero, Mosaic feed* | [**Vellum**](https://astrix-vellum.adrianoamalfi.com/) — design & type · *Editorial hero, Bold grid* |
-| ![Meridian homepage](docs/screenshots/meridian/home-desktop-light.png) | ![Vellum homepage](docs/screenshots/vellum/home-desktop-light.png) |
+| ![Meridian homepage](docs/screenshots/meridian/home-desktop-light.webp) | ![Vellum homepage](docs/screenshots/vellum/home-desktop-light.webp) |
 | [**The Proof**](https://astrix-proof.adrianoamalfi.com/) — food & membership · *Split hero, List feed* | [**Field Notes**](https://astrix-fieldnotes.adrianoamalfi.com/) — personal blog · *Personal hero* |
-| ![The Proof homepage](docs/screenshots/proof/home-desktop-light.png) | ![Field Notes homepage](docs/screenshots/fieldnotes/home-desktop-light.png) |
+| ![The Proof homepage](docs/screenshots/proof/home-desktop-light.webp) | ![Field Notes homepage](docs/screenshots/fieldnotes/home-desktop-light.webp) |
 
 > **[Browse the full showcase & documentation →](https://adrianoamalfi.github.io/astrix-ghost/)**
 > Every hero style, feed layout, dark mode, the reading experience, membership, and mobile — with screenshots.
