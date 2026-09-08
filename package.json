@@ -170,10 +170,10 @@
   "scripts": {
     "tokens": "node scripts/extract-tokens.mjs",
     "build:css": "postcss assets/css/screen.css assets/css/post.css --dir assets/built",
-    "build:js": "esbuild assets/js/main.js --bundle --minify --target=es2020 --outfile=assets/built/main.js",
+    "build:js": "esbuild assets/js/main.js assets/js/post.js --bundle --minify --target=es2020 --outdir=assets/built",
     "build": "npm run tokens && npm run build:css && npm run build:js",
     "dev:css": "postcss assets/css/screen.css assets/css/post.css --dir assets/built --watch",
-    "dev:js": "esbuild assets/js/main.js --bundle --sourcemap --target=es2020 --outfile=assets/built/main.js --watch",
+    "dev:js": "esbuild assets/js/main.js assets/js/post.js --bundle --sourcemap --target=es2020 --outdir=assets/built --watch",
     "dev:sync": "browser-sync start --proxy localhost:2368 --files \"assets/built/*\" \"**/*.hbs\" --no-open --no-notify",
     "dev": "npm run tokens && concurrently -n css,js,sync \"npm:dev:css\" \"npm:dev:js\" \"npm:dev:sync\"",
     "test": "gscan .",

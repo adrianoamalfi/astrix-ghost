@@ -29,7 +29,12 @@
 </article>
 {{/post}}
 
-{{#get "tags" limit="all" include="count.posts" order="count.posts desc" as |topics|}}
+{{!-- Bounded limits (not limit="all"): keeps the archive a predictable page
+      weight and single DB query on a large blog, and clears the last gscan
+      warning (gscan rejects limit="all" and any value > 100). A publication
+      past these bounds shows its 100 most-used topics and 100 most-recent
+      posts; older posts remain reachable via the topic chips above. --}}
+{{#get "tags" limit="100" include="count.posts" order="count.posts desc" as |topics|}}
     {{#if topics}}
         <section class="gh-archive-tags gh-container-wide">
             <h2 class="gh-section-title">{{t "Browse by topic"}}</h2>
@@ -42,7 +47,7 @@
     {{/if}}
 {{/get}}
 
-{{#get "posts" limit="all" order="published_at desc" as |entries|}}
+{{#get "posts" limit="100" order="published_at desc" as |entries|}}
     {{#if entries}}
         <section class="gh-archive-index gh-container-wide">
             <h2 class="gh-section-title">{{t "All posts"}}</h2>
