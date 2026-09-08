@@ -36,7 +36,11 @@
         </div>
     </div>
     {{#if feature_image}}
-        <a class="gh-hero-editorial-media" href="{{url}}">
+        {{!-- Redundant link: the title above points to the same post and the
+              feature image is decorative (alt=""), so this image-only link has
+              no accessible name of its own. Hide it from AT and tab order —
+              the title link covers it. --}}
+        <a class="gh-hero-editorial-media" href="{{url}}" tabindex="-1" aria-hidden="true">
             <picture>
                 <source type="image/avif"
                     srcset="{{img_url feature_image size="m" format="avif"}} 640w,
@@ -93,7 +97,8 @@
         </div>
     </div>
     {{#if feature_image}}
-        <a class="gh-hero-split-media" href="{{url}}">
+        {{!-- Redundant link (see the editorial variant above). --}}
+        <a class="gh-hero-split-media" href="{{url}}" tabindex="-1" aria-hidden="true">
             <picture>
                 <source type="image/avif"
                     srcset="{{img_url feature_image size="m" format="avif"}} 640w,
