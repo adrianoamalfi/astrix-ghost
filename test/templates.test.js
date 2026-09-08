@@ -53,6 +53,52 @@ describe('Handlebars expressions in CSS/JS comments', () => {
   });
 });
 
+describe('head-preload mirrors the rendered image candidate', () => {
+  // partials/head-preload.hbs hand-copies the srcset/sizes of every LCP image
+  // across the post / page / author / tag / home render paths. If a preload
+  // and the <source> it mirrors drift apart, the browser downloads the image
+  // twice instead of saving a round trip — invisible to gscan and to the
+  // render tests, and it has already cost a release (v0.2.4 "correct the LCP
+  // preload"). This asserts every preload has an exactly matching AVIF
+  // <source> somewhere in the render templates.
+  //
+  // "Shape" = the ordered list of `<size>:<width>` pairs, ignoring which image
+  // variable is passed; "sizes" = the media-query list, whitespace-collapsed.
+  const norm = (s) => s.replace(/\s+/g, ' ').trim();
+  const shapeOf = (srcset) =>
+    [...srcset.matchAll(/img_url\s+[\w@.]+\s+size="(\w+)"\s+format="avif"\s*\}\}\s+(\d+w)/g)]
+      .map((m) => `${m[1]}:${m[2]}`)
+      .join(',');
+
+  const preload = readFileSync('partials/head-preload.hbs', 'utf8');
+  const preloads = [...preload.matchAll(/imagesrcset="([\s\S]*?)"\s+imagesizes="([\s\S]*?)"/g)].map(
+    (m) => ({ shape: shapeOf(m[1]), sizes: norm(m[2]) }),
+  );
+
+  // srcset/sizes values contain nested double-quotes ({{img_url x size="m"}}),
+  // so anchor each closing quote on what follows it rather than the first ".
+  const attrPair = /srcset="([\s\S]*?)"\s+sizes="([\s\S]*?)"\s*>/;
+
+  const rendered = new Set();
+  for (const file of templates) {
+    if (file.includes('head-preload')) continue;
+    for (const tag of readFileSync(file, 'utf8').matchAll(/<source\b[\s\S]*?>/g)) {
+      if (!/type="image\/avif"/.test(tag[0])) continue;
+      const m = tag[0].match(attrPair);
+      if (m) rendered.add(`${shapeOf(m[1])}|${norm(m[2])}`);
+    }
+  }
+
+  it('every head-preload link has candidates to mirror', () => {
+    expect(preloads.length).toBeGreaterThan(0);
+  });
+
+  it.each(preloads)('preload %o matches a rendered <source>', ({ shape, sizes }) => {
+    expect(shape).not.toBe('');
+    expect([...rendered]).toContain(`${shape}|${sizes}`);
+  });
+});
+
 describe('data-astryx-* attributes are all styled', () => {
   // Every data-astryx-* hook a template emits must be selected by at least one
   // rule in assets/css/ (theme or vendored Astryx). An attribute nothing
