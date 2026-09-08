@@ -51,6 +51,9 @@
     {{#if entries}}
         <section class="gh-archive-index gh-container-wide">
             <h2 class="gh-section-title">{{t "All posts"}}</h2>
+            {{#match pagination.total ">" 100}}
+                <p class="gh-archive-note">{{t "Showing the 100 most recent posts — browse by topic above for older ones."}}</p>
+            {{/match}}
             <ol class="gh-archive-posts" id="gh-archive-posts">
                 {{#foreach entries}}
                     <li class="gh-archive-post" data-year="{{date format="YYYY"}}">

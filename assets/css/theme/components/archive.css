@@ -231,6 +231,14 @@
   padding-bottom: var(--spacing-10);
 }
 
+/* Shown only when the publication has more than the 100 posts the archive
+   query is bounded to (gscan rejects limit="all" and any value > 100). */
+.gh-archive-note {
+  margin: calc(-1 * var(--spacing-2)) 0 var(--spacing-4);
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
 .gh-archive-tags-list {
   display: flex;
   flex-wrap: wrap;
