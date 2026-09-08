@@ -126,7 +126,7 @@ grammar, named rules) is documented in [DESIGN.md](DESIGN.md).
 | Personal hero headline | free text (empty = site title) | empty |
 | Personal hero text | free text (empty = site description) | empty |
 | Personal hero portrait | image (empty = text-only hero) | empty |
-| Show author meta | on / off (off declutters single-author blogs) | on |
+| Show author meta | Name and avatar / Name only / Hidden | Name and avatar |
 | GitHub username | text (icon shown with the social accounts) | empty |
 | Hugging Face username | text (icon shown with the social accounts) | empty |
 | Public contact email | text (mail icon) | empty |
@@ -137,6 +137,25 @@ grammar, named rules) is documented in [DESIGN.md](DESIGN.md).
 | Table of contents | on / off | on |
 | Reading progress | on / off | on |
 | Related posts | on / off | on |
+
+### How the two accent colours map to the page
+
+Astrix speaks in **two colour voices with separate jobs** (the full rationale
+is in [DESIGN.md](DESIGN.md) §2). Two different Admin controls drive them, which
+is why changing one colour doesn't repaint everything:
+
+| Admin control | Drives | Paints |
+|---|---|---|
+| **Design → Brand color** | `--gh-accent` (the *navy* voice — identity & wayfinding) | primary buttons, active nav item, logo/brand, list markers, kickers & tag labels, link underlines, the section-title rule, the 404 code |
+| **Design → theme settings → Secondary accent** | `--gh-accent-2` (the *gold* voice — reader response & value) | hover states, focus rings, text selection, the subscribe button, premium / members badges, the upgrade CTA wash |
+
+The Brand color is used *derived*, never raw: the theme mixes it into
+`--gh-accent-fill` (solid fills), `--gh-accent-text` (text, icons, markers) and
+`--gh-accent-line` (underlines, thin borders, rules) so that whatever colour is
+set in Admin stays legible on **both** the light and dark scheme. Those derived
+tokens are computed — they are not separate Admin controls. To override any of
+them, or `--gh-accent-2`, directly, add CSS in Ghost's **code injection** or a
+child theme; a plain Admin colour change won't reach them individually.
 
 ## License & credits
 

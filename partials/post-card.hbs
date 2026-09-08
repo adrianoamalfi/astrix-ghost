@@ -1,8 +1,8 @@
 {{!-- Bold post card. Context: a post object. --}}
-<article class="gh-card {{post_class}}{{#unless access}} gh-card--locked{{#has visibility="paid"}} gh-card--paid{{else}} gh-card--members{{/has}}{{/unless}}" data-astryx-card="clickable">
+<article class="gh-card {{post_class}}{{#unless access}} gh-card--locked{{#has visibility="paid"}} gh-card--paid{{else}} gh-card--members{{/has}}{{/unless}}">
     <a class="gh-card-link" href="{{url}}">
         {{#if feature_image}}
-            <div class="gh-card-media" data-astryx-ratio="3:2">
+            <div class="gh-card-media">
                 {{!-- The first card is the LCP candidate on archive pages:
                       load it eagerly with high priority. Contexts that are
                       never the LCP (related posts) pass force_lazy=true. --}}
@@ -33,7 +33,7 @@
                 {{/unless}}
             </div>
         {{else}}
-            <div class="gh-card-media gh-card-media--empty" data-astryx-ratio="empty">
+            <div class="gh-card-media gh-card-media--empty">
                 <span class="gh-card-media-mark" aria-hidden="true">{{#primary_tag}}{{name}}{{else}}{{@site.title}}{{/primary_tag}}</span>
                 {{#primary_tag}}
                     <span class="gh-card-tag" data-astryx-badge="category">{{name}}</span>
@@ -55,19 +55,21 @@
             {{/if}}
 
             <div class="gh-card-meta">
-                {{#if @custom.show_author_meta}}
+                {{#match @custom.show_author_meta "!=" "Hidden"}}
                     {{#primary_author}}
                         <span class="gh-meta-author">
-                            {{#if profile_image}}
-                                <img class="gh-meta-author-avatar" data-astryx-avatar="sm" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
-                            {{else}}
-                                <span class="gh-meta-author-avatar gh-meta-author-avatar--fallback" data-astryx-avatar="sm" aria-hidden="true">{{name}}</span>
-                            {{/if}}
+                            {{#match @custom.show_author_meta "Name and avatar"}}
+                                {{#if profile_image}}
+                                    <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
+                                {{else}}
+                                    <span class="gh-meta-author-avatar gh-meta-author-avatar--fallback" aria-hidden="true">{{name}}</span>
+                                {{/if}}
+                            {{/match}}
                             <span>{{name}}</span>
                         </span>
                         <span class="gh-meta-divider" aria-hidden="true"></span>
                     {{/primary_author}}
-                {{/if}}
+                {{/match}}
                 <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
                 <span class="gh-meta-divider" aria-hidden="true"></span>
                 <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>

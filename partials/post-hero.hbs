@@ -16,17 +16,19 @@
                 <p class="gh-hero-excerpt">{{excerpt words="40"}}</p>
             {{/if}}
             <div class="gh-hero-meta">
-                {{#if @custom.show_author_meta}}
+                {{#match @custom.show_author_meta "!=" "Hidden"}}
                     {{#primary_author}}
                         <span class="gh-meta-author">
-                            {{#if profile_image}}
-                                <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
-                            {{/if}}
+                            {{#match @custom.show_author_meta "Name and avatar"}}
+                                {{#if profile_image}}
+                                    <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
+                                {{/if}}
+                            {{/match}}
                             <span>{{name}}</span>
                         </span>
                         <span aria-hidden="true">·</span>
                     {{/primary_author}}
-                {{/if}}
+                {{/match}}
                 <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
                 <span aria-hidden="true">·</span>
                 <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
@@ -72,17 +74,19 @@
             <p class="gh-hero-excerpt">{{excerpt words="32"}}</p>
         {{/if}}
         <div class="gh-hero-meta">
-            {{#if @custom.show_author_meta}}
+            {{#match @custom.show_author_meta "!=" "Hidden"}}
                 {{#primary_author}}
                     <span class="gh-meta-author">
-                        {{#if profile_image}}
-                            <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
-                        {{/if}}
+                        {{#match @custom.show_author_meta "Name and avatar"}}
+                            {{#if profile_image}}
+                                <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
+                            {{/if}}
+                        {{/match}}
                         <span>{{name}}</span>
                     </span>
                     <span aria-hidden="true">·</span>
                 {{/primary_author}}
-            {{/if}}
+            {{/match}}
             <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
             <span aria-hidden="true">·</span>
             <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
@@ -158,17 +162,19 @@
             {{/if}}
 
             <div class="gh-hero-meta">
-                {{#if @custom.show_author_meta}}
+                {{#match @custom.show_author_meta "!=" "Hidden"}}
                     {{#primary_author}}
                         <span class="gh-meta-author">
-                            {{#if profile_image}}
-                                <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
-                            {{/if}}
+                            {{#match @custom.show_author_meta "Name and avatar"}}
+                                {{#if profile_image}}
+                                    <img class="gh-meta-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
+                                {{/if}}
+                            {{/match}}
                             <span>{{name}}</span>
                         </span>
                         <span aria-hidden="true">·</span>
                     {{/primary_author}}
-                {{/if}}
+                {{/match}}
                 <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
                 <span aria-hidden="true">·</span>
                 <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>

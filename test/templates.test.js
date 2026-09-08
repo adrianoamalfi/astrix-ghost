@@ -26,6 +26,15 @@ function findTemplates(dir = '.', out = []) {
 
 const templates = findTemplates();
 
+function readCssTree(dir, out = []) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) readCssTree(full, out);
+    else if (entry.name.endsWith('.css')) out.push(readFileSync(full, 'utf8'));
+  }
+  return out;
+}
+
 describe('Handlebars expressions in CSS/JS comments', () => {
   // Handlebars comments ({{!-- --}}) are stripped before rendering, so a helper
   // call inside one is inert. A CSS or JS comment is not — it still renders.
@@ -41,6 +50,24 @@ describe('Handlebars expressions in CSS/JS comments', () => {
       for (const expr of comment[0].matchAll(/\{\{[^}]*\}\}/g)) offenders.push(expr[0]);
     }
     expect(offenders).toEqual([]);
+  });
+});
+
+describe('data-astryx-* attributes are all styled', () => {
+  // Every data-astryx-* hook a template emits must be selected by at least one
+  // rule in assets/css/ (theme or vendored Astryx). An attribute nothing
+  // styles is dead weight on every page and misleads a reader into thinking
+  // an Astryx component sits behind it — the theme only consumes the tokens.
+  const css = readCssTree('assets/css').join('\n');
+  const used = new Set();
+  for (const file of templates) {
+    for (const m of readFileSync(file, 'utf8').matchAll(/data-astryx-([a-z-]+)/g)) {
+      used.add(m[1]);
+    }
+  }
+
+  it.each([...used])('data-astryx-%s has a CSS selector', (name) => {
+    expect(css).toMatch(new RegExp(`\\[data-astryx-${name}[\\]=~*|^$]`));
   });
 });
 

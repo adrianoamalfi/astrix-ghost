@@ -27,9 +27,9 @@
             <div class="gh-article-authors">
                 {{#foreach authors}}
                     {{#if profile_image}}
-                        <img class="gh-author-avatar" data-astryx-avatar="md" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
+                        <img class="gh-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="{{name}}" loading="lazy" decoding="async">
                     {{else}}
-                        <span class="gh-author-avatar gh-author-avatar--fallback" data-astryx-avatar="md" aria-hidden="true">{{name}}</span>
+                        <span class="gh-author-avatar gh-author-avatar--fallback" aria-hidden="true">{{name}}</span>
                     {{/if}}
                     <a href="{{url}}">{{name}}</a>
                 {{/foreach}}
