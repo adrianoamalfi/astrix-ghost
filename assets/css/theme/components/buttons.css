@@ -38,7 +38,9 @@
 
 .gh-button--ghost:hover {
   background-color: var(--gh-accent-muted);
-  border-color: var(--gh-accent);
+  /* Derived Accent Rule: thin borders go through --gh-accent-line, which is
+     mixed toward text-secondary so a dark admin accent still reads on dark. */
+  border-color: var(--gh-accent-line);
   color: var(--color-text-primary);
 }
 

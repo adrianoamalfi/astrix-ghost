@@ -34,7 +34,7 @@
             {{!-- alt="" / aria-hidden: the name sits in the h1 right beside the
                   avatar, so a described image would announce it twice. --}}
             {{#if profile_image}}
-                <img class="gh-author-avatar" data-astryx-avatar="lg"
+                <img class="gh-author-avatar"
                     srcset="{{img_url profile_image size="s" format="webp"}} 320w,
                             {{img_url profile_image size="m" format="webp"}} 640w"
                     sizes="(max-width: 640px) 88px, 128px"
@@ -42,7 +42,7 @@
                     width="320" height="320"
                     alt="" loading="eager" decoding="async">
             {{else}}
-                <span class="gh-author-avatar gh-author-avatar--fallback" data-astryx-avatar="lg" aria-hidden="true">{{name}}</span>
+                <span class="gh-author-avatar gh-author-avatar--fallback" aria-hidden="true">{{name}}</span>
             {{/if}}
             <div class="gh-author-identity">
                 <span class="u-kicker">{{t "Author"}}</span>

@@ -54,7 +54,8 @@
           "Logo on the left",
           "Logo in the middle"
         ],
-        "default": "Logo on the left"
+        "default": "Logo on the left",
+        "description": "Where the logo sits in the header. Centre pushes the nav links below it."
       },
       "color_scheme_default": {
         "type": "select",
@@ -63,11 +64,13 @@
           "Light",
           "Dark"
         ],
-        "default": "System"
+        "default": "System",
+        "description": "Scheme a first-time visitor sees; the header toggle then overrides it per visitor."
       },
       "secondary_accent": {
         "type": "color",
-        "default": "#f5b301"
+        "default": "#f5b301",
+        "description": "Second accent (gold): hover, focus rings, text selection, and subscribe / premium accents."
       },
       "header_style": {
         "type": "select",
@@ -78,7 +81,8 @@
           "Personal"
         ],
         "default": "Poster",
-        "group": "homepage"
+        "group": "homepage",
+        "description": "Homepage hero layout. Personal leads with the author; the others lead with the latest post."
       },
       "personal_hero_headline": {
         "type": "text",
@@ -98,10 +102,15 @@
         "description": "Portrait photo for the Personal hero. Leave empty for a text-only hero."
       },
       "show_author_meta": {
-        "type": "boolean",
-        "default": true,
+        "type": "select",
+        "options": [
+          "Name and avatar",
+          "Name only",
+          "Hidden"
+        ],
+        "default": "Name and avatar",
         "group": "homepage",
-        "description": "Show author name and avatar on post cards and the homepage hero. Turn off on single-author blogs."
+        "description": "Author byline on cards and the home hero. \"Name only\" drops the avatar; \"Hidden\" removes it."
       },
       "social_github": {
         "type": "text",
@@ -131,12 +140,14 @@
           "List"
         ],
         "default": "Bold grid",
-        "group": "homepage"
+        "group": "homepage",
+        "description": "Post feed layout under the hero. Mosaic mixes card sizes; List is a compact text index."
       },
       "show_featured_slider": {
         "type": "boolean",
         "default": true,
-        "group": "homepage"
+        "group": "homepage",
+        "description": "Scrollable strip of featured posts above the feed. Hidden when no post is featured."
       },
       "cta_headline": {
         "type": "text",
@@ -153,17 +164,20 @@
       "show_toc": {
         "type": "boolean",
         "default": true,
-        "group": "post"
+        "group": "post",
+        "description": "Sticky table of contents beside a post. Shows only when the post has 2+ headings."
       },
       "show_reading_progress": {
         "type": "boolean",
         "default": true,
-        "group": "post"
+        "group": "post",
+        "description": "Show the reading-progress bar at the top of a post."
       },
       "show_related_posts": {
         "type": "boolean",
         "default": true,
-        "group": "post"
+        "group": "post",
+        "description": "Show a row of related posts at the end of a post, matched by tag."
       }
     }
   },
