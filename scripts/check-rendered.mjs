@@ -31,8 +31,9 @@ const fail = (msg) => {
 async function firstLoc(sitemap) {
   try {
     const xml = await (await fetch(`${BASE}/${sitemap}`)).text();
-    const loc = xml.match(/<loc>([^<]+)<\/loc>/)?.[1];
-    return loc ? new URL(loc).pathname : null;
+    const paths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+    // Ghost's pages sitemap can list the site root; the home route covers that.
+    return paths.find((p) => p !== '/') ?? paths[0] ?? null;
   } catch {
     return null;
   }
@@ -66,6 +67,7 @@ const CLS_PROBE = `
 async function checkRoute(browser, route, scheme) {
   const label = `${route.name} ${route.path} [${scheme}]`;
   const page = await browser.newPage();
+  await page.setCacheEnabled(false); // second scheme load would 304 otherwise
   await page.setViewport({ width: 1280, height: 900 });
   await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: scheme }]);
   await page.evaluateOnNewDocument(CLS_PROBE);
@@ -109,7 +111,15 @@ async function checkRoute(browser, route, scheme) {
 
   for (const v of violations) {
     if (!BLOCKING_IMPACTS.has(v.impact)) continue;
-    fail(`${label} ${v.impact}: ${v.id} (${v.nodes.length}×) — ${v.help}\n    ${v.helpUrl}`);
+    const where = v.nodes
+      .slice(0, 3)
+      .map(
+        (n) => `      ${n.target.join(' ')}\n        ${n.html.replace(/\s+/g, ' ').slice(0, 160)}`,
+      )
+      .join('\n');
+    fail(
+      `${label} ${v.impact}: ${v.id} (${v.nodes.length}×) — ${v.help}\n    ${v.helpUrl}\n${where}`,
+    );
   }
 
   if (route.cls && scheme === 'light') {
