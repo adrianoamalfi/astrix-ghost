@@ -3,6 +3,74 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.3.0 — Rendered-DOM checks in CI, five new languages, settings that explain themselves
+
+### Upgrade note
+
+**Show author meta** changed from an on/off toggle to a three-way choice —
+*Name and avatar* / *Name only* / *Hidden*. Ghost resets a custom setting to
+its default when its type changes, so if you had author meta turned **off**,
+re-select *Hidden* under **Design → homepage** after upgrading.
+
+### Accessibility
+
+- A feature image with no alt text no longer falls back to the post title. A
+  screen reader was announcing the title twice — once from the heading, once
+  from the image beside it. Author avatars next to a linked name are now
+  `alt=""` for the same reason. `npm run check:a11y` now fails if an `alt` is
+  set to `{{title}}` or `{{name}}`.
+- The redundant image link in the Editorial and Split heroes — same
+  destination as the title right above it — is hidden from assistive tech and
+  removed from the tab order.
+
+### Performance
+
+- The post and page feature image now reserves a fixed 3:2 box. It had no CSS
+  aspect ratio, so the browser sized it 16:9 from the fixed `width`/`height`
+  and then reflowed on load — a layout shift on the LCP element for every
+  non-16:9 image. Non-3:2 images are now cropped, like the hero and card media
+  already are.
+- Post-only JavaScript (table of contents, reading progress, lightbox, code
+  copy, heading anchors, share) moved to a separate `post.js`, loaded only on
+  posts and pages. The home, tag and author pages ship ~2.5 KB less gzipped
+  JS, mirroring the existing `post.css` split.
+- Showcase screenshots are WebP instead of PNG (~8× smaller).
+
+### Internationalisation
+
+- New locales: **German, Spanish, French, Portuguese (Brazil), Dutch**.
+  English and Italian stay the maintained pair; the five new ones are
+  community translations and never block the build.
+
+### Theme settings
+
+- Every setting now carries a description in Ghost Admin.
+- **Show author meta** gains a *Name only* mode — keep the linked byline, drop
+  the avatar — alongside the new *Hidden* mode.
+- The README documents which Admin control paints which part of the page:
+  **Brand color** drives the navy identity voice, **Secondary accent** the
+  gold interaction-and-value voice, and the derived accent tokens
+  (`--gh-accent-fill` / `-text` / `-line`) are computed, not separate knobs.
+- Two accent uses that could disappear under a dark Admin colour on the dark
+  scheme — the ghost-button hover border and the reading-progress bar — now go
+  through the scheme-safe derived tokens.
+
+### Quality & CI
+
+- A new CI job renders the theme in a real Ghost and runs **axe-core** on
+  home / post / page / tag / author / 404 in **light and dark**, plus the
+  route smoke test (finally in CI) and a CLS budget. Every other check is
+  static analysis of the `.hbs` sources; nothing saw what Ghost actually
+  painted — the class of regression that shipped in 0.2.2 and 0.2.4.
+- `partials/head-preload.hbs` gains a parity test: every LCP preload must
+  mirror a rendered image candidate exactly, or the build fails. The tag
+  archive now preloads its cover image, like the author archive.
+- `custom-archive.hbs` bounds its `{{#get}}` queries at 100 instead of
+  `"all"` — the last gscan warning is gone. A publication past 100 posts sees
+  a note pointing to the topic list for older entries.
+- Removed six inert `data-astryx-*` attributes that no rule ever selected; a
+  test keeps them from returning.
+
 ## 0.2.5 — Author page
 
 - The author masthead now uses the author's `cover_image`: a full-bleed poster
