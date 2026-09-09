@@ -286,9 +286,9 @@
       <div class="f"><h4>Scheme-safe accent system</h4><p>The Ghost Admin accent is derived into fill, ink, and line tokens so it stays legible on both light and dark.</p></div>
       <div class="f"><h4>Tokens-only foundation</h4><p>Built on the Astryx design tokens (colour, spacing, radius, motion, type) — no hard-coded values.</p></div>
       <div class="f"><h4>Native Ghost search</h4><p>sodo-search wired in, plus fully styled Koenig cards: callouts, bookmarks, galleries, toggles, products.</p></div>
-      <div class="f"><h4>Internationalisation</h4><p>English and Italian locales ship in the box; every UI string goes through <code>{{t}}</code>.</p></div>
+      <div class="f"><h4>Internationalisation</h4><p>English and Italian are maintained; German, Spanish, French, Portuguese and Dutch ship too. Every UI string goes through <code>{{t}}</code>.</p></div>
       <div class="f"><h4>Custom fonts</h4><p>Ghost Admin custom fonts are honoured; Figtree is self-hosted with a zero-CLS fallback.</p></div>
-      <div class="f"><h4>Fast &amp; accessible</h4><p>WebP imagery, lazy-loading, content-visibility, WCAG-minded contrast, focus states, and reduced-motion support.</p></div>
+      <div class="f"><h4>Fast &amp; accessible</h4><p>WebP imagery, lazy-loading, content-visibility, focus states, reduced-motion support, and axe-core checks that run against a real render in both light and dark on every change.</p></div>
     </div>
   </div>
 </section>
@@ -306,7 +306,7 @@
       <tr><td>Navigation layout</td><td>Logo left / Logo middle</td><td>Left</td></tr>
       <tr><td>Secondary accent</td><td>colour</td><td><code>#f5b301</code></td></tr>
       <tr><td>Personal hero headline / text / portrait</td><td>free text / image</td><td>empty</td></tr>
-      <tr><td>Show author meta</td><td>on / off</td><td>on</td></tr>
+      <tr><td>Show author meta</td><td>Name and avatar / Name only / Hidden</td><td>Name and avatar</td></tr>
       <tr><td>Featured slider</td><td>on / off</td><td>on</td></tr>
       <tr><td>Table of contents</td><td>on / off</td><td>on</td></tr>
       <tr><td>Reading progress</td><td>on / off</td><td>on</td></tr>
@@ -314,6 +314,7 @@
       <tr><td>CTA headline / text</td><td>free text</td><td>built-in copy</td></tr>
       <tr><td>Social: GitHub / Hugging Face / email / extra URL</td><td>text</td><td>empty</td></tr>
     </table></div>
+    <p class="sub" style="margin-top:1.6rem">Astrix speaks in <b>two accent voices</b>. Ghost's <b>Brand colour</b> is the navy identity voice — buttons, active nav, links, section rules. The theme's <b>Secondary accent</b> is the gold response voice — hover, focus, text selection, the subscribe button, premium badges. Changing one doesn't repaint the other; that's by design. The Brand colour is applied through derived tokens so it stays legible on both light and dark, and those tokens are computed rather than separate Admin controls. Every setting carries an in-Admin description, and the mapping is spelled out in the <a href="https://github.com/adrianoamalfi/astrix-ghost#how-the-two-accent-colours-map-to-the-page" style="color:var(--accent);font-weight:600">README</a>.</p>
   </div>
 </section>
 
