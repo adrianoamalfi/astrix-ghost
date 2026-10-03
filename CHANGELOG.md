@@ -3,14 +3,53 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
-## 0.3.1 — Node 22 development baseline
+## 0.3.1 — Recommendations, donations and SEO breadcrumbs
 
-- Declare Node.js 22.17.0 or newer as the supported development/runtime
-  engine for the theme tooling, matching the current Ghost 6 checks used by
-  `gscan` and rendered-page validation.
+### New features
+
+- **Ghost recommendations in the footer.** A publication that configures
+  recommendations under **Settings → Growth → Recommendations** now shows up
+  to four of them above the footer meta row — favicon, title, readable URL
+  and description, each opening in a new tab. The section renders only when
+  there are recommendations, so a site without any keeps the footer it had.
+- **Tips & donations entrypoints.** With donations enabled in Ghost Admin, a
+  *Support this site* button opens Portal's support flow from the site footer
+  and from the post share row. Both are gated on `@site.donations_enabled`, so
+  nothing renders — and no space is reserved — when donations are off.
+- **SEO breadcrumbs.** Posts join pages, tags, authors and the archive /
+  newsletter templates in rendering the breadcrumb trail, and the visible
+  `nav` now carries `BreadcrumbList` microdata on all of them: each crumb is
+  an `itemListElement` with its `item`, `name` and `position`. The last crumb
+  is the current page — `aria-current="page"`, described through a `WebPage`
+  `itemid` instead of a link to itself, and labelled with its real title or
+  name rather than the generic *Page* / *Tag* / *Author* placeholder (the
+  now-unused `Page` string is dropped from every locale). The post-only
+  JSON-LD mirror is gone: the markup readers see *is* the structured data, so
+  there is no second copy to keep in sync and no title to escape into a JSON
+  string — apostrophes, quotes and backslashes in post, tag and author names
+  used to produce invalid JSON-LD. Google accepts microdata, though JSON-LD
+  remains its recommended format; validate with the Rich Results Test once
+  deployed.
+
+### Developer experience
+
+- Declare Node.js 22.17.0 or newer as the supported development engine for the
+  theme tooling, matching the current Ghost 6 checks used by `gscan` and
+  rendered-page validation. Node builds the theme; what ships is compiled CSS,
+  bundled JS and Handlebars templates.
 - Document the Node 22 requirement in the development setup notes.
+- Pin patched transitive dev dependencies with npm `overrides`
+  (`brace-expansion` 1.x and 5.x, `engine.io`, `immutable`), taking the high
+  severity advisories from 11 to 9 without downgrading `gscan`, `postcss-cli`
+  or `browser-sync`. Every remaining finding is dev-only — `npm audit
+  --omit=dev` is clean — and is blocked by an upstream package with no fixed
+  release. `CONTRIBUTING.md` gains a *Dependency audit notes* section with the
+  override policy and why `npm audit fix --force` must not be applied blindly
+  here.
 - Refresh the npm lockfile after the 0.3.0 release so package metadata and
   engine constraints stay aligned for reproducible installs.
+- The two new UI strings (`Recommended sites`, `Support this site`) are
+  translated in all seven locales, not just the maintained `en` / `it` pair.
 
 ## 0.3.0 — Rendered-DOM checks in CI, five new languages, settings that explain themselves
 
