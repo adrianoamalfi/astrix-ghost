@@ -22,6 +22,7 @@ const forbidden = [
   /^scripts\//,
   /^node_modules\//,
   /^dist\//,
+  /^\.git$/,
   /^\.git\//,
   /^\.claude\//,
   /^AGENTS\.md$/,
