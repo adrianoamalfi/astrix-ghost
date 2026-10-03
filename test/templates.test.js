@@ -296,6 +296,29 @@ describe('templates render without invoking helpers incorrectly', () => {
   });
 });
 
+describe('site footer credits', () => {
+  function renderFooter() {
+    const hbs = makeHandlebars();
+    return hbs.compile(readFileSync('partials/site-footer.hbs', 'utf8'))({
+      '@site': {
+        url: 'https://example.com',
+        title: 'Astrix Test',
+      },
+    });
+  }
+
+  it('separates credit link text from the visually hidden new-tab warning', () => {
+    const html = renderFooter();
+
+    expect(html).toMatch(
+      /<a href="https:\/\/adrianoamalfi\.com\/astrix\/" target="_blank" rel="noopener noreferrer">Astrix <span class="u-visually-hidden">Opens in a new tab<\/span><\/a>/,
+    );
+    expect(html).toMatch(
+      /<a href="https:\/\/ghost\.org" target="_blank" rel="noopener noreferrer">Ghost <span class="u-visually-hidden">Opens in a new tab<\/span><\/a>/,
+    );
+  });
+});
+
 describe('footer recommendations partial', () => {
   function renderRecommendations(recommendations) {
     const hbs = Handlebars.create();
