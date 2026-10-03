@@ -50,6 +50,10 @@
   text-wrap: pretty;
 }
 
+.gh-footer-support {
+  align-self: flex-start;
+}
+
 .gh-footer-identity .gh-social-links {
   /* optical alignment: the round icon buttons carry inner padding */
   margin-left: calc(-1 * var(--spacing-2));

@@ -22,8 +22,18 @@
   height: 20px;
 }
 
+.gh-share-support {
+  margin-left: auto;
+}
+
 /* Copy-link success tick: the accent's response colour, matching the rest of
    the "reader acted" feedback in the theme. */
 .gh-share-copy.is-copied {
   color: var(--gh-accent-2-text);
+}
+
+@media (--to-mobile) {
+  .gh-share-support {
+    margin-left: 0;
+  }
 }
