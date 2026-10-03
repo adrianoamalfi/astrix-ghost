@@ -117,6 +117,23 @@ describe('data-astryx-* attributes are all styled', () => {
   });
 });
 
+describe('breadcrumbs SEO coverage', () => {
+  const breadcrumbs = readFileSync('partials/breadcrumbs.hbs', 'utf8');
+  const postTemplate = readFileSync('post.hbs', 'utf8');
+
+  it('post template includes the breadcrumbs partial', () => {
+    expect(postTemplate).toContain('{{> "breadcrumbs"}}');
+  });
+
+  it.each(['post', 'page', 'tag', 'author'])(
+    'BreadcrumbList structured data covers %s context',
+    (context) => {
+      expect(breadcrumbs).toContain(`{{#is "${context}"}}`);
+      expect(breadcrumbs).toContain('"@type": "BreadcrumbList"');
+    },
+  );
+});
+
 describe('templates render without invoking helpers incorrectly', () => {
   function makeHandlebars() {
     const hbs = Handlebars.create();
