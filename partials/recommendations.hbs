@@ -1,22 +1,25 @@
 {{#if recommendations}}
-    <ul class="recommendations gh-recommendations-list">
-        {{#foreach recommendations}}
-            <li class="recommendation gh-recommendation">
-                <a class="gh-recommendation-link" href="{{url}}" data-recommendation="{{id}}" target="_blank" rel="noopener">
-                    <span class="gh-recommendation-favicon" aria-hidden="true">
+    <section class="gh-footer-recommendations" aria-labelledby="gh-footer-recommendations-title">
+        <h2 class="gh-footer-recommendations-title" id="gh-footer-recommendations-title">{{t "Recommended sites"}}</h2>
+        <ul class="recommendations gh-recommendations-list">
+            {{#foreach recommendations}}
+                <li class="recommendation gh-recommendation">
+                    <a class="gh-recommendation-link" href="{{url}}" data-recommendation="{{id}}" target="_blank" rel="noopener">
                         {{#if favicon}}
-                            <img src="{{favicon}}" alt="" loading="lazy" decoding="async">
+                            <span class="gh-recommendation-favicon" aria-hidden="true">
+                                <img src="{{favicon}}" alt="" loading="lazy" decoding="async">
+                            </span>
                         {{/if}}
-                    </span>
-                    <span class="gh-recommendation-content">
-                        <span class="gh-recommendation-title">{{title}}</span>
-                        <span class="gh-recommendation-url">{{readable_url url}}</span>
-                        {{#if description}}
-                            <span class="gh-recommendation-description">{{description}}</span>
-                        {{/if}}
-                    </span>
-                </a>
-            </li>
-        {{/foreach}}
-    </ul>
+                        <span class="gh-recommendation-content">
+                            <span class="gh-recommendation-title">{{title}}</span>
+                            <span class="gh-recommendation-url">{{readable_url url}}</span>
+                            {{#if description}}
+                                <span class="gh-recommendation-description">{{description}}</span>
+                            {{/if}}
+                        </span>
+                    </a>
+                </li>
+            {{/foreach}}
+        </ul>
+    </section>
 {{/if}}

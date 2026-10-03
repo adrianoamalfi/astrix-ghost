@@ -6,6 +6,9 @@
                 {{#if @site.description}}
                     <p class="gh-footer-bio">{{@site.description}}</p>
                 {{/if}}
+                {{#if @site.donations_enabled}}
+                    <a class="gh-button gh-button--ghost gh-footer-support" href="#/portal/support" data-portal="support">{{t "Support this site"}}</a>
+                {{/if}}
                 {{> "social-links"}}
             </div>
 
@@ -16,12 +19,7 @@
             {{/if}}
         </div>
 
-        {{#if @site.recommendations_enabled}}
-            <section class="gh-footer-recommendations" aria-labelledby="gh-footer-recommendations-title">
-                <h2 class="gh-footer-recommendations-title" id="gh-footer-recommendations-title">{{t "Recommended sites"}}</h2>
-                {{recommendations limit="4"}}
-            </section>
-        {{/if}}
+        {{recommendations limit="4"}}
 
         <div class="gh-footer-meta">
             <span class="gh-footer-copyright">&copy; {{date format="YYYY"}} {{@site.title}}</span>

@@ -50,6 +50,10 @@
   text-wrap: pretty;
 }
 
+.gh-footer-support {
+  align-self: flex-start;
+}
+
 .gh-footer-identity .gh-social-links {
   /* optical alignment: the round icon buttons carry inner padding */
   margin-left: calc(-1 * var(--spacing-2));
@@ -104,8 +108,7 @@
 }
 
 .gh-recommendation-link {
-  display: grid;
-  grid-template-columns: var(--spacing-8) minmax(0, 1fr);
+  display: flex;
   gap: var(--spacing-3);
   align-items: flex-start;
   height: 100%;
@@ -128,6 +131,7 @@
 
 .gh-recommendation-favicon {
   display: inline-flex;
+  flex: 0 0 var(--spacing-8);
   align-items: center;
   justify-content: center;
   width: var(--spacing-8);
@@ -145,6 +149,7 @@
 
 .gh-recommendation-content {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: var(--spacing-1);
   min-width: 0;
@@ -176,6 +181,7 @@
 .gh-recommendation-description {
   display: -webkit-box;
   overflow: hidden;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
