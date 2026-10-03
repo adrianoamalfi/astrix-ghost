@@ -84,6 +84,108 @@
   color: var(--color-text-primary);
 }
 
+.gh-footer-recommendations {
+  padding-block: var(--spacing-6);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.gh-footer-recommendations-title {
+  margin: 0 0 var(--spacing-4);
+  font-family: var(--gh-font-heading, var(--gh-font-heading-fallback));
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gh-recommendations-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--spacing-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gh-recommendation-link {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: flex-start;
+  height: 100%;
+  padding: var(--spacing-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--gh-radius-card);
+  background-color: var(--color-background-body);
+  color: inherit;
+  text-decoration: none;
+}
+
+.gh-recommendation-link:hover {
+  border-color: var(--gh-accent-line);
+}
+
+.gh-recommendation-link:focus-visible {
+  outline: 2px solid var(--gh-accent-2-text);
+  outline-offset: var(--spacing-1);
+}
+
+.gh-recommendation-favicon {
+  display: inline-flex;
+  flex: 0 0 var(--spacing-8);
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: var(--radius-full);
+  background-color: var(--gh-accent-muted);
+  overflow: hidden;
+}
+
+.gh-recommendation-favicon img {
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+  object-fit: contain;
+}
+
+.gh-recommendation-content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  min-width: 0;
+}
+
+.gh-recommendation-title {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+}
+
+.gh-recommendation-link:hover .gh-recommendation-title {
+  color: var(--gh-accent-2-text);
+}
+
+.gh-recommendation-url,
+.gh-recommendation-description {
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.45;
+}
+
+.gh-recommendation-url {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gh-recommendation-description {
+  display: -webkit-box;
+  overflow: hidden;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 /* Zone 2 — meta bar: copyright left, credits right */
 .gh-footer-meta {
   display: flex;
@@ -124,5 +226,17 @@
   .gh-footer-nav ul {
     align-items: flex-end;
     text-align: right;
+  }
+}
+
+@media (--to-tablet-wide) {
+  .gh-recommendations-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (--to-mobile) {
+  .gh-recommendations-list {
+    grid-template-columns: 1fr;
   }
 }
