@@ -311,6 +311,32 @@
   width: 100%;
   border-collapse: collapse;
   font-size: var(--font-size-base);
+  /* Without JS, allow long words to wrap rather than widening the canvas. */
+  overflow-wrap: anywhere;
+}
+
+.gh-table-scroll {
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.gh-table-scroll table {
+  overflow-wrap: break-word;
+}
+
+.gh-table-scroll:focus-visible {
+  /* Keep the inherited token-based focus ring inside the scrollport. */
+  outline-offset: calc(-1 * var(--spacing-1));
+}
+
+@media print {
+  .gh-table-scroll {
+    overflow: visible;
+  }
+
+  .gh-table-scroll table {
+    overflow-wrap: anywhere;
+  }
 }
 
 .gh-content th,
