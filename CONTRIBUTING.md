@@ -18,6 +18,16 @@ You'll want a local Ghost ≥ 6.0 install with the theme symlinked into
 `content/themes/astrix` (see the [Ghost docs](https://ghost.org/docs/install/local/)).
 Ghost caches templates: restart it after editing `.hbs` files.
 
+### Dependency audit notes
+
+`npm audit` is useful before dependency updates, but this theme's install is
+dev-tooling only: Astrix ships compiled assets and Handlebars templates, not
+its npm dependency tree. Prefer compatible direct upgrades and targeted
+`overrides` for patched transitive packages. Do not apply
+`npm audit fix --force` blindly if it downgrades Ghost 6 tooling such as
+`gscan`, `postcss-cli` or `browser-sync`; document any remaining findings that
+are blocked by upstream packages with no fixed release.
+
 ## Ground rules
 
 - **Tokens only.** No raw hex/px in theme CSS. Never override `--color-*` on
