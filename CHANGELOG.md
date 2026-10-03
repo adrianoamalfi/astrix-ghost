@@ -3,6 +3,15 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.3.1 — Node 22 development baseline
+
+- Declare Node.js 22.17.0 or newer as the supported development/runtime
+  engine for the theme tooling, matching the current Ghost 6 checks used by
+  `gscan` and rendered-page validation.
+- Document the Node 22 requirement in the development setup notes.
+- Refresh the npm lockfile after the 0.3.0 release so package metadata and
+  engine constraints stay aligned for reproducible installs.
+
 ## 0.3.0 — Rendered-DOM checks in CI, five new languages, settings that explain themselves
 
 ### Upgrade note
