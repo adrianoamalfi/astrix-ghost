@@ -339,4 +339,18 @@ describe('footer recommendations partial', () => {
     expect(html).toContain('No Icon Weekly');
     expect(html).toContain('https://example.com/favicon.ico');
   });
+
+  it('includes a visually hidden new-tab warning inside each recommendation link', () => {
+    const html = renderRecommendations([
+      {
+        id: 'rec-1',
+        title: 'Example Journal',
+        url: 'https://example.com/',
+      },
+    ]);
+
+    expect(html).toMatch(
+      /<a class="gh-recommendation-link" href="https:\/\/example\.com\/" data-recommendation="rec-1" target="_blank" rel="noopener">[\s\S]*<span class="u-visually-hidden">Opens in a new tab<\/span>[\s\S]*<\/a>/,
+    );
+  });
 });
