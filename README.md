@@ -65,6 +65,9 @@ cascade layers): Chrome/Edge 123+, Safari 17.5+, Firefox 137+.
 
 ## Development
 
+Astrix development requires Node.js 22.17.0 or newer, matching the current
+Ghost tooling used by `gscan` and the rendered-page checks.
+
 ```bash
 npm install
 npm run build     # extract Astryx tokens + bundle CSS/JS into assets/built/
