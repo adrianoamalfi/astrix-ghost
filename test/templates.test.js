@@ -165,6 +165,8 @@ describe('templates render without invoking helpers incorrectly', () => {
       'content',
       'pagination',
       'navigation',
+      'recommendations',
+      'readable_url',
       'post_class',
       'lang',
       'price',

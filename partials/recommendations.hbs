@@ -1,0 +1,22 @@
+{{#if recommendations}}
+    <ul class="recommendations gh-recommendations-list">
+        {{#foreach recommendations}}
+            <li class="recommendation gh-recommendation">
+                <a class="gh-recommendation-link" href="{{url}}" data-recommendation="{{id}}" target="_blank" rel="noopener">
+                    <span class="gh-recommendation-favicon" aria-hidden="true">
+                        {{#if favicon}}
+                            <img src="{{favicon}}" alt="" loading="lazy" decoding="async">
+                        {{/if}}
+                    </span>
+                    <span class="gh-recommendation-content">
+                        <span class="gh-recommendation-title">{{title}}</span>
+                        <span class="gh-recommendation-url">{{readable_url url}}</span>
+                        {{#if description}}
+                            <span class="gh-recommendation-description">{{description}}</span>
+                        {{/if}}
+                    </span>
+                </a>
+            </li>
+        {{/foreach}}
+    </ul>
+{{/if}}
