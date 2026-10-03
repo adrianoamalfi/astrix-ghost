@@ -28,6 +28,26 @@ its npm dependency tree. Prefer compatible direct upgrades and targeted
 `gscan`, `postcss-cli` or `browser-sync`; document any remaining findings that
 are blocked by upstream packages with no fixed release.
 
+After the 0.3.1 override pass, `npm audit --json` reports **9 `high`
+findings**, all dev-only (`npm audit --omit=dev` is clean):
+
+| Package | Chain | Why it is stuck |
+|---|---|---|
+| `braces` | `chokidar` / `micromatch` → `braces` ≤3.0.3 | No fixed release — 3.0.3 is the latest (GHSA-vfj7-8cjw-p6xm). |
+| `micromatch` | `browser-sync` / `jscodeshift` → `micromatch` → `braces` | Flagged only through `braces`; every version is affected. |
+| `chokidar` | `browser-sync` / `postcss-cli` → `chokidar` 3.x → `braces` | Parents require chokidar `^3`; the glob-free 4.x+ line needs major bumps downstream. |
+| `browser-sync` | → `chokidar` + `micromatch` | npm's only "fix" is a downgrade to browser-sync 2.25.0. |
+| `postcss-cli` | → `chokidar` 3.x | The fixed line is postcss-cli 12.0.0 — a major bump. |
+| `jscodeshift` | `@astryxdesign/cli` → `jscodeshift` → `micromatch` | jscodeshift 17.4.0 (already in range) drops micromatch; a lockfile refresh clears this finding. |
+| `extract-zip` | `gscan` → `@tryghost/zip` → `extract-zip` | No fixed release — 2.0.1 is the latest and both symlink advisories affect it. |
+| `@tryghost/zip` | `gscan` → `@tryghost/zip` → `extract-zip` | Pinned by `gscan`; inherits the unfixed `extract-zip`. |
+| `gscan` | → `@tryghost/zip` → `extract-zip` | npm's only "fix" is a downgrade to gscan 3.3.1; theme validation targets Ghost 6 tooling (gscan 6.x). |
+
+The `brace-expansion@5` and `engine.io` entries in `overrides` are stop-gaps:
+remove each one as soon as `eslint` (via `minimatch`) and `browser-sync` (via
+`socket.io`) already require the patched versions themselves, so the tree
+resolves correctly without forcing them.
+
 ## Ground rules
 
 - **Tokens only.** No raw hex/px in theme CSS. Never override `--color-*` on
