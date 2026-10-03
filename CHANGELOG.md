@@ -26,10 +26,10 @@ All notable changes to Astrix. Downloadable theme packages live on the
   now-unused `Page` string is dropped from every locale). The post-only
   JSON-LD mirror is gone: the markup readers see *is* the structured data, so
   there is no second copy to keep in sync and no title to escape into a JSON
-  string — apostrophes, quotes and backslashes in post, tag and author names
-  used to produce invalid JSON-LD. Google accepts microdata, though JSON-LD
-  remains its recommended format; validate with the Rich Results Test once
-  deployed.
+  string — backslashes in post, tag and author names produced invalid
+  JSON-LD, and quotes and apostrophes were emitted as HTML entities. Google
+  accepts microdata, though JSON-LD remains its recommended format; validate
+  with the Rich Results Test once deployed.
 
 ### Developer experience
 
