@@ -83,6 +83,8 @@ function makeHandlebars() {
     'content',
     'pagination',
     'navigation',
+    'recommendations',
+    'readable_url',
     'post_class',
     'lang',
     'price',
@@ -291,5 +293,50 @@ describe('templates render without invoking helpers incorrectly', () => {
       if (/is not a function/.test(err.message)) helperMisuse = err.message;
     }
     expect(helperMisuse).toBeNull();
+  });
+});
+
+describe('footer recommendations partial', () => {
+  function renderRecommendations(recommendations) {
+    const hbs = Handlebars.create();
+    hbs.registerHelper('t', (key) => key);
+    hbs.registerHelper('readable_url', (url) => new URL(url).hostname);
+    hbs.registerHelper('foreach', function (items, options) {
+      return Array.isArray(items) ? items.map((item) => options.fn(item)).join('') : '';
+    });
+
+    return hbs.compile(readFileSync('partials/recommendations.hbs', 'utf8'))({ recommendations });
+  }
+
+  it('renders nothing when Ghost returns no recommendations', () => {
+    const html = renderRecommendations([]);
+
+    expect(html.trim()).toBe('');
+    expect(html).not.toContain('gh-footer-recommendations');
+    expect(html).not.toContain('Recommended sites');
+  });
+
+  it('renders the section and list when recommendations exist', () => {
+    const html = renderRecommendations([
+      {
+        id: 'rec-1',
+        title: 'Example Journal',
+        url: 'https://example.com/',
+        favicon: 'https://example.com/favicon.ico',
+        description: 'Independent notes from the web.',
+      },
+      {
+        id: 'rec-2',
+        title: 'No Icon Weekly',
+        url: 'https://weekly.example/',
+      },
+    ]);
+
+    expect(html).toContain('class="gh-footer-recommendations"');
+    expect(html).toContain('Recommended sites');
+    expect(html).toContain('class="recommendations gh-recommendations-list"');
+    expect(html).toContain('Example Journal');
+    expect(html).toContain('No Icon Weekly');
+    expect(html).toContain('https://example.com/favicon.ico');
   });
 });
