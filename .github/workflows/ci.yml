@@ -75,7 +75,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run zip
+      - name: Generate release notes from CHANGELOG
+        run: node scripts/extract-release-notes.mjs "$GITHUB_REF_NAME" dist/release-notes.md
       - uses: softprops/action-gh-release@v3
         with:
           files: dist/astrix.zip
+          body_path: dist/release-notes.md
           generate_release_notes: true
