@@ -43,6 +43,23 @@ describe('extractChangelogEntry', () => {
     );
   });
 
+  it('throws a clear error when the version entry is empty', () => {
+    const changelogWithEmptyEntry = `# Changelog
+
+## 0.3.2 — Release flow
+
+## 0.3.1 — Recommendations
+
+### New features
+
+- Recommendations in the footer.
+`;
+
+    expect(() => extractChangelogEntry(changelogWithEmptyEntry, 'v0.3.2')).toThrow(
+      'CHANGELOG entry for 0.3.2 is empty',
+    );
+  });
+
   it('extracts the final entry in the changelog', () => {
     expect(extractChangelogEntry(changelog, '0.3.0')).toBe(`### Quality
 
