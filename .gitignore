@@ -8,4 +8,5 @@ AGENTS.md
 PRODUCT.md
 VISUAL_QA.md
 demo/.env
+demo/seed/*.db
 .env

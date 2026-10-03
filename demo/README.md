@@ -31,6 +31,25 @@ docker compose up -d meridian vellum proof fieldnotes
 Ports are published on `127.0.0.1` only, so they are never reachable from the
 internet even when the host is a public server — nothing bypasses the tunnel.
 
+On first boot, the `seed` service installs the four SQLite seed databases. They
+are not committed to Git: if `demo/seed/*.db` is missing, Compose downloads the
+default release asset from:
+
+```text
+https://github.com/adrianoamalfi/astrix-ghost/releases/latest/download/astrix-demo-seed.tar.gz
+```
+
+For repeatable deployments, pin the asset URL and checksum in `.env`:
+
+```env
+ASTRIX_DEMO_SEED_URL=https://github.com/adrianoamalfi/astrix-ghost/releases/download/v0.3.0/astrix-demo-seed.tar.gz
+ASTRIX_DEMO_SEED_SHA256=<sha256>
+```
+
+For offline work, place `meridian.db`, `vellum.db`, `proof.db` and
+`fieldnotes.db` in `demo/seed/` before running Compose. Local files always win
+over the download URL.
+
 ## Publish it through Cloudflare
 
 **1. Create the tunnel.** In the Cloudflare dashboard: *Zero Trust → Networks →
@@ -116,13 +135,30 @@ what the demo copies:
 cd .. && npm run build && cd demo && docker compose up -d --force-recreate
 ```
 
+## Publishing seed databases
+
+Seed databases live outside the repository to keep clones small, but the demo
+expects a tarball with the four database files at the archive root. From a
+working tree that already has local `demo/seed/*.db` files:
+
+```bash
+cd demo/seed
+./package.sh
+```
+
+Upload `dist/astrix-demo-seed.tar.gz` and
+`dist/astrix-demo-seed.tar.gz.sha256` to the matching GitHub release. The
+checksum file contains the value to put in `ASTRIX_DEMO_SEED_SHA256` for pinned
+deployments.
+
 ## Notes
 
 - **Resources.** Four Ghost containers need roughly 1–1.5 GB of RAM in total;
   a small VPS is enough, but a 512 MB box is not.
 - **Database.** Each site uses SQLite in its own volume, which keeps the stack to
-  one container per site and makes the demo content a file you can ship. That is
-  right for a read-only showcase; a real publication should use MySQL 8.
+  one container per site. The seed databases are shipped as a release artifact,
+  not as Git-tracked files. That is right for a read-only showcase; a real
+  publication should use MySQL 8.
 - **Secrets.** The demo databases are public, so every secret Ghost keeps inside
   them — session secrets, the members/Ghost RSA keypairs, magic-link secrets and
   the internal integration API keys — is a throwaway placeholder. On first boot
