@@ -6,6 +6,9 @@
                 {{#if @site.description}}
                     <p class="gh-footer-bio">{{@site.description}}</p>
                 {{/if}}
+                {{#if @site.donations_enabled}}
+                    <a class="gh-button gh-button--ghost gh-footer-support" href="#/portal/support" data-portal="support">{{t "Support this site"}}</a>
+                {{/if}}
                 {{> "social-links"}}
             </div>
 
