@@ -20,9 +20,6 @@ name: astrix-demo
 # from the internet, so nothing bypasses the tunnel. To run without the tunnel:
 #   docker compose up -d meridian vellum proof fieldnotes
 #
-# Shell variables inside `command` are written as $$VAR so Compose passes them
-# through instead of interpolating them itself.
-
 x-ghost: &ghost
   image: ghost:6-alpine
   restart: unless-stopped
@@ -39,10 +36,13 @@ x-ghost-env: &ghost-env
   mail__transport: Direct
 
 services:
-  # Seeds every publication's content volume once, and (re)installs the theme
-  # from this repository into all four on every start.
+  # Downloads verified seeds only for empty content volumes without a local DB.
+  # Reinstalls the theme from this repository into all four on every start.
   seed:
-    image: alpine:3.20
+    build: ./seed
+    environment:
+      ASTRIX_DEMO_SEED_URL: ${ASTRIX_DEMO_SEED_URL:-https://github.com/adrianoamalfi/astrix-ghost/releases/download/demo-seed-v1/astrix-demo-seed.tar.gz}
+      ASTRIX_DEMO_SEED_SHA256: ${ASTRIX_DEMO_SEED_SHA256:-91fdbd990292ab38c2e555444bdc80f15da54ef61641f38331d2f278b0a009d3}
     volumes:
       - meridian:/content/meridian
       - vellum:/content/vellum
@@ -50,35 +50,7 @@ services:
       - fieldnotes:/content/fieldnotes
       - ./seed:/seed:ro
       - ..:/repo:ro
-    command:
-      - sh
-      - -euc
-      - |
-        apk add --no-cache sqlite openssl >/dev/null 2>&1
-        for d in meridian vellum proof fieldnotes; do
-          base=/content/$$d
-          mkdir -p "$$base/data" "$$base/images/demo" "$$base/settings" "$$base/logs"
-          if [ ! -f "$$base/data/ghost.db" ]; then
-            cp "/seed/$$d.db" "$$base/data/ghost.db"
-            # The databases in this repo are public, so every secret Ghost keeps
-            # inside them is a throwaway placeholder. Replace them all now, so this
-            # deployment never runs on a secret anyone can read on GitHub.
-            sh /seed/rotate-secrets.sh "$$base/data/ghost.db" >/dev/null
-            echo "seeded $$d (secrets rotated)"
-          else
-            echo "$$d: existing content kept"
-          fi
-          # posts reference these as /content/images/demo/<file>
-          cp -r /seed/images/. "$$base/images/demo/" 2>/dev/null || true
-          # the theme is always refreshed from the repo (runtime files only, as shipped in the zip)
-          rm -rf "$$base/themes/astrix"
-          mkdir -p "$$base/themes/astrix/assets"
-          cp -r /repo/*.hbs /repo/partials /repo/locales /repo/package.json "$$base/themes/astrix/"
-          cp -r /repo/assets/built /repo/assets/fonts "$$base/themes/astrix/assets/"
-          # the Ghost image runs as uid 1000
-          chown -R 1000:1000 "$$base"
-        done
-        echo "theme installed into all four"
+    command: [sh, /seed/install.sh]
 
   meridian:
     <<: *ghost
