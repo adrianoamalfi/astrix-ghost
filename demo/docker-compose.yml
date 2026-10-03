@@ -43,6 +43,9 @@ services:
   # from this repository into all four on every start.
   seed:
     image: alpine:3.20
+    environment:
+      ASTRIX_DEMO_SEED_URL: ${ASTRIX_DEMO_SEED_URL:-https://github.com/adrianoamalfi/astrix-ghost/releases/latest/download/astrix-demo-seed.tar.gz}
+      ASTRIX_DEMO_SEED_SHA256: ${ASTRIX_DEMO_SEED_SHA256:-}
     volumes:
       - meridian:/content/meridian
       - vellum:/content/vellum
@@ -54,12 +57,50 @@ services:
       - sh
       - -euc
       - |
-        apk add --no-cache sqlite openssl >/dev/null 2>&1
+        apk add --no-cache ca-certificates curl openssl sqlite tar >/dev/null 2>&1
+        cache=/tmp/astrix-demo-seed
+        archive=/tmp/astrix-demo-seed.tar.gz
+        mkdir -p "$$cache"
+
+        missing_seed=0
+        for d in meridian vellum proof fieldnotes; do
+          if [ ! -f "/seed/$$d.db" ]; then
+            missing_seed=1
+          fi
+        done
+
+        if [ "$$missing_seed" -eq 1 ]; then
+          if [ -z "$${ASTRIX_DEMO_SEED_URL:-}" ]; then
+            echo "Missing demo seed databases and ASTRIX_DEMO_SEED_URL is empty." >&2
+            echo "Place meridian.db, vellum.db, proof.db and fieldnotes.db in demo/seed, or set ASTRIX_DEMO_SEED_URL." >&2
+            exit 1
+          fi
+          echo "downloading demo seed databases"
+          curl -fsSL "$$ASTRIX_DEMO_SEED_URL" -o "$$archive"
+          if [ -n "$${ASTRIX_DEMO_SEED_SHA256:-}" ]; then
+            echo "$$ASTRIX_DEMO_SEED_SHA256  $$archive" | sha256sum -c -
+          fi
+          tar -xzf "$$archive" -C "$$cache"
+          for d in meridian vellum proof fieldnotes; do
+            if [ ! -f "$$cache/$$d.db" ] && [ -f "$$cache/seed/$$d.db" ]; then
+              cp "$$cache/seed/$$d.db" "$$cache/$$d.db"
+            fi
+          done
+        fi
+
         for d in meridian vellum proof fieldnotes; do
           base=/content/$$d
+          seed_db=/seed/$$d.db
+          if [ ! -f "$$seed_db" ]; then
+            seed_db=$$cache/$$d.db
+          fi
+          if [ ! -f "$$seed_db" ]; then
+            echo "Seed database not found: $$d.db" >&2
+            exit 1
+          fi
           mkdir -p "$$base/data" "$$base/images/demo" "$$base/settings" "$$base/logs"
           if [ ! -f "$$base/data/ghost.db" ]; then
-            cp "/seed/$$d.db" "$$base/data/ghost.db"
+            cp "$$seed_db" "$$base/data/ghost.db"
             # The databases in this repo are public, so every secret Ghost keeps
             # inside them is a throwaway placeholder. Replace them all now, so this
             # deployment never runs on a secret anyone can read on GitHub.
