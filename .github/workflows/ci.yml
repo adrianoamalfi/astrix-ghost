@@ -34,6 +34,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Table layout and keyboard regression
+        run: npm run check:tables
       - name: Boot a Ghost demo publication
         working-directory: demo
         run: docker compose up -d vellum
