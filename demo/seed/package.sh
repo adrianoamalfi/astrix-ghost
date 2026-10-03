@@ -12,7 +12,12 @@ for db in meridian.db vellum.db proof.db fieldnotes.db; do
 done
 
 mkdir -p ../../dist
-tar -czf ../../dist/astrix-demo-seed.tar.gz meridian.db vellum.db proof.db fieldnotes.db
-sha256sum ../../dist/astrix-demo-seed.tar.gz > ../../dist/astrix-demo-seed.tar.gz.sha256
-
-cat ../../dist/astrix-demo-seed.tar.gz.sha256
+tar -cf ../../dist/astrix-demo-seed.tar meridian.db vellum.db proof.db fieldnotes.db
+gzip -n -f ../../dist/astrix-demo-seed.tar
+cd ../../dist
+if command -v sha256sum >/dev/null 2>&1; then
+  sha256sum astrix-demo-seed.tar.gz > astrix-demo-seed.tar.gz.sha256
+else
+  shasum -a 256 astrix-demo-seed.tar.gz > astrix-demo-seed.tar.gz.sha256
+fi
+cat astrix-demo-seed.tar.gz.sha256

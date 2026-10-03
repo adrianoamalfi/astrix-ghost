@@ -31,24 +31,37 @@ docker compose up -d meridian vellum proof fieldnotes
 Ports are published on `127.0.0.1` only, so they are never reachable from the
 internet even when the host is a public server — nothing bypasses the tunnel.
 
-On first boot, the `seed` service installs the four SQLite seed databases. They
-are not committed to Git: if `demo/seed/*.db` is missing, Compose downloads the
-default release asset from:
+On first boot, the `seed` service installs SQLite databases only into empty
+content volumes. Database files are not committed to Git. Missing local files
+are downloaded once from the dedicated `demo-seed-v1` release and verified
+against the SHA-256 pinned in Compose and `.env.example`:
 
 ```text
-https://github.com/adrianoamalfi/astrix-ghost/releases/latest/download/astrix-demo-seed.tar.gz
+https://github.com/adrianoamalfi/astrix-ghost/releases/download/demo-seed-v1/astrix-demo-seed.tar.gz
 ```
 
-For repeatable deployments, pin the asset URL and checksum in `.env`:
+Theme releases do not change this URL. To use another seed release, override
+**both** `ASTRIX_DEMO_SEED_URL` and `ASTRIX_DEMO_SEED_SHA256` in `.env`.
+Downloaded archives require a checksum and exactly four regular database files
+at the archive root. Local `demo/seed/*.db` files take priority.
 
-```env
-ASTRIX_DEMO_SEED_URL=https://github.com/adrianoamalfi/astrix-ghost/releases/download/v0.3.0/astrix-demo-seed.tar.gz
-ASTRIX_DEMO_SEED_SHA256=<sha256>
+For offline first boot, verify and unpack the release artifact beforehand:
+
+```bash
+# In the directory containing the downloaded archive and checksum:
+sha256sum -c astrix-demo-seed.tar.gz.sha256 # macOS: shasum -a 256 -c ...
+tar -xzf astrix-demo-seed.tar.gz -C /path/to/astrix-ghost/demo/seed
+# While still online, cache Docker images and the seed tools:
+cd /path/to/astrix-ghost/demo
+docker compose build seed
+docker compose pull meridian vellum proof fieldnotes cloudflared
+# Then, offline (without the tunnel):
+docker compose up -d --pull never --no-build meridian vellum proof fieldnotes
 ```
 
-For offline work, place `meridian.db`, `vellum.db`, `proof.db` and
-`fieldnotes.db` in `demo/seed/` before running Compose. Local files always win
-over the download URL.
+Populated volumes need no seed files or downloads on subsequent starts. The
+seed image installs its tools at build time, so offline restarts also avoid
+Alpine package downloads. Keep that image cached.
 
 ## Publish it through Cloudflare
 
@@ -135,6 +148,16 @@ what the demo copies:
 cd .. && npm run build && cd demo && docker compose up -d --force-recreate
 ```
 
+To refresh the current checkout without Git or Docker downloads:
+
+```bash
+./update.sh --offline
+```
+
+This recreates the configured services using cached images; it does not fetch a
+new theme revision. For a local demo without Cloudflare, use the explicit four
+service names in the offline Compose command above, adding `--force-recreate`.
+
 ## Publishing seed databases
 
 Seed databases live outside the repository to keep clones small, but the demo
@@ -146,10 +169,30 @@ cd demo/seed
 ./package.sh
 ```
 
-Upload `dist/astrix-demo-seed.tar.gz` and
-`dist/astrix-demo-seed.tar.gz.sha256` to the matching GitHub release. The
-checksum file contains the value to put in `ASTRIX_DEMO_SEED_SHA256` for pinned
-deployments.
+The package command uses `sha256sum`, or `shasum -a 256` on macOS. Its checksum
+file names only the archive, so it can be verified from any download directory.
+
+Publication requires explicit maintainer approval. Upload
+`dist/astrix-demo-seed.tar.gz` and `dist/astrix-demo-seed.tar.gz.sha256` to the
+dedicated `demo-seed-v1` GitHub release (not a `v*` theme release). Do not replace
+an existing seed artifact: use a new seed tag for changes, then update the URL
+and checksum together in Compose and `.env.example`. Before merging, verify the
+public download and start a fresh demo with no local DB files.
+
+## Repository size and history
+
+Removing the four current seed DB files saves 5.19 MiB of tracked checkout data.
+The showcase screenshots are already WebP; their conversion is retained.
+Local offline DB copies, downloaded archives and development dependencies are
+excluded from this tracked-checkout measurement.
+
+This change leaves Git history intact, so historical seed blobs still travel
+with full clones. `git gc` can compact loose objects but cannot remove reachable
+DB versions; `git gc --aggressive` is not justified for this small repository
+and adds CPU cost without solving that cause. No history rewrite is performed:
+it needs explicit approval and coordination with existing forks and branches.
+Use a shallow clone (`git clone --depth 1`) when only the current theme is needed.
+Future seed revisions go to dedicated assets rather than Git.
 
 ## Notes
 
