@@ -3,6 +3,53 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.3.2 — New-tab notices for screen readers, release notes from the changelog
+
+### Accessibility
+
+- **Footer links that open a new tab now say so.** The recommendations and the
+  two credit links (*Theme Astrix*, *Published with Ghost*) all use
+  `target="_blank"`, but assistive tech announced only the destination, so the
+  new tab came as a surprise. Each of them now carries a visually hidden
+  `Opens in a new tab` notice inside the link, through the existing
+  `u-visually-hidden` utility — nothing changes on screen. In the credit links
+  the notice is separated from the visible text by a real space, so the
+  accessible name is no longer read as `AstrixOpens in a new tab`. The new
+  string is translated in all seven locales, not just the maintained `en` /
+  `it` pair.
+
+### Release & CI
+
+- **The GitHub release body comes from this file.** A new
+  `scripts/extract-release-notes.mjs` pulls the `## X.Y.Z — …` section that
+  matches the tag being published and fails with a clear message when the
+  entry is missing or empty; the `package` job hands it to the release action
+  through `body_path`, ahead of GitHub's generated notes. A tag can no longer
+  be published without the changelog entry it points at. Locally:
+  `node scripts/extract-release-notes.mjs vX.Y.Z <output-file>`.
+- **`.git` can no longer ride along in the theme zip.** Inside a git worktree
+  `.git` is a plain file rather than a directory, so the existing `".git/*"`
+  exclusion missed it. Both the `zip` recipe and the `release-summary`
+  forbidden-file check now reject either form.
+- `gscan` 6.6.1 (patch) and the `@tryghost/*` packages it unpins, refreshed in
+  the lockfile — no downgrade of `gscan`, `postcss-cli` or `browser-sync`, and
+  the audit picture is unchanged at 9 `high` findings, all dev-only.
+- `softprops/action-gh-release` moves from v2 to v3, which runs on Node 24
+  instead of the deprecated Node 20 runtime. The `package` job runs only on
+  `v*` tags, so PR CI does not cover it: the new runtime is exercised at the
+  first tagged release.
+
+### Documentation
+
+- `README.md` and the showcase page now list the three features 0.3.1 added —
+  footer recommendations, Tips & donations entrypoints, SEO breadcrumbs —
+  which until now were described only in this changelog.
+- `CONTRIBUTING.md` names the 9 remaining `high` audit findings one by one:
+  the package, the dependency chain that keeps it stuck, and why the only
+  "fix" npm offers would be a downgrade. All of them are dev-only —
+  `npm audit --omit=dev` is clean — and the notes say when the
+  `brace-expansion` and `engine.io` overrides can be dropped.
+
 ## 0.3.1 — Recommendations, donations and SEO breadcrumbs
 
 ### New features
