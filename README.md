@@ -52,7 +52,10 @@ them through a Cloudflare Tunnel — see [demo/README.md](demo/README.md).
 - **Personal branding mode** — the Personal hero puts the author front and center (headline, bio, optional portrait, social links, subscribe CTA), with an optional author-meta toggle to declutter cards on single-author blogs.
 - **Dark / light / system color scheme** — persisted toggle, zero-flash on load, driven natively by `color-scheme` + `light-dark()`.
 - **Membership-ready** — subscribe forms, Portal integration, tier-aware gated-content CTAs, `custom-membership` page template with a pricing grid.
+- **Tips & donations** — with donations enabled in Ghost Admin, a *Support this site* button opens Portal's support flow from the site footer and the post share row; nothing renders when donations are off.
 - **Reading experience** — sticky table of contents with scrollspy, reading progress bar, related posts, native Ghost comments, ~68ch measure with fluid prose scale.
+- **SEO breadcrumbs** — posts, pages, tags and authors render a breadcrumb trail carrying `BreadcrumbList` microdata; the last crumb is the current page, marked `aria-current="page"`.
+- **Ghost recommendations** — up to four of the publication's recommendations (favicon, title, readable URL, description) above the footer meta row, rendered only when the site configures them.
 - **Native Ghost search** (sodo-search) and styled Koenig cards (callouts, bookmarks, galleries, toggles, signup, product, audio/video/file…).
 - **i18n** — English and Italian (maintained) plus German, Spanish, French,
   Portuguese and Dutch; every UI string goes through `{{t}}`.
@@ -78,6 +81,7 @@ npm run check:a11y # verifies common template accessibility invariants
 npm run check     # build + gscan validation, recommended before commits/releases
 npm run smoke     # route smoke test against a running Ghost (GHOST_URL, default :2368)
 npm run check:rendered # axe-core + CLS budget against a running Ghost (GHOST_URL)
+npm run check:tables # standalone Chromium table fixture; evidence in dist/table-check/
 npm run zip       # check + dist/astrix.zip, ready to upload to Ghost Admin
 npm run release   # zip + package summary
 ```

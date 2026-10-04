@@ -3,6 +3,104 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.3.2 — Fixed recommendation links, scrollable content tables, release notes from the changelog
+
+### Fixes
+
+- **Footer recommendation links now open the sites they name.** As shipped in
+  0.3.1, the loop read `{{url}}` for each recommendation — which Ghost
+  resolved as its own `url` helper rather than the item's address — so every
+  link pointed at the publication's homepage (`href="/"`) while displaying the
+  correct external domain beside it. Each item is now bound as `rec` and read
+  explicitly (`rec.url`, `rec.title`, …); favicon, four-item limit, click
+  tracking, `target`/`rel` and the screen-reader notice are unchanged. A
+  template test registers the real `url` helper so the collision cannot come
+  back unnoticed, and the new `npm run smoke:recommendations` verifies the
+  rendered DOM against a live Ghost at 1280 and 390 px, in light and dark,
+  with a populated and with an empty list.
+
+### Accessibility
+
+- **Footer links that open a new tab now say so.** The recommendations and the
+  two credit links (*Theme Astrix*, *Published with Ghost*) all use
+  `target="_blank"`, but assistive tech announced only the destination, so the
+  new tab came as a surprise. Each of them now carries a visually hidden
+  `Opens in a new tab` notice inside the link, through the existing
+  `u-visually-hidden` utility — nothing changes on screen. In the credit links
+  the notice is separated from the visible text by a real space, so the
+  accessible name is no longer read as `AstrixOpens in a new tab`. The new
+  string is translated in all seven locales, not just the maintained `en` /
+  `it` pair.
+- **Wide tables scroll on their own instead of stretching the page.** A
+  comparison table in post content widened the whole document — a 570 px page
+  on a 320 px viewport — forcing every reader to scroll sideways. Tables in
+  post and page content now sit in a local scroll region: the table stays a
+  native table, all of its columns remain reachable, and the document itself
+  no longer overflows. The wrapper joins the tab order and becomes a labelled
+  region only while it actually overflows, taking its accessible name from
+  the table caption when there is one and from the new `Scrollable table`
+  string — translated in all seven locales — otherwise; a `ResizeObserver`
+  keeps that in step with viewport, font and content changes. Koenig
+  wide/full breakouts keep their bleed, print styles let the columns flow
+  instead of clipping them, and without JavaScript long words wrap rather
+  than widening the canvas. `npm run check:tables` reproduces the whole
+  matrix — viewports, schemes, keyboard, no-JS fallback, print — in a
+  standalone browser fixture and now also runs in the `rendered` CI job.
+
+### Developer experience
+
+- **The demo seeds left the repository.** The four demo publications' SQLite
+  databases (~5 MiB) are no longer committed: a fresh clone could not start
+  the demo without them, and recreating populated volumes tried to download
+  them again. The seed now ships as a dedicated `demo-seed-v1` release
+  artifact, verified against a pinned SHA-256 checksum, and is fetched only
+  for empty volumes without a local database. Seed tooling is installed at
+  image build time, so an already-populated demo restarts fully offline, and
+  `demo/update.sh --offline` reuses the current checkout and the cached
+  images. `demo/README.md` walks through the online and the offline start and
+  the packaging flow. The tracked checkout drops from 16.3 MiB to 11.1 MiB;
+  Git history is deliberately left untouched.
+
+### Release & CI
+
+- **The GitHub release body comes from this file.** A new
+  `scripts/extract-release-notes.mjs` pulls the `## X.Y.Z — …` section that
+  matches the tag being published and fails with a clear message when the
+  entry is missing or empty; the `package` job hands it to the release action
+  through `body_path`, ahead of GitHub's generated notes. A tag can no longer
+  be published without the changelog entry it points at. Locally:
+  `node scripts/extract-release-notes.mjs vX.Y.Z <output-file>`.
+- The extractor's failure paths are under test as well: an entry that is
+  present but has no content — the case that would publish a blank release
+  body — fails with `CHANGELOG entry for X.Y.Z is empty`, asserted in
+  `test/extract-release-notes.test.js` so the guard cannot regress silently.
+- **`.git` can no longer ride along in the theme zip.** Inside a git worktree
+  `.git` is a plain file rather than a directory, so the existing `".git/*"`
+  exclusion missed it. Both the `zip` recipe and the `release-summary`
+  forbidden-file check now reject either form.
+- `gscan` 6.6.1 (patch) and the `@tryghost/*` packages it unpins, refreshed in
+  the lockfile — no downgrade of `gscan`, `postcss-cli` or `browser-sync`, and
+  the audit picture is unchanged at 9 `high` findings, all dev-only.
+- `softprops/action-gh-release` moves from v2 to v3, which runs on Node 24
+  instead of the deprecated Node 20 runtime. The `package` job runs only on
+  `v*` tags, so PR CI does not cover it: the new runtime is exercised at the
+  first tagged release.
+
+### Documentation
+
+- `README.md` and the showcase page now list the three features 0.3.1 added —
+  footer recommendations, Tips & donations entrypoints, SEO breadcrumbs —
+  which until now were described only in this changelog. The README's command
+  list also picks up the new `check:tables` script.
+- The showcase page writes the *Support this site* label with `<em>`, the same
+  emphasis the README and this changelog already used, replacing the page's
+  only `<i>`; nothing styles either element, so the rendering is unchanged.
+- `CONTRIBUTING.md` names the 9 remaining `high` audit findings one by one:
+  the package, the dependency chain that keeps it stuck, and why the only
+  "fix" npm offers would be a downgrade. All of them are dev-only —
+  `npm audit --omit=dev` is clean — and the notes say when the
+  `brace-expansion` and `engine.io` overrides can be dropped.
+
 ## 0.3.1 — Recommendations, donations and SEO breadcrumbs
 
 ### New features

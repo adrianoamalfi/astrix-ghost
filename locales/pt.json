@@ -16,6 +16,7 @@
   "Published with": "Publicado com",
   "Theme": "Tema",
   "Recommended sites": "Sites recomendados",
+  "Opens in a new tab": "Abre em uma nova aba",
   "Featured": "Em destaque",
   "Latest posts": "Últimas publicações",
   "Premium": "Premium",
@@ -94,5 +95,6 @@
   "Membership": "Assinatura",
   "month": "mês",
   "year": "ano",
-  "Choose this plan": "Escolher este plano"
+  "Choose this plan": "Escolher este plano",
+  "Scrollable table": "Tabela com rolagem"
 }

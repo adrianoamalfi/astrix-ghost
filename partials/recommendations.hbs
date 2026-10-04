@@ -2,19 +2,20 @@
     <section class="gh-footer-recommendations" aria-labelledby="gh-footer-recommendations-title">
         <h2 class="gh-footer-recommendations-title" id="gh-footer-recommendations-title">{{t "Recommended sites"}}</h2>
         <ul class="recommendations gh-recommendations-list">
-            {{#foreach recommendations}}
+            {{#foreach recommendations as |rec|}}
                 <li class="recommendation gh-recommendation">
-                    <a class="gh-recommendation-link" href="{{url}}" data-recommendation="{{id}}" target="_blank" rel="noopener">
-                        {{#if favicon}}
+                    <a class="gh-recommendation-link" href="{{rec.url}}" data-recommendation="{{rec.id}}" target="_blank" rel="noopener">
+                        {{#if rec.favicon}}
                             <span class="gh-recommendation-favicon" aria-hidden="true">
-                                <img src="{{favicon}}" alt="" loading="lazy" decoding="async">
+                                <img src="{{rec.favicon}}" alt="" loading="lazy" decoding="async">
                             </span>
                         {{/if}}
                         <span class="gh-recommendation-content">
-                            <span class="gh-recommendation-title">{{title}}</span>
-                            <span class="gh-recommendation-url">{{readable_url url}}</span>
-                            {{#if description}}
-                                <span class="gh-recommendation-description">{{description}}</span>
+                            <span class="gh-recommendation-title">{{rec.title}}</span>
+                            <span class="gh-recommendation-url">{{readable_url rec.url}}</span>
+                            <span class="u-visually-hidden">{{t "Opens in a new tab"}}</span>
+                            {{#if rec.description}}
+                                <span class="gh-recommendation-description">{{rec.description}}</span>
                             {{/if}}
                         </span>
                     </a>

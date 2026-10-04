@@ -296,17 +296,95 @@ describe('templates render without invoking helpers incorrectly', () => {
   });
 });
 
+describe('site footer credits', () => {
+  function renderFooter() {
+    const hbs = makeHandlebars();
+    return hbs.compile(readFileSync('partials/site-footer.hbs', 'utf8'))({
+      '@site': {
+        url: 'https://example.com',
+        title: 'Astrix Test',
+      },
+    });
+  }
+
+  it('separates credit link text from the visually hidden new-tab warning', () => {
+    const html = renderFooter();
+
+    expect(html).toMatch(
+      /<a href="https:\/\/adrianoamalfi\.com\/astrix\/" target="_blank" rel="noopener noreferrer">Astrix <span class="u-visually-hidden">Opens in a new tab<\/span><\/a>/,
+    );
+    expect(html).toMatch(
+      /<a href="https:\/\/ghost\.org" target="_blank" rel="noopener noreferrer">Ghost <span class="u-visually-hidden">Opens in a new tab<\/span><\/a>/,
+    );
+  });
+});
+
 describe('footer recommendations partial', () => {
-  function renderRecommendations(recommendations) {
+  function recommendationsHandlebars() {
     const hbs = Handlebars.create();
     hbs.registerHelper('t', (key) => key);
     hbs.registerHelper('readable_url', (url) => new URL(url).hostname);
-    hbs.registerHelper('foreach', function (items, options) {
-      return Array.isArray(items) ? items.map((item) => options.fn(item)).join('') : '';
-    });
+    hbs.registerHelper('foreach', hbs.helpers.each);
+    // Ghost's url helper resolves a recommendation (neither post nor tag nor
+    // author) to the publication root. Register that behaviour so {{url}}
+    // really collides with the property, unlike the old helper-free fixture.
+    hbs.registerHelper('url', () => new hbs.SafeString('/'));
+    return hbs;
+  }
 
+  function renderRecommendations(recommendations) {
+    const hbs = recommendationsHandlebars();
     return hbs.compile(readFileSync('partials/recommendations.hbs', 'utf8'))({ recommendations });
   }
+
+  it('reproduces the helper collision that sent external links to the homepage', () => {
+    const hbs = recommendationsHandlebars();
+    const html = hbs.compile(
+      '{{#foreach recommendations}}<a href="{{url}}">{{readable_url url}}</a>{{/foreach}}',
+    )({
+      recommendations: [{ url: 'https://diariodiunanalista.it/' }],
+    });
+
+    expect(html).toBe('<a href="/">diariodiunanalista.it</a>');
+  });
+
+  it('uses each recommendation URL including paths, query strings and fragments', () => {
+    const html = renderRecommendations([
+      { id: 'rec-1', title: 'Analista', url: 'https://diariodiunanalista.it/' },
+      { id: 'rec-2', title: 'Pomaro', url: 'https://alessiopomaro.it/articles/?a=1&b=two#section' },
+    ]);
+
+    expect(html).toContain('href="https://diariodiunanalista.it/" data-recommendation="rec-1"');
+    expect(html).toContain(
+      'href="https://alessiopomaro.it/articles/?a&#x3D;1&amp;b&#x3D;two#section" data-recommendation="rec-2"',
+    );
+    expect(html).not.toContain('href="/"');
+    expect(html).toContain('>diariodiunanalista.it</span>');
+    expect(html).toContain('>alessiopomaro.it</span>');
+    expect(readFileSync('partials/site-footer.hbs', 'utf8')).toContain(
+      '{{recommendations limit="4"}}',
+    );
+  });
+
+  it('escapes recommendation attributes and text', () => {
+    const html = renderRecommendations([
+      {
+        id: 'rec-"quoted"',
+        url: 'https://example.com/?q="quoted"&page=2',
+        title: '<script>alert("title")</script>',
+        description: '<img src=x onerror="alert(1)">',
+        favicon: 'https://example.com/icon.png?q="quoted"',
+      },
+    ]);
+
+    expect(html).toContain('href="https://example.com/?q&#x3D;&quot;quoted&quot;&amp;page&#x3D;2"');
+    expect(html).toContain('data-recommendation="rec-&quot;quoted&quot;"');
+    expect(html).toContain('src="https://example.com/icon.png?q&#x3D;&quot;quoted&quot;"');
+    expect(html).toContain('&lt;script&gt;alert(&quot;title&quot;)&lt;/script&gt;');
+    expect(html).toContain('&lt;img src&#x3D;x onerror&#x3D;&quot;alert(1)&quot;&gt;');
+    expect(html).not.toContain('<script>');
+    expect(html).not.toContain('<img src=x');
+  });
 
   it('renders nothing when Ghost returns no recommendations', () => {
     const html = renderRecommendations([]);
@@ -338,5 +416,19 @@ describe('footer recommendations partial', () => {
     expect(html).toContain('Example Journal');
     expect(html).toContain('No Icon Weekly');
     expect(html).toContain('https://example.com/favicon.ico');
+  });
+
+  it('includes a visually hidden new-tab warning inside each recommendation link', () => {
+    const html = renderRecommendations([
+      {
+        id: 'rec-1',
+        title: 'Example Journal',
+        url: 'https://example.com/',
+      },
+    ]);
+
+    expect(html).toMatch(
+      /<a class="gh-recommendation-link" href="https:\/\/example\.com\/" data-recommendation="rec-1" target="_blank" rel="noopener">[\s\S]*<span class="u-visually-hidden">Opens in a new tab<\/span>[\s\S]*<\/a>/,
+    );
   });
 });

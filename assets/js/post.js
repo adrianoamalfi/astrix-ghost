@@ -14,7 +14,9 @@ import { initCodeCopy } from './modules/code-copy.js';
 import { initHeadingAnchors } from './modules/heading-anchors.js';
 import { initLightbox } from './modules/lightbox.js';
 import { initShare } from './modules/share.js';
+import { initTables } from './modules/tables.js';
 
+initTables();
 initToc();
 initProgress();
 initCodeCopy();

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Regenerate every secret Ghost keeps inside its database.
 #
-# The demo databases in this repository are public, so the values they ship with
+# The published demo seed databases are public, so the values they ship with
 # are throwaway placeholders. This script runs on first boot of each site and
 # replaces them, so a deployment never uses a secret that anyone can read on
 # GitHub. Ghost does not regenerate these itself — blanking them stops it from

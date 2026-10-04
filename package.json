@@ -1,7 +1,7 @@
 {
   "name": "astrix",
   "description": "A free, open-source Ghost CMS theme for image-led blogs, magazines, publishers, and membership sites.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "license": "MIT",
   "author": {
     "name": "Adriano Amalfi",
@@ -201,8 +201,10 @@
     "screenshots": "node scripts/optimize-screenshots.mjs",
     "check": "npm run build && npm test && npm run check:i18n && npm run check:a11y && npm run test:unit && npm run lint && npm run format:check",
     "smoke": "node scripts/smoke-routes.mjs",
+    "smoke:recommendations": "node scripts/check-recommendations.mjs",
     "check:rendered": "node scripts/check-rendered.mjs",
-    "zip": "npm run check && mkdir -p dist && rm -f dist/astrix.zip && zip -r dist/astrix.zip . -x \"node_modules/*\" \"dist/*\" \"scripts/*\" \"test/*\" \"assets/css/*\" \"assets/js/*\" \".git/*\" \".claude/*\" \"AGENTS.md\" \"VISUAL_QA.md\" \"PRODUCT.md\" \"DESIGN.md\" \".impeccable/*\" \".github/*\" \"docs/*\" \"demo/*\" \"CONTRIBUTING.md\" \"CODE_OF_CONDUCT.md\" \"SECURITY.md\" \"CHANGELOG.md\" \"postcss.config.cjs\" \"eslint.config.mjs\" \".prettierrc\" \".prettierignore\" \"vitest.config.*\" \"package-lock.json\" \"*.map\" \".DS_Store\" \"*/.DS_Store\" \".gitignore\"",
+    "check:tables": "node scripts/check-tables.mjs",
+    "zip": "npm run check && mkdir -p dist && rm -f dist/astrix.zip && zip -r dist/astrix.zip . -x \"node_modules/*\" \"dist/*\" \"scripts/*\" \"test/*\" \"assets/css/*\" \"assets/js/*\" \".git\" \".git/*\" \".claude/*\" \"AGENTS.md\" \"VISUAL_QA.md\" \"PRODUCT.md\" \"DESIGN.md\" \".impeccable/*\" \".github/*\" \"docs/*\" \"demo/*\" \"CONTRIBUTING.md\" \"CODE_OF_CONDUCT.md\" \"SECURITY.md\" \"CHANGELOG.md\" \"postcss.config.cjs\" \"eslint.config.mjs\" \".prettierrc\" \".prettierignore\" \"vitest.config.*\" \"package-lock.json\" \"*.map\" \".DS_Store\" \"*/.DS_Store\" \".gitignore\"",
     "release": "npm run zip && node scripts/release-summary.mjs"
   },
   "overrides": {
@@ -223,7 +225,7 @@
     "esbuild": "^0.25.5",
     "eslint": "^10.7.0",
     "globals": "^17.7.0",
-    "gscan": "^6.6.0",
+    "gscan": "^6.6.1",
     "postcss": "^8.5.26",
     "postcss-cli": "^11.0.0",
     "postcss-custom-media": "^12.0.1",

@@ -16,6 +16,7 @@
   "Published with": "Gepubliceerd met",
   "Theme": "Thema",
   "Recommended sites": "Aanbevolen sites",
+  "Opens in a new tab": "Opent in een nieuw tabblad",
   "Featured": "Uitgelicht",
   "Latest posts": "Nieuwste berichten",
   "Premium": "Premium",
@@ -94,5 +95,6 @@
   "Membership": "Lidmaatschap",
   "month": "maand",
   "year": "jaar",
-  "Choose this plan": "Kies dit plan"
+  "Choose this plan": "Kies dit plan",
+  "Scrollable table": "Scrollbare tabel"
 }
