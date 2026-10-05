@@ -82,6 +82,7 @@ npm run check     # build + gscan validation, recommended before commits/release
 npm run smoke     # route smoke test against a running Ghost (GHOST_URL, default :2368)
 npm run check:rendered # axe-core + CLS budget against a running Ghost (GHOST_URL)
 npm run check:tables # standalone Chromium table fixture; evidence in dist/table-check/
+npm run smoke:recommendations # footer recommendations DOM check against a running Ghost (GHOST_URL)
 npm run zip       # check + dist/astrix.zip, ready to upload to Ghost Admin
 npm run release   # zip + package summary
 ```
