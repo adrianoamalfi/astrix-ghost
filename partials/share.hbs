@@ -4,6 +4,16 @@
       share.js. Context: a post object. --}}
 <div class="gh-share">
     <span class="gh-share-label">{{t "Share"}}</span>
+    <button
+        class="gh-icon-button gh-share-native"
+        type="button"
+        data-web-share
+        hidden
+        aria-label="{{t "Share"}}"
+        data-tooltip
+    >
+        {{> "icons/share"}}
+    </button>
     <a
         class="gh-icon-button"
         href="https://twitter.com/intent/tweet?url={{url absolute="true"}}"

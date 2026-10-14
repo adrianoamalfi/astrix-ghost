@@ -432,3 +432,88 @@ describe('footer recommendations partial', () => {
     );
   });
 });
+
+describe('v0.4.0 reader conveniences', () => {
+  const site = { '@site': { url: 'https://example.com', title: 'Astrix Test' } };
+
+  it('share row ships a native Web Share button, hidden until JS reveals it', () => {
+    const hbs = makeHandlebars();
+    const html = hbs.compile(readFileSync('partials/share.hbs', 'utf8'))({
+      ...site,
+      url: '/my-post/',
+    });
+
+    // The native button is present in the markup but hidden by default so the
+    // row is identical without JavaScript; share.js unhides it where
+    // navigator.share exists.
+    expect(html).toContain('data-web-share');
+    expect(html).toMatch(/class="gh-icon-button gh-share-native"[\s\S]*?hidden/);
+    expect(html).toContain('aria-label="Share"');
+
+    // Progressive enhancement: the native button precedes the plain-anchor
+    // social links, so a supporting browser shows it first.
+    expect(html.indexOf('data-web-share')).toBeLessThan(html.indexOf('twitter.com/intent'));
+  });
+
+  it('header renders the search shortcut hint next to the search button', () => {
+    const hbs = makeHandlebars();
+    const html = hbs.compile(readFileSync('partials/site-header.hbs', 'utf8'))(site);
+
+    expect(html).toContain('data-ghost-search');
+    // The kbd hint is decorative (the button already carries the label), so it
+    // is hidden from assistive tech; search-shortcut.js rewrites ⌘K → CtrlK.
+    expect(html).toMatch(/<kbd class="gh-search-kbd" aria-hidden="true">⌘K<\/kbd>/);
+    expect(html.indexOf('data-ghost-search')).toBeLessThan(html.indexOf('gh-search-kbd'));
+  });
+
+  it('code blocks carry a language badge hook in the prose styles', () => {
+    const prose = readFileSync('assets/css/theme/prose.css', 'utf8');
+    expect(prose).toContain('.gh-code-lang');
+    // The badge is added by code-copy.js from the code element's language-*
+    // class; the CSS reserves room by pushing the code text down.
+    expect(prose).toMatch(/\.gh-content pre:has\(\.gh-code-lang\) code/);
+  });
+});
+
+describe('v0.4.0 page & post templates', () => {
+  // The {{#post}} block helper reads `this.post`, so the context must carry a
+  // post object for the block body to render at all.
+  const context = {
+    '@site': { url: 'https://example.com', title: 'Astrix Test' },
+    post: { title: 'Page Title', url: '/page/', content: '<p>Body copy.</p>' },
+  };
+
+  it('Portfolio renders the page and binds a uniform grid to #portfolio/#project', () => {
+    // The project grid is data-driven ({{#get}}); stub it out so the page
+    // header renders in isolation, and assert the grid's binding on the source.
+    const hbs = makeHandlebars();
+    hbs.registerHelper('get', () => '');
+    const html = hbs.compile(readFileSync('custom-portfolio.hbs', 'utf8'))(context);
+
+    expect(html).toContain('gh-portfolio-page');
+    expect(html).toContain('Page Title');
+
+    const src = readFileSync('custom-portfolio.hbs', 'utf8');
+    expect(src).toContain('gh-feed--portfolio');
+    expect(src).toContain('tag:[portfolio,project]');
+    expect(src).toContain('order="published_at desc"');
+  });
+
+  it('Landing renders page content with no title, breadcrumbs, or article chrome', () => {
+    const html = makeHandlebars().compile(readFileSync('custom-landing.hbs', 'utf8'))(context);
+
+    expect(html).toContain('gh-landing');
+    expect(html).not.toContain('gh-article-title');
+    expect(html).not.toContain('breadcrumbs');
+  });
+
+  it('Note keeps the title but drops the table-of-contents rail', () => {
+    const html = makeHandlebars().compile(readFileSync('custom-note.hbs', 'utf8'))(context);
+
+    expect(html).toContain('gh-article--note');
+    expect(html).toContain('gh-article-title');
+    // The TOC rail (present in post.hbs) is absent from the Note template.
+    expect(html).not.toContain('gh-toc-column');
+    expect(html).not.toContain('has-toc');
+  });
+});

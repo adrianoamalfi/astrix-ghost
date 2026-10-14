@@ -3,6 +3,89 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.4.0 — Reader conveniences, three new templates, and owned element defaults
+
+### New features
+
+- **A global search shortcut.** Ghost's native search (sodo-search) was
+  reachable only by clicking the header button. Now **⌘K / Ctrl+K** opens it
+  from anywhere, and **`/`** does the same when you are not typing in a field
+  — the same muscle memory as the search boxes on most sites. The shortcut
+  clicks the existing `[data-ghost-search]` button, so the overlay opens
+  exactly as a click would and nothing is duplicated. A small `kbd` hint sits
+  beside the button on desktop and rewrites itself to **CtrlK** on
+  non-Apple platforms; it is `aria-hidden` because the button already carries
+  the *Search* label. Without JavaScript the button still works as before.
+- **A native Web Share button on posts.** Where the browser supports the Web
+  Share API (mobile Safari, Chrome on Android, …), the post share row now
+  leads with a system share sheet — the same one the OS uses for links —
+  ahead of the X / Facebook / LinkedIn / copy anchors. The button is in the
+  markup but `hidden` by default, so the row is byte-for-byte identical
+  without JavaScript and on browsers without the API; `share.js` unhides it
+  only when `navigator.share` exists and swallows the reader's dismissal.
+- **A language badge on code blocks.** Koenig tags each code block with a
+  `language-*` class, but the theme never showed it. `code-copy.js` now reads
+  that class and drops a quiet uppercase badge (e.g. `TS`, `Python`) into the
+  top-left corner of the block, in the code font and the secondary text
+  colour; the code text is pushed down to make room. Blocks without a
+  language class get no badge, and the copy button is unchanged.
+- **Styled footnotes.** Koenig renders Markdown footnotes as a
+  `<sup class="footnote-ref">` in the text and a `<section class="footnotes">`
+  list at the end of the content, but the theme shipped no styles for them —
+  they rendered as unstyled browser defaults. The reference is now a small
+  superscript in the accent text colour; the list sits under a hairline in the
+  secondary text colour; the back-reference is quiet and lights up on
+  hover/focus; and the referenced note flashes a brief accent tint when you
+  jump to it (`:target`), with the animation skipped under
+  `prefers-reduced-motion`.
+- **Three new templates.** Beyond the existing Archive, Newsletter and
+  Membership pages, Astrix now ships:
+  - **Portfolio** (page) — the page content, then a uniform responsive grid
+    (3 / 2 / 1 columns) of project posts tagged `#portfolio` or `#project`,
+    newest first. No billboard first card, so a wall of projects reads evenly.
+  - **Landing** (page) — the page content built entirely from Koenig cards,
+    with no title, breadcrumbs, or article chrome. For product pages and event
+    announcements that are 100% editor cards.
+  - **Note** (post) — a compact reading column that keeps the title, image and
+    text but drops the table-of-contents rail, for short-form writing where the
+    poster display size would be overkill. Selected per-post in the post
+    editor, not by page name.
+
+  The page templates are assigned by **page name** in Ghost Admin
+  (**Settings → Pages → edit → Template**); the Note template is a **post**
+  template. An optional `routes.example.yaml` at the repository root shows how
+  to serve a static home with the blog under `/writing/`; without it the post
+  feed lives at `/` (what the four demo publications run).
+
+### Developer experience
+
+- **The theme owns its element defaults.** The Astryx neutral theme ships an
+  `@layer reset` block of app-scale element defaults (h1–h6 / p / small /
+  code / pre / hr) that the editorial theme had to fight for on the one axis
+  that matters most — prose typography. That block is now stripped from the
+  vendored `astryx-theme-neutral.css` (the two `@layer astryx-theme` blocks
+  that carry the token values the theme reads are kept), and the theme
+  re-declares the same defaults itself in `assets/css/theme/base.css` using
+  `:where()` so they stay at zero specificity and the component / prose layers
+  win exactly as before. There is now a single typographic system to reason
+  about instead of a vendor reset the theme had to reclaim rule by rule.
+  `scripts/extract-tokens.mjs` strips the reset block by brace depth (it nests
+  an `@scope`, so a non-greedy regex would leave a dangling brace).
+- **New unit tests.** The reader conveniences and the three templates are
+  covered in `test/templates.test.js`: the share row ships a hidden native
+  button ahead of the social anchors, the header renders the `aria-hidden`
+  search hint, the prose styles carry the code-badge and footnote hooks, and
+  each new template renders its expected chrome (Portfolio's project grid
+  binding, Landing's absence of title/breadcrumbs, Note's absence of the TOC
+  rail). The suite grows from 157 to 163 tests.
+
+### Documentation
+
+- `README.md` gains a **Page & post templates** section (a table of all six
+  non-default templates and how each is assigned) and a *Reader conveniences*
+  feature bullet; the showcase page (`docs/index.html`) picks up the same
+  features. The new `Projects` string is translated in all seven locales.
+
 ## 0.3.2 — Fixed recommendation links, scrollable content tables, release notes from the changelog
 
 ### Fixes

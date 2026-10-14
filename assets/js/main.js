@@ -9,6 +9,7 @@ import { initComments } from './modules/comments.js';
 import { initArchive } from './modules/archive.js';
 import { initInfiniteScroll } from './modules/infinite-scroll.js';
 import { initBackToTop } from './modules/back-to-top.js';
+import { initSearchShortcut } from './modules/search-shortcut.js';
 
 initColorScheme();
 initNav();
@@ -16,3 +17,4 @@ initComments();
 initArchive();
 initInfiniteScroll();
 initBackToTop();
+initSearchShortcut();
