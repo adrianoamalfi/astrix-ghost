@@ -1,0 +1,25 @@
+# Optional. Upload from Ghost Admin → Settings → Labs → Routes if you want a
+# static home (home.hbs) with the blog living under /writing/.
+#
+# Without it, Ghost serves the post feed at / using home.hbs (page 1) and
+# index.hbs for the paginated archive — which is what the four demo
+# publications run.
+#
+# The custom page templates (Archive, Landing, Membership, Newsletter,
+# Portfolio) are NOT wired through routes: assign them by page name in Ghost
+# Admin (Settings → Pages → edit → Template). The Note template is a post
+# template, selected per-post in the post editor.
+
+routes:
+  /:
+    template: home
+    data: page.home # create a page with slug "home" to feed content to home.hbs
+
+collections:
+  /writing/:
+    permalink: /writing/{slug}/
+    template: index
+
+taxonomies:
+  tag: /topic/{slug}/
+  author: /author/{slug}/

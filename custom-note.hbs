@@ -1,0 +1,121 @@
+{{!< default}}
+
+{{!-- Note template: select "Note" in a post's settings (Template). Keeps the
+      title, image and text in a compact reading column without the table of
+      contents rail. For short-form writing — updates, observations, quick
+      thoughts — where the poster display size would be overkill. --}}
+
+{{#post}}
+
+{{#if @custom.show_reading_progress}}
+    <div class="gh-progress" aria-hidden="true">
+        <div class="gh-progress-bar" id="gh-progress-bar"></div>
+    </div>
+{{/if}}
+
+<article class="gh-article gh-article--note {{post_class}}">
+
+    <header class="gh-article-header">
+        {{> "breadcrumbs"}}
+
+        {{#primary_tag}}
+            <div class="gh-article-tag">
+                <a class="gh-tag-chip" href="{{url}}">{{name}}</a>
+            </div>
+        {{/primary_tag}}
+
+        <h1 class="gh-article-title">{{title}}</h1>
+
+        {{#if custom_excerpt}}
+            <p class="gh-article-excerpt">{{custom_excerpt}}</p>
+        {{/if}}
+
+        <div class="gh-article-meta" data-astryx-metadata-list>
+            <div class="gh-article-authors">
+                {{#foreach authors}}
+                    {{#if profile_image}}
+                        <img class="gh-author-avatar" src="{{img_url profile_image size="s" format="webp"}}" alt="" loading="lazy" decoding="async">
+                    {{else}}
+                        <span class="gh-author-avatar gh-author-avatar--fallback" aria-hidden="true">{{name}}</span>
+                    {{/if}}
+                    <a href="{{url}}">{{name}}</a>
+                {{/foreach}}
+            </div>
+            <span aria-hidden="true">·</span>
+            <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+            {{#if access}}
+                <span aria-hidden="true">·</span>
+                <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+            {{/if}}
+        </div>
+    </header>
+
+    {{#if feature_image}}
+        <figure class="gh-article-image">
+            <picture>
+                <source type="image/avif"
+                    srcset="{{img_url feature_image size="m" format="avif"}} 640w,
+                            {{img_url feature_image size="l" format="avif"}} 1024w,
+                            {{img_url feature_image size="xl" format="avif"}} 1920w"
+                    sizes="(max-width: 1600px) 100vw, 1600px">
+                <img
+                    srcset="{{img_url feature_image size="m" format="webp"}} 640w,
+                            {{img_url feature_image size="l" format="webp"}} 1024w,
+                            {{img_url feature_image size="xl" format="webp"}} 1920w"
+                    sizes="(max-width: 1600px) 100vw, 1600px"
+                    src="{{img_url feature_image size="l" format="webp"}}"
+                    width="1920" height="1080"
+                    alt="{{feature_image_alt}}"
+                    decoding="async"
+                    fetchpriority="high"
+                    style="view-transition-name: gh-post-{{id}}"
+                >
+            </picture>
+            {{#if feature_image_caption}}
+                <figcaption>{{{feature_image_caption}}}</figcaption>
+            {{/if}}
+        </figure>
+    {{/if}}
+
+    <div class="gh-article-layout gh-article-layout--note" id="gh-article-layout">
+        <div class="gh-article-column">
+            <section class="gh-content gh-canvas" id="gh-content"
+                data-table-label="{{t "Scrollable table"}}"
+                data-copy="{{t "Copy"}}" data-copied="{{t "Copied"}}"
+                data-anchor-label="{{t "Copy link to this section"}}"
+                data-anchor-copied-label="{{t "Copied"}}"
+                data-zoom-label="{{t "Zoom image"}}" data-close-label="{{t "Close"}}"
+                data-prev-label="{{t "Previous"}}" data-next-label="{{t "Next"}}"
+            >
+                {{content}}
+            </section>
+
+            {{^if access}}
+                {{> "membership-cta"}}
+            {{/if}}
+        </div>
+    </div>
+
+    {{#if tags.[1]}}
+        <footer class="gh-article-footer">
+            <div class="gh-article-tags" data-astryx-overflow-list>
+                {{#foreach tags}}
+                    <a class="gh-tag-chip" href="{{url}}">{{name}}</a>
+                {{/foreach}}
+            </div>
+        </footer>
+    {{/if}}
+
+    {{> "share"}}
+
+    {{> "comments"}}
+
+</article>
+
+{{> "post-nav"}}
+
+{{#if @custom.show_related_posts}}
+    {{> "related-posts"}}
+{{/if}}
+
+{{/post}}

@@ -126,6 +126,7 @@
       <a href="#feeds">Feeds</a>
       <a href="#reading">Reading</a>
       <a href="#cards">Cards</a>
+      <a href="#templates">Templates</a>
       <a href="#membership">Membership</a>
       <a href="#settings">Settings</a>
     </nav>
@@ -252,6 +253,32 @@
   </div>
 </section>
 
+<section id="templates">
+  <div class="wrap">
+    <span class="eyebrow">Ready-made layouts</span>
+    <h2 class="section">Six templates beyond the defaults</h2>
+    <p class="sub">Assign a page template by <b>page name</b> in Ghost Admin (Settings → Pages → edit → Template); the Note template is a <b>post</b> template, picked per-post in the editor. No code, no child theme.</p>
+    <div class="tablewrap"><table>
+      <tr><th>Template</th><th>Type</th><th>What it does</th></tr>
+      <tr><td><b>Portfolio</b></td><td>page</td><td>The page content, then a uniform responsive grid of project posts tagged <code>#portfolio</code> or <code>#project</code>, newest first.</td></tr>
+      <tr><td><b>Landing</b></td><td>page</td><td>The page content built entirely from Koenig cards, with no title, breadcrumbs, or article chrome — for product pages and event announcements.</td></tr>
+      <tr><td><b>Note</b></td><td>post</td><td>A compact reading column that keeps the title, image and text but drops the table-of-contents rail — for updates, observations, quick thoughts.</td></tr>
+      <tr><td><b>Archive</b></td><td>page</td><td>The page content, every public tag with its post count, then the full post index (grouped by year with JS).</td></tr>
+      <tr><td><b>Newsletter</b></td><td>page</td><td>The page content, a prominent subscribe form, then past editions (posts tagged with the internal <code>#newsletter</code> tag).</td></tr>
+      <tr><td><b>Membership</b></td><td>page</td><td>A pricing grid built from the publication's tiers, with a tier-aware CTA.</td></tr>
+    </table></div>
+    <div class="pair" style="margin-top:1.4rem">
+      <figure><div class="scrollbox"><img loading="lazy" src="screenshots/vellum/portfolio-desktop-full.webp" alt="Portfolio template — a uniform grid of project posts"></div><figcaption>Portfolio — the page content, then a uniform grid of project posts (Vellum)</figcaption></figure>
+      <figure><div class="scrollbox"><img loading="lazy" src="screenshots/vellum/landing-desktop-full.webp" alt="Landing template — a page built entirely from Koenig cards"></div><figcaption>Landing — built entirely from Koenig cards, no title or chrome (Vellum)</figcaption></figure>
+    </div>
+    <div class="pair" style="margin-top:1.4rem">
+      <figure><div class="scrollbox"><img loading="lazy" src="screenshots/vellum/note-desktop-full.webp" alt="Note template — a compact reading column without the table of contents"></div><figcaption>Note — a compact column that drops the TOC rail (Vellum)</figcaption></figure>
+      <figure><img loading="lazy" src="screenshots/vellum/code-badge-desktop.webp" alt="A code block with a language badge in the top-left corner"><figcaption>Code blocks carry a language badge, read from Koenig's <code>language-*</code> class</figcaption></figure>
+    </div>
+    <p class="sub" style="margin-top:1.4rem">An optional <code>routes.example.yaml</code> at the repository root shows how to serve a static home with the blog under <code>/writing/</code>; without it the post feed lives at <code>/</code> (what the four demo publications run).</p>
+  </div>
+</section>
+
 <section id="membership">
   <div class="wrap">
     <span class="eyebrow">Membership</span>
@@ -286,6 +313,10 @@
       <div class="f"><h4>Scheme-safe accent system</h4><p>The Ghost Admin accent is derived into fill, ink, and line tokens so it stays legible on both light and dark.</p></div>
       <div class="f"><h4>Tokens-only foundation</h4><p>Built on the Astryx design tokens (colour, spacing, radius, motion, type) — no hard-coded values.</p></div>
       <div class="f"><h4>Native Ghost search</h4><p>sodo-search wired in, plus fully styled Koenig cards: callouts, bookmarks, galleries, toggles, products.</p></div>
+      <div class="f"><h4>Search shortcut</h4><p>⌘K / Ctrl+K opens Ghost's native search from anywhere, and <code>/</code> does the same when you're not typing. A desktop <code>kbd</code> hint shows the right keys for your platform.</p></div>
+      <div class="f"><h4>Native Web Share</h4><p>Where the browser supports it, the post share row leads with the system share sheet, ahead of the X / Facebook / LinkedIn / copy anchors. Hidden without JavaScript or on unsupported browsers.</p></div>
+      <div class="f"><h4>Code language badge</h4><p>Each code block shows a quiet uppercase badge (TS, Python, …) read from Koenig's <code>language-*</code> class, in the code font and secondary text colour.</p></div>
+      <div class="f"><h4>Styled footnotes</h4><p>Markdown footnotes render with an accent superscript reference, a hairline list, a quiet back-reference, and a brief accent flash on the target note — skipped under reduced motion.</p></div>
       <div class="f"><h4>Ghost recommendations</h4><p>Up to four of the publication's recommendations — favicon, title, readable URL and description — above the footer meta row, opening in a new tab. The section renders only when the site has recommendations.</p></div>
       <div class="f"><h4>Tips &amp; donations</h4><p>With donations enabled in Ghost Admin, a <em>Support this site</em> button opens Portal's support flow from the site footer and the post share row. Both are gated on donations, so nothing renders — and no space is reserved — when they're off.</p></div>
       <div class="f"><h4>SEO breadcrumbs</h4><p>Posts, pages, tags and authors render a breadcrumb trail carrying <code>BreadcrumbList</code> microdata; the last crumb is the current page, marked <code>aria-current="page"</code>.</p></div>

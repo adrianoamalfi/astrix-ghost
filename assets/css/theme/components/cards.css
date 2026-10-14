@@ -120,6 +120,27 @@
   aspect-ratio: 4 / 3;
 }
 
+/* Portfolio: uniform 3-column grid, no billboard first card */
+.gh-feed--portfolio {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.gh-feed--portfolio .gh-card {
+  min-width: 0;
+}
+
+@media (--to-tablet-wide) {
+  .gh-feed--portfolio {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (--to-mobile) {
+  .gh-feed--portfolio {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (--to-tablet-wide) {
   .gh-feed {
     gap: var(--spacing-7) var(--spacing-5);

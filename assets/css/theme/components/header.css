@@ -118,6 +118,30 @@
   justify-self: end;
 }
 
+/* Search shortcut hint: desktop only, next to the search button. The text
+   (⌘K / Ctrl K) is set by search-shortcut.js based on the platform. */
+.gh-search-kbd {
+  display: none;
+  align-items: center;
+  padding: 0.2rem 0.45rem;
+  border: var(--border-width) solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-inner);
+  background-color: var(--color-background-muted);
+  color: var(--gh-text-secondary);
+  font-family: var(--font-family-code);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (--from-mobile) {
+  .gh-search-kbd {
+    display: inline-flex;
+  }
+}
+
 /* logo-in-the-middle variant */
 .gh-header--center .gh-header-inner {
   grid-template-columns: 1fr auto 1fr;
