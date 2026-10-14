@@ -5,76 +5,7 @@
  * Generated: 2026-07-04T14:54:25.983Z
  */
 
-@layer reset {
-@scope ([data-astryx-theme="neutral"]) to ([data-astryx-theme]) {
-  :where(h1, h2, h3, h4, h5, h6) {
-    font-family: var(--font-family-heading);
-    color: var(--color-text-primary);
-  }
 
-  :where(h1) {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-semibold);
-    line-height: 1.3333;
-  }
-
-  :where(h2) {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-semibold);
-    line-height: 1.4;
-  }
-
-  :where(h3) {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    line-height: 1.4118;
-  }
-
-  :where(h4) {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-bold);
-    line-height: 1.4286;
-  }
-
-  :where(h5) {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    line-height: 1.6667;
-  }
-
-  :where(h6) {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    line-height: 1.6;
-  }
-
-  :where(p) {
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.4286;
-    color: var(--color-text-primary);
-  }
-
-  :where(small) {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.6667;
-    color: var(--color-text-secondary);
-  }
-
-  :where(code, pre) {
-    font-family: var(--font-family-code);
-    font-size: var(--font-size-base);
-    line-height: 1.4286;
-  }
-
-  :where(hr) {
-    border: none;
-    border-top: 1px solid var(--color-border);
-  }
-}
-}
 
 @layer astryx-theme {
   :root { color-scheme: light dark; }

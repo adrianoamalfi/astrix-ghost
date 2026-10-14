@@ -17,6 +17,16 @@ export function initCodeCopy() {
 
     content.querySelectorAll('pre').forEach((pre) => {
       const code = pre.querySelector('code') || pre;
+
+      // Language badge: Ghost adds a language-* class to the code element.
+      const lang = code.className.match(/language-([a-zA-Z0-9_+-]+)/);
+      if (lang) {
+        const badge = document.createElement('span');
+        badge.className = 'gh-code-lang';
+        badge.textContent = lang[1];
+        pre.appendChild(badge);
+      }
+
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'gh-code-copy';

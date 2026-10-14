@@ -76,6 +76,23 @@
   margin: 0 auto var(--spacing-10);
 }
 
+/* Note template: compact reading column, smaller title, image inside the
+   column. The TOC rail is absent (no .has-toc on the layout). */
+.gh-article--note .gh-article-title {
+  font-size: var(--gh-display-3);
+  max-width: 30ch;
+}
+
+.gh-article--note .gh-article-image {
+  width: min(var(--gh-measure), 100%);
+  margin-bottom: var(--spacing-8);
+}
+
+.gh-article--note .gh-article-layout--note {
+  width: min(var(--gh-measure), calc(100% - 2 * var(--spacing-4)));
+  margin-inline: auto;
+}
+
 .gh-article-image img {
   width: 100%;
   /* Ghost can't expose the real image dimensions to the template, so the
@@ -107,9 +124,9 @@
   overflow-wrap: break-word;
 }
 
-/* theme-neutral pins :where(p) at app scale (14px). Zero specificity still
-   beats inheritance, so paragraphs never received the prose size above —
-   reclaim them for long-form. */
+/* The base element default (base.css) pins :where(p) at app scale (14px).
+   Zero specificity still beats inheritance, so paragraphs never received the
+   prose size above — reclaim them for long-form. */
 .gh-content p {
   font-size: inherit;
   line-height: inherit;
@@ -307,6 +324,27 @@
   font-size: inherit;
 }
 
+/* Language badge: added by code-copy.js from the code element's
+   language-* class. Sits in the top-left corner; the code text is
+   pushed down to make room. */
+.gh-code-lang {
+  position: absolute;
+  top: var(--spacing-3);
+  left: var(--spacing-5);
+  z-index: 1;
+  font-family: var(--font-family-code);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.gh-content pre:has(.gh-code-lang) code {
+  display: block;
+  padding-top: var(--spacing-5);
+}
+
 .gh-content table {
   width: 100%;
   border-collapse: collapse;
@@ -395,6 +433,77 @@
   text-align: center;
   color: var(--gh-text-secondary);
   font-size: var(--font-size-sm);
+}
+
+/* Markdown footnotes (Koenig renders <sup class="footnote-ref"> in the
+   text and a <section class="footnotes"> list at the end of the content).
+   The reference keeps the line height; the list sits under a hairline;
+   the back-reference is quiet; :target gets a brief accent tint. */
+.gh-content .footnote-ref {
+  line-height: 0;
+}
+
+.gh-content .footnote-ref a {
+  font-family: var(--font-family-code);
+  font-size: 0.7em;
+  font-weight: var(--font-weight-semibold);
+  vertical-align: super;
+  text-decoration: none;
+  color: var(--gh-accent-text);
+}
+
+.gh-content .footnote-ref a:hover {
+  color: var(--gh-accent-2-text);
+}
+
+.gh-content .footnotes {
+  margin-top: var(--spacing-10);
+  padding-top: var(--spacing-5);
+  border-top: var(--border-width) solid var(--color-border);
+  font-size: var(--font-size-sm);
+  color: var(--gh-text-secondary);
+}
+
+.gh-content .footnotes ol {
+  margin: 0;
+  padding-left: var(--spacing-5);
+}
+
+.gh-content .footnotes li {
+  margin-bottom: var(--spacing-2);
+}
+
+.gh-content .footnote-backref {
+  margin-left: var(--spacing-1);
+  text-decoration: none;
+  color: var(--gh-text-secondary);
+  opacity: 0.6;
+}
+
+.gh-content .footnote-backref:hover,
+.gh-content .footnote-backref:focus-visible {
+  color: var(--gh-accent-text);
+  opacity: 1;
+}
+
+.gh-content .footnotes li:target {
+  background-color: color-mix(in oklab, var(--gh-accent) 14%, transparent);
+  border-radius: var(--radius-inner);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gh-content .footnotes li:target {
+    animation: gh-footnote-flash 1.2s var(--ease-standard);
+  }
+}
+
+@keyframes gh-footnote-flash {
+  0% {
+    background-color: color-mix(in oklab, var(--gh-accent) 26%, transparent);
+  }
+  100% {
+    background-color: color-mix(in oklab, var(--gh-accent) 14%, transparent);
+  }
 }
 
 /* Article footer: tags + share */
