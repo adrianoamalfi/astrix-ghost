@@ -28,6 +28,83 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/*
+ * Element defaults — owned by the theme.
+ *
+ * These used to arrive from astryx-theme-neutral.css inside `@layer reset`,
+ * where the theme had to fight them for prose typography (see the reclaim
+ * notes in prose.css). The theme now owns its own element defaults so there
+ * is a single typographic system to reason about. Values are unchanged from
+ * the Astryx neutral baseline; `:where()` keeps them at zero specificity so
+ * the component / prose layers below still win exactly as before.
+ */
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-family-heading);
+  color: var(--color-text-primary);
+}
+
+:where(h1) {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3333;
+}
+
+:where(h2) {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.4;
+}
+
+:where(h3) {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4118;
+}
+
+:where(h4) {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4286;
+}
+
+:where(h5) {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.6667;
+}
+
+:where(h6) {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.6;
+}
+
+:where(p) {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.4286;
+  color: var(--color-text-primary);
+}
+
+:where(small) {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.6667;
+  color: var(--color-text-secondary);
+}
+
+:where(code, pre) {
+  font-family: var(--font-family-code);
+  font-size: var(--font-size-base);
+  line-height: 1.4286;
+}
+
+:where(hr) {
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
 .gh-main {
   flex-grow: 1;
 }

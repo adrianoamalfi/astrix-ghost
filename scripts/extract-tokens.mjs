@@ -53,17 +53,46 @@ copyFileSync(require.resolve('@astryxdesign/core/reset.css'), join(vendorDir, 'a
 // [data-astryx-*] attributes and bare elements instead. Strip those class
 // rules (~4 KB of dead CSS on every page); no rule mixes a class with an
 // attribute or element selector, so dropping whole .astryx-* blocks is safe.
+//
+// It also ships an `@layer reset` block of app-scale element defaults
+// (h1–h6 / p / small / code / pre / hr) that this editorial theme must
+// otherwise fight for on the one axis that matters most — prose typography.
+// We strip that block too and own the element defaults ourselves in
+// assets/css/theme/base.css (see "Element defaults" there). The two
+// `@layer astryx-theme` blocks that carry the token values the theme reads
+// (font sizes, radii, shadows, durations, syntax colors) are kept.
 const themeNeutralCss = readFileSync(
   require.resolve('@astryxdesign/theme-neutral/theme.css'),
   'utf8',
 );
 const strippedRules = (themeNeutralCss.match(/\.astryx-[^{}]*\{[^{}]*\}/g) || []).length;
-const themeNeutralLean = themeNeutralCss.replace(/[ \t]*\.astryx-[^{}]*\{[^{}]*\}\n?/g, '');
+let themeNeutralLean = themeNeutralCss.replace(/[ \t]*\.astryx-[^{}]*\{[^{}]*\}\n?/g, '');
+// Remove the whole `@layer reset { ... }` block. It nests an `@scope { ... }`
+// inside, so a non-greedy regex would stop at the inner close and leave a
+// dangling brace — match the outer block's braces by depth instead.
+const resetStart = themeNeutralLean.indexOf('@layer reset {');
+if (resetStart !== -1) {
+  let depth = 0;
+  let end = -1;
+  for (let i = resetStart; i < themeNeutralLean.length; i++) {
+    if (themeNeutralLean[i] === '{') depth++;
+    else if (themeNeutralLean[i] === '}') {
+      depth--;
+      if (depth === 0) {
+        end = i + 1;
+        break;
+      }
+    }
+  }
+  if (end !== -1) {
+    themeNeutralLean = themeNeutralLean.slice(0, resetStart) + themeNeutralLean.slice(end);
+  }
+}
 writeFileSync(join(vendorDir, 'astryx-theme-neutral.css'), themeNeutralLean);
 
 const varCount = (
   readFileSync(join(vendorDir, 'astryx-tokens.css'), 'utf8').match(/--[\w-]+\s*:/g) || []
 ).length;
 console.log(
-  `extract-tokens: wrote astryx-tokens.css (${tokenRules.length} rules, ${varCount} custom properties), copied reset, theme-neutral (stripped ${strippedRules} unused .astryx-* rules).`,
+  `extract-tokens: wrote astryx-tokens.css (${tokenRules.length} rules, ${varCount} custom properties), copied reset, theme-neutral (stripped ${strippedRules} unused .astryx-* rules + element-defaults reset block).`,
 );

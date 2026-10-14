@@ -1,0 +1,52 @@
+{{!< default}}
+
+{{!-- Portfolio template: assign "Portfolio" to any page in Ghost admin. Shows
+      the page content, then a responsive grid of project posts tagged
+      #portfolio or #project. Tag your project posts with one of those two
+      tags and they appear here, newest first. --}}
+
+{{#post}}
+<article class="gh-article gh-portfolio-page {{post_class}}">
+
+    <header class="gh-article-header gh-article-header--page">
+        {{> "breadcrumbs"}}
+
+        <h1 class="gh-article-title">{{title}}</h1>
+        {{#if custom_excerpt}}
+            <p class="gh-article-excerpt">{{custom_excerpt}}</p>
+        {{/if}}
+    </header>
+
+    {{#if content}}
+        <section
+            class="gh-content gh-canvas"
+            data-table-label="{{t "Scrollable table"}}"
+            data-copy="{{t "Copy"}}"
+            data-copied="{{t "Copied"}}"
+            data-anchor-label="{{t "Copy link to this section"}}"
+            data-anchor-copied-label="{{t "Copied"}}"
+            data-zoom-label="{{t "Zoom image"}}"
+            data-close-label="{{t "Close"}}"
+            data-prev-label="{{t "Previous"}}"
+            data-next-label="{{t "Next"}}"
+        >
+            {{content}}
+        </section>
+    {{/if}}
+</article>
+{{/post}}
+
+{{#get "posts" filter="tag:[portfolio,project]" include="tags,authors" limit="24" order="published_at desc" as |projects|}}
+    {{#if projects}}
+        <section class="gh-feed-wrap" aria-labelledby="gh-portfolio-heading">
+            <h2 id="gh-portfolio-heading" class="gh-section-title gh-container-wide">{{t "Projects"}}</h2>
+            <div class="gh-feed gh-feed--portfolio">
+                {{#foreach projects}}
+                    {{> "post-card" force_lazy=true}}
+                {{/foreach}}
+            </div>
+        </section>
+    {{else}}
+        {{> "empty-state"}}
+    {{/if}}
+{{/get}}
