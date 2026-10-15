@@ -15,17 +15,21 @@ One theme, many voices. The same Ghost theme dresses up as a travel journal, a
 design magazine, a food publication, or a personal blog — just by changing the
 hero style, feed layout, and accent in Ghost Admin.
 
-**Live Ghost demos:** [Meridian](https://astrix-meridian.adrianoamalfi.com/) ·
-[Vellum](https://astrix-vellum.adrianoamalfi.com/) ·
-[The Proof](https://astrix-proof.adrianoamalfi.com/) ·
-[Field Notes](https://astrix-fieldnotes.adrianoamalfi.com/)
+**Live demos:** [Meridian](https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/) ·
+[Vellum](https://adrianoamalfi.github.io/astrix-ghost/demos/vellum/) ·
+[The Proof](https://adrianoamalfi.github.io/astrix-ghost/demos/proof/) ·
+[Field Notes](https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes/)
 
 |  |  |
 |---|---|
-| [**Meridian**](https://astrix-meridian.adrianoamalfi.com/) — travel & photography · *Poster hero, Mosaic feed* | [**Vellum**](https://astrix-vellum.adrianoamalfi.com/) — design & type · *Editorial hero, Bold grid* |
+| [**Meridian**](https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/) — travel & photography · *Poster hero, Mosaic feed* | [**Vellum**](https://adrianoamalfi.github.io/astrix-ghost/demos/vellum/) — design & type · *Editorial hero, Bold grid* |
 | ![Meridian homepage](docs/screenshots/meridian/home-desktop-light.webp) | ![Vellum homepage](docs/screenshots/vellum/home-desktop-light.webp) |
-| [**The Proof**](https://astrix-proof.adrianoamalfi.com/) — food & membership · *Split hero, List feed* | [**Field Notes**](https://astrix-fieldnotes.adrianoamalfi.com/) — personal blog · *Personal hero* |
+| [**The Proof**](https://adrianoamalfi.github.io/astrix-ghost/demos/proof/) — food & membership · *Split hero, List feed* | [**Field Notes**](https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes/) — personal blog · *Personal hero* |
 | ![The Proof homepage](docs/screenshots/proof/home-desktop-light.webp) | ![Field Notes homepage](docs/screenshots/fieldnotes/home-desktop-light.webp) |
+
+The live demos are static exports of the four Ghost publications: every page,
+image and style renders, while backend-only features (search, comments,
+membership sign-up) are omitted.
 
 > **[Browse the full showcase & documentation →](https://adrianoamalfi.github.io/astrix-ghost/)**
 > Every hero style, feed layout, dark mode, the reading experience, membership, and mobile — with screenshots.
