@@ -35,8 +35,10 @@ const figure = (src, alt, cap = '') =>
 const body = [
   figure('https://a.test/photo.jpg', 'Feature alt', 'Feature caption'),
   figure('https://b.test/photo.jpg', 'Other host'),
-  figure('/content/images/size/w600/2024/x.jpg', 'Resized x', 'Cap x'),
-  figure('/content/images/2024/x.jpg', 'Resized x', 'Cap x'),
+  figure('https://a.test/content/images/2026/photo.jpg', 'Upload on a'),
+  figure('https://b.test/content/images/2026/photo.jpg', 'Upload on b'),
+  figure('https://a.test/content/images/size/w600/2024/x.jpg', 'Resized x', 'Cap x'),
+  figure('https://a.test/content/images/2024/x.jpg', 'Resized x', 'Cap x'),
   '<figure class="kg-card kg-bookmark-card"><img src="/thumb.jpg" alt=""></figure>',
   '<p>Text stays.</p>',
 ].join('');
@@ -80,11 +82,13 @@ try {
   assert.deepEqual(slides, [
     { alt: 'Feature alt', caption: 'Feature caption' },
     { alt: 'Other host', caption: '' },
+    { alt: 'Upload on a', caption: '' },
+    { alt: 'Upload on b', caption: '' },
     { alt: 'Resized x', caption: 'Cap x' },
   ]);
   assert.equal(await page.$$eval('#gh-content figure', (n) => n.length), 1, 'bookmark stays');
   assert.match(await page.$eval('#gh-content', (n) => n.textContent), /Text stays/);
-  assert.equal(await page.$eval('[data-photo-count]', (n) => n.textContent), '3 photos');
+  assert.equal(await page.$eval('[data-photo-count]', (n) => n.textContent), '5 photos');
   await page.close();
 
   // Grid card: controls act on their own slider and never open the post

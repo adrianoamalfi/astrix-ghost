@@ -12,16 +12,22 @@
 const IMAGE_SELECTOR = '.kg-image-card img, .kg-gallery-image img';
 
 // Ghost serves one upload at several sizes (/content/images/size/w600/...):
-// those count as one image. Any other URL (another host, an external image)
-// keeps its full identity, so two different photos are never merged.
+// the same origin and path apart from that segment is one image. The origin
+// and the query always count, so two different photos are never merged, even
+// when their paths match on different hosts.
 export function imageKey(src) {
-  const url = src || '';
-  const at = url.indexOf('/content/images/');
-  if (at === -1) return url;
-  return url
-    .slice(at)
-    .replace(/[?#].*$/, '')
-    .replace(/^\/content\/images\/size\/w\d+(h\d+)?(\/format\/[a-z]+)?\//, '/content/images/');
+  if (!src) return '';
+  let url;
+  try {
+    url = new URL(src, globalThis.location?.href || 'http://localhost/');
+  } catch {
+    return src;
+  }
+  const path = url.pathname.replace(
+    /^\/content\/images\/size\/w\d+(h\d+)?(\/format\/[a-z]+)?\//,
+    '/content/images/',
+  );
+  return url.origin + path + url.search;
 }
 
 function captionOf(img) {

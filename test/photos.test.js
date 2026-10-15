@@ -18,10 +18,18 @@ const body = (imgs) => ({ querySelectorAll: () => imgs });
 
 describe('imageKey', () => {
   it('folds Ghost sizes of one upload into one key', () => {
-    expect(imageKey('https://x.com/content/images/size/w1600/2024/a.jpg?v=1')).toBe(
-      '/content/images/2024/a.jpg',
+    expect(imageKey('https://x.com/content/images/size/w1600/2024/a.jpg')).toBe(
+      imageKey('https://x.com/content/images/2024/a.jpg'),
     );
-    expect(imageKey('/content/images/2024/a.jpg')).toBe('/content/images/2024/a.jpg');
+    expect(imageKey('/content/images/size/w600h400/format/webp/2024/a.jpg')).toBe(
+      imageKey('/content/images/2024/a.jpg'),
+    );
+  });
+
+  it('keeps Ghost upload paths on different hosts distinct', () => {
+    expect(imageKey('https://a.test/content/images/2026/photo.jpg')).not.toBe(
+      imageKey('https://b.test/content/images/2026/photo.jpg'),
+    );
   });
 
   it('keeps other URLs distinct, even with the same file name', () => {
@@ -32,10 +40,10 @@ describe('imageKey', () => {
 
 describe('extractImages', () => {
   const imgs = () => [
-    fakeImg({ src: '/content/images/2024/a.jpg', alt: 'A' }, 'Cap A'),
-    fakeImg({ src: '/content/images/size/w600/2024/b.jpg', alt: 'B' }),
-    fakeImg({ src: '/content/images/2024/c.jpg', alt: 'C' }),
-    fakeImg({ src: '/content/images/size/w1000/2024/a.jpg', alt: 'A again' }),
+    fakeImg({ src: 'https://s.test/content/images/2024/a.jpg', alt: 'A' }, 'Cap A'),
+    fakeImg({ src: 'https://s.test/content/images/size/w600/2024/b.jpg', alt: 'B' }),
+    fakeImg({ src: 'https://s.test/content/images/2024/c.jpg', alt: 'C' }),
+    fakeImg({ src: 'https://s.test/content/images/size/w1000/2024/a.jpg', alt: 'A again' }),
   ];
 
   it('keeps document order and preserves alt and captions', () => {
@@ -45,7 +53,7 @@ describe('extractImages', () => {
   });
 
   it('flags duplicates, including images already in the slider', () => {
-    const seen = new Set(['/content/images/2024/b.jpg']);
+    const seen = new Set([imageKey('https://s.test/content/images/2024/b.jpg')]);
     const items = extractImages(body(imgs()), seen);
     expect(items.map((i) => i.duplicate)).toEqual([false, true, false, true]);
   });
