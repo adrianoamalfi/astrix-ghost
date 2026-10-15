@@ -127,6 +127,8 @@ A neutral stage for photography, with two saturated voices that never trade jobs
 - **Prose** (400, 18–20px fluid, 1.6, 65ch measure): article body, sized like a reading app (Medium-class). Tighter leading than UI because at 20px extra leading reads as gaps.
 - **Label** (700, 12px, 0.12em tracking, uppercase): kickers and tags, in `--gh-accent-text`.
 
+Element defaults (h1–h6, p, small, code, pre, hr) are owned by the theme in `assets/css/theme/base.css`, declared with `:where()` so they stay at zero specificity. The vendored Astryx neutral theme no longer ships its `@layer reset` block; `scripts/extract-tokens.mjs` strips it. `astryx-reset.css` is still copied as-is; only the neutral theme's `@layer reset` block is removed.
+
 ### Named Rules
 **The Two Baselines Rule.** Chrome text lives on the UI scale (17–19px); article text lives on the prose scale (18–20px, 65ch). Astryx's app-sized tokens (base 14px) are for dense component internals only — never for reading surfaces.
 
