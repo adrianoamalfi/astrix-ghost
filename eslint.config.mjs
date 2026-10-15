@@ -3,7 +3,15 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['node_modules/**', 'dist/**', 'assets/built/**', 'assets/css/vendor/**'],
+    // docs/demos holds the generated static demo export (minified bundles and
+    // rendered HTML) — it is build output, not source, so it is not linted.
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'assets/built/**',
+      'assets/css/vendor/**',
+      'docs/demos/**',
+    ],
   },
   js.configs.recommended,
   {

@@ -1,0 +1,77 @@
+name: Export static demos
+
+# Regenerates the static demo sites in docs/demos/ from the four running Ghost
+# publications and commits them back to main. GitHub Pages serves docs/ at
+# https://adrianoamalfi.github.io/astrix-ghost/, so the exported sites go live
+# at /astrix-ghost/demos/<pub>/ as soon as this commit lands.
+#
+# Triggered manually (workflow_dispatch) so it never re-triggers itself on the
+# commit it produces. Run it whenever the theme, its assets, or the demo seed
+# content changes and you want the live demos refreshed.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Boot all four Ghost demo publications
+        working-directory: demo
+        run: docker compose up -d meridian vellum proof fieldnotes
+
+      - name: Wait for all four Ghost sites to answer
+        run: |
+          for port in 8081 8082 8083 8084; do
+            up=0
+            for i in $(seq 1 90); do
+              if curl -sf -o /dev/null "http://localhost:$port/"; then up=1; break; fi
+              sleep 2
+            done
+            if [ "$up" -ne 1 ]; then
+              echo "::error::Ghost did not come up on :$port"
+              docker compose -f demo/docker-compose.yml logs --no-color
+              exit 1
+            fi
+            echo "Ghost up on :$port"
+          done
+
+      - name: Export static demo sites
+        run: node scripts/export-static.mjs
+
+      - name: Commit exported demos back to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/demos
+          if git diff --cached --quiet; then
+            echo "No changes to docs/demos — nothing to commit."
+          else
+            git commit -m "chore(demos): regenerate static demo sites"
+            git push
+          fi
+
+      - name: Ghost logs
+        if: always()
+        run: docker compose -f demo/docker-compose.yml logs --no-color > ghost-demo.log || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ghost-demo-log
+          path: ghost-demo.log
+          if-no-files-found: ignore

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en" data-astryx-theme="neutral">
+<head>
+    <script>(function () {
+        try {
+            var s = localStorage.getItem('astrix-scheme');
+            if (!s) { s = (document.documentElement.getAttribute('data-scheme-default') || '').toLowerCase(); }
+            if (s === 'dark' || s === 'light') { document.documentElement.style.colorScheme = s; }
+        } catch (e) { /* storage unavailable */ }
+    })();</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>The Proof</title>
+
+    <link rel="preload" href="/astrix-ghost/demos/proof/assets/fonts/figtree-latin.woff2?v=gzBJCgHGDBlurgC4" as="font" type="font/woff2" crossorigin>
+    
+
+
+
+
+
+    <link rel="preload" as="image" fetchpriority="high" type="image/avif"
+        href="/astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/img-84a23ac1d1b6.jpg"
+        imagesrcset="/astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/img-84a23ac1d1b6.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/img-84a23ac1d1b6.jpg 1024w, /astrix-ghost/demos/proof/content/images/size/w1920/format/avif/demo/img-84a23ac1d1b6.jpg 1920w"
+        imagesizes="(max-width: 900px) 100vw, 50vw">
+
+    <link rel="stylesheet" href="/astrix-ghost/demos/proof/assets/built/screen.css?v=cS-TTxMb0AjR5ywu">
+    
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <link rel="alternate" type="application/rss+xml" title="The Proof" href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/rss.xml">
+
+
+    <style>
+        /* Primary Latin subset, declared here (not in fonts.css) so its src goes
+           through the asset helper and gets the same version-hashed URL as the
+           preload above — matching URLs mean the preloaded font is reused
+           instead of fetched twice. The other subsets stay in fonts.css.
+           NB: Handlebars parses this file in full, CSS comments included, so
+           never write a bare helper call in here — it would be evaluated. */
+        @font-face {
+            font-family: 'Figtree';
+            font-style: normal;
+            font-weight: 300 900;
+            font-display: swap;
+            src: url("/astrix-ghost/demos/proof/assets/fonts/figtree-latin.woff2?v=gzBJCgHGDBlurgC4") format("woff2");
+            unicode-range:
+                U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+                U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        :root {
+            --gh-accent-2: #d99a3c;
+        }
+
+        /* Cross-document view transitions: feature images morph between the
+           card/hero and the post (progressive enhancement; unsupported
+           browsers ignore it). Kept out of the layered stylesheets because
+           it applies to navigation, not to component styling. */
+        @media (prefers-reduced-motion: no-preference) {
+            @view-transition {
+                navigation: auto;
+            }
+        }
+
+        /* Without an explicit background the transition overlay falls back
+           to the UA canvas, which meta color-scheme "light dark" + a dark
+           system resolve to DARK even when the reader chose light — the
+           mid-animation dark flash. The token follows the effective scheme. */
+        ::view-transition {
+            background-color: var(--color-background-body);
+        }
+    </style>
+
+    <meta name="description" content="Bread, ferments, and the seasons — notes from a small corner bakery.">
+    <link rel="canonical" href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="The Proof">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="The Proof">
+    <meta property="og:description" content="Bread, ferments, and the seasons — notes from a small corner bakery.">
+    <meta property="og:url" content="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/">
+    <meta property="og:image" content="https://static.ghost.org/v5.0.0/images/publication-cover.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Proof">
+    <meta name="twitter:description" content="Bread, ferments, and the seasons — notes from a small corner bakery.">
+    <meta name="twitter:url" content="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/">
+    <meta name="twitter:image" content="https://static.ghost.org/v5.0.0/images/publication-cover.jpg">
+    <meta name="twitter:site" content="@theproofbakery">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="840">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "publisher": {
+        "@type": "Organization",
+        "name": "The Proof",
+        "url": "https://adrianoamalfi.github.io/astrix-ghost/demos/proof/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://adrianoamalfi.github.io/astrix-ghost/demos/proof/favicon.ico"
+        }
+    },
+    "url": "https://adrianoamalfi.github.io/astrix-ghost/demos/proof/",
+    "name": "The Proof",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://static.ghost.org/v5.0.0/images/publication-cover.jpg",
+        "width": 1200,
+        "height": 840
+    },
+    "mainEntityOfPage": "https://adrianoamalfi.github.io/astrix-ghost/demos/proof/",
+    "description": "Bread, ferments, and the seasons — notes from a small corner bakery."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 6.70">
+    <link rel="alternate" type="application/rss+xml" title="The Proof" href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/rss.xml">
+    <style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style>
+    
+    
+    <link href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/webmentions/receive/" rel="webmention">
+    <script defer src="/astrix-ghost/demos/proof/public/cards.min.js?v=ShRHxgy4po8zN-Wf"></script>
+    <link rel="stylesheet" type="text/css" href="/astrix-ghost/demos/proof/public/cards.min.css?v=WwnU9jw5ancNC8Gc">
+    
+    <style>:root {--ghost-accent-color: #9c3b2e;}</style>
+</head>
+<body class="home-template">
+
+    <a class="gh-skip-link" href="#gh-main-content">Skip to content</a>
+
+    <header id="gh-header" class="gh-header">
+    <div class="gh-header-inner">
+        <div class="gh-header-brand">
+            <a class="gh-header-logo" href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof">
+                    The Proof
+            </a>
+        </div>
+
+        <nav class="gh-nav" id="gh-nav" aria-label="Main navigation">
+            <ul class="nav">
+    <li class="nav-home nav-current"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/">Home</a></li>
+    <li class="nav-bread"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/tag/bread/">Bread</a></li>
+    <li class="nav-ferments"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/tag/ferments/">Ferments</a></li>
+    <li class="nav-membership"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/membership/">Membership</a></li>
+    <li class="nav-about"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/about/">About</a></li>
+</ul>
+
+                <div class="gh-nav-mobile-actions">
+                        <a class="gh-button" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+        </nav>
+
+        <div class="gh-header-actions">
+                    <a class="gh-button gh-header-cta" href="#/portal/signup" data-portal="signup">Subscribe</a>
+
+            
+            
+
+            <button class="gh-icon-button" type="button" id="gh-scheme-toggle" aria-label="Change color scheme" data-label-light="Switch to dark mode" data-label-dark="Switch to system mode" data-label-system="Switch to light mode" data-tooltip>
+                <svg class="gh-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                <svg class="gh-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+
+            <button class="gh-icon-button gh-burger" type="button" id="gh-burger" aria-label="Open menu" data-label-close="Close menu" aria-expanded="false" aria-controls="gh-nav" data-tooltip>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+    <main id="gh-main-content" class="gh-main">
+        
+
+                
+<section class="gh-hero gh-hero--split">
+    <div class="gh-hero-split-text">
+            <a class="gh-hero-tag" href="/astrix-ghost/demos/proof/tag/seasonal/">Seasonal</a>
+        <h1 class="gh-hero-title"><a href="/astrix-ghost/demos/proof/what-to-bake-in-the-last-week-of-autumn/">What to bake in the last week of autumn</a></h1>
+            <p class="gh-hero-excerpt">Squash, walnuts, the last good apples. A short list for the turn of the season.</p>
+        <div class="gh-hero-meta">
+                    <span class="gh-meta-author">
+                                <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/marta-ferreira.png" alt="" loading="lazy" decoding="async">
+                        <span>Marta Ferreira</span>
+                    </span>
+                    <span aria-hidden="true">·</span>
+            <time datetime="2026-07-22">22 Jul 2026</time>
+            <span aria-hidden="true">·</span>
+            <span>1 min read</span>
+        </div>
+    </div>
+        <a class="gh-hero-split-media" href="/astrix-ghost/demos/proof/what-to-bake-in-the-last-week-of-autumn/" tabindex="-1" aria-hidden="true">
+            <picture>
+                <source type="image/avif"
+                    srcset="/astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/img-84a23ac1d1b6.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/img-84a23ac1d1b6.jpg 1024w, /astrix-ghost/demos/proof/content/images/size/w1920/format/avif/demo/img-84a23ac1d1b6.jpg 1920w"
+                    sizes="(max-width: 900px) 100vw, 50vw">
+                <img
+                    srcset="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-84a23ac1d1b6.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/img-84a23ac1d1b6.jpg 1024w, /astrix-ghost/demos/proof/content/images/size/w1920/format/webp/demo/img-84a23ac1d1b6.jpg 1920w"
+                    sizes="(max-width: 900px) 100vw, 50vw"
+                    src="/astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/img-84a23ac1d1b6.jpg"
+                    width="1200" height="900"
+                    alt=""
+                    decoding="async"
+                    fetchpriority="high"
+                    style="view-transition-name: gh-post-6a60cf30a2dda5ec529ec781"
+                >
+            </picture>
+        </a>
+</section>
+
+
+                    <section class="gh-featured gh-container-wide">
+                        <h2 class="gh-section-title" id="gh-featured-title">Featured</h2>
+                        <div class="gh-featured-track" role="group" aria-labelledby="gh-featured-title" tabindex="0">
+                                <article class="gh-card post tag-ferments featured">
+    <a class="gh-card-link" href="/astrix-ghost/demos/proof/keeping-a-starter-alive-through-winter/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/avif/demo/img-390b38e1447a.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/img-390b38e1447a.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/img-390b38e1447a.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/img-390b38e1447a.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-390b38e1447a.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/img-390b38e1447a.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-390b38e1447a.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf2fa2dda5ec529ec77a"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Ferments</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Keeping a starter alive through winter</h3>
+
+                <p class="gh-card-excerpt">Cold kitchens make sluggish starters. How we keep ours awake from November to March.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/marta-ferreira.png" alt="" loading="lazy" decoding="async">
+                            <span>Marta Ferreira</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                                <article class="gh-card post tag-bread featured">
+    <a class="gh-card-link" href="/astrix-ghost/demos/proof/a-loaf-worth-the-two-day-wait/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/avif/demo/proof-a-loaf-worth-the-two-day-wait.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/proof-a-loaf-worth-the-two-day-wait.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/proof-a-loaf-worth-the-two-day-wait.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/proof-a-loaf-worth-the-two-day-wait.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/proof-a-loaf-worth-the-two-day-wait.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/proof-a-loaf-worth-the-two-day-wait.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/proof-a-loaf-worth-the-two-day-wait.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf2fa2dda5ec529ec773"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Bread</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">A loaf worth the two-day wait</h3>
+
+                <p class="gh-card-excerpt">The everyday sourdough we sell out of by nine. No stand mixer, no drama — just flour, water, salt, and time.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/marta-ferreira.png" alt="" loading="lazy" decoding="async">
+                            <span>Marta Ferreira</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                        </div>
+                    </section>
+
+    <section class="gh-feed-wrap">
+        <h2 class="gh-section-title gh-container-wide">Latest posts</h2>
+        <div class="gh-feed gh-feed--list">
+                        <article class="gh-card post tag-ferments">
+    <a class="gh-card-link" href="/astrix-ghost/demos/proof/a-short-history-of-the-starter/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/avif/demo/img-a1d3adc13e9e.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/img-a1d3adc13e9e.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/img-a1d3adc13e9e.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/img-a1d3adc13e9e.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-a1d3adc13e9e.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/img-a1d3adc13e9e.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-a1d3adc13e9e.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf30a2dda5ec529ec7ab"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Ferments</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">A very short history of the bakery&#x27;s starter</h3>
+
+                <p class="gh-card-excerpt">Eleven years, two house moves, one near-death experience in a cold kitchen. The life of a jar of flour and water.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/marta-ferreira.png" alt="" loading="lazy" decoding="async">
+                            <span>Marta Ferreira</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                        <article class="gh-card post tag-seasonal gh-card--locked gh-card--members">
+    <a class="gh-card-link" href="/astrix-ghost/demos/proof/members-note-what-we-throw-away/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/avif/demo/proof-members-note-what-we-throw-away.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/proof-members-note-what-we-throw-away.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/proof-members-note-what-we-throw-away.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/proof-members-note-what-we-throw-away.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/proof-members-note-what-we-throw-away.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/proof-members-note-what-we-throw-away.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/proof-members-note-what-we-throw-away.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf30a2dda5ec529ec7a6"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Seasonal</span>
+                    <span class="gh-card-lock-badge" data-astryx-badge="members"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+Members</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Members&#x27; note: what we throw away</h3>
+
+                <p class="gh-card-excerpt">The unglamorous arithmetic of running a bakery — how much goes in the bin, and what we do about it.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/marta-ferreira.png" alt="" loading="lazy" decoding="async">
+                            <span>Marta Ferreira</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span></span>
+            </div>
+        </div>
+    </a>
+</article>
+                        <article class="gh-card post tag-bread">
+    <a class="gh-card-link" href="/astrix-ghost/demos/proof/the-saturday-croissant/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/avif/demo/proof-the-saturday-croissant.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/proof-the-saturday-croissant.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/proof-the-saturday-croissant.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/proof-the-saturday-croissant.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/proof-the-saturday-croissant.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/proof-the-saturday-croissant.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/proof-the-saturday-croissant.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf30a2dda5ec529ec7a1"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Bread</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">The Saturday croissant, step by step</h3>
+
+                <p class="gh-card-excerpt">Two days, six folds, and the smell that gets the queue out of bed. The full method from the bakery.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/iris-bemba.png" alt="" loading="lazy" decoding="async">
+                            <span>Iris Bemba</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                        <article class="gh-card post tag-bread">
+    <a class="gh-card-link" href="/astrix-ghost/demos/proof/laminating-without-losing-your-mind/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/avif/demo/proof-laminating-without-losing-your-mind.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/proof-laminating-without-losing-your-mind.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/proof-laminating-without-losing-your-mind.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/proof-laminating-without-losing-your-mind.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/proof-laminating-without-losing-your-mind.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/proof-laminating-without-losing-your-mind.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/proof-laminating-without-losing-your-mind.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf30a2dda5ec529ec79c"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Bread</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Laminating dough without losing your mind</h3>
+
+                <p class="gh-card-excerpt">Butter, cold, and patience — in that order. The three things that go wrong, and how to stop them.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/iris-bemba.png" alt="" loading="lazy" decoding="async">
+                            <span>Iris Bemba</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                        <article class="gh-card post tag-seasonal">
+    <a class="gh-card-link" href="/astrix-ghost/demos/proof/a-short-defence-of-the-humble-bun/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/avif/demo/img-a25b1f5a380e.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/img-a25b1f5a380e.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/img-a25b1f5a380e.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/img-a25b1f5a380e.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-a25b1f5a380e.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/img-a25b1f5a380e.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-a25b1f5a380e.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf30a2dda5ec529ec797"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Seasonal</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">A short defence of the humble bun</h3>
+
+                <p class="gh-card-excerpt">Everyone wants the dramatic sourdough. The bun quietly does more work than any of them.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/marta-ferreira.png" alt="" loading="lazy" decoding="async">
+                            <span>Marta Ferreira</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                        <article class="gh-card post tag-bread">
+    <a class="gh-card-link" href="/astrix-ghost/demos/proof/salt-time-temperature/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/avif/demo/img-3b06984e8d3d.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/img-3b06984e8d3d.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/img-3b06984e8d3d.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/img-3b06984e8d3d.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-3b06984e8d3d.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/img-3b06984e8d3d.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-3b06984e8d3d.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf30a2dda5ec529ec792"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Bread</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Salt, time, temperature</h3>
+
+                <p class="gh-card-excerpt">Three dials, endless bread. The only variables you actually need to understand.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/marta-ferreira.png" alt="" loading="lazy" decoding="async">
+                            <span>Marta Ferreira</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                        <article class="gh-card post tag-seasonal gh-card--locked gh-card--members">
+    <a class="gh-card-link" href="/astrix-ghost/demos/proof/sunday-notes-five-am/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/avif/demo/img-32aba413fe73.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/img-32aba413fe73.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/img-32aba413fe73.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/img-32aba413fe73.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-32aba413fe73.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/img-32aba413fe73.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-32aba413fe73.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf30a2dda5ec529ec78d"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Seasonal</span>
+                    <span class="gh-card-lock-badge" data-astryx-badge="members"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+Members</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Sunday notes: the shop at five a.m.</h3>
+
+                <p class="gh-card-excerpt">The best hour of the week, before anyone else is awake. A members-only letter from the bakery.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/marta-ferreira.png" alt="" loading="lazy" decoding="async">
+                            <span>Marta Ferreira</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span></span>
+            </div>
+        </div>
+    </a>
+</article>
+                        <article class="gh-card post tag-bread gh-card--locked gh-card--paid">
+    <a class="gh-card-link" href="/astrix-ghost/demos/proof/members-recipe-rye-and-caraway/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/avif/demo/img-e0715ddea2ad.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/avif/demo/img-e0715ddea2ad.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/avif/demo/img-e0715ddea2ad.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/img-e0715ddea2ad.jpg 320w, /astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-e0715ddea2ad.jpg 640w, /astrix-ghost/demos/proof/content/images/size/w1024/format/webp/demo/img-e0715ddea2ad.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/proof/content/images/size/w640/format/webp/demo/img-e0715ddea2ad.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf30a2dda5ec529ec788"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Bread</span>
+                    <span class="gh-card-lock-badge" data-astryx-badge="premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+Premium</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Members&#x27; recipe: rye and caraway</h3>
+
+                <p class="gh-card-excerpt">Dense, dark, and built to last a week. The full recipe, for the Proof Club.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/proof/content/images/size/w320/format/webp/demo/avatars/marta-ferreira.png" alt="" loading="lazy" decoding="async">
+                            <span>Marta Ferreira</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span></span>
+            </div>
+        </div>
+    </a>
+</article>
+        </div>
+    </section>
+
+
+
+
+<section class="gh-subscribe-band" data-astryx-banner="subscribe">
+    <div class="gh-subscribe" data-astryx-media="dark">
+        <h2 class="gh-subscribe-title">
+            Rise with us
+        </h2>
+        <p class="gh-subscribe-text">
+            A recipe and a letter from the bakery, most Sundays. First bake is on the house.
+        </p>
+
+        
+    </div>
+</section>
+
+    </main>
+
+    <footer class="gh-footer">
+    <div class="gh-footer-inner">
+        <div class="gh-footer-main">
+            <div class="gh-footer-identity">
+                <a class="gh-footer-brand" href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof">The Proof</a>
+                    <p class="gh-footer-bio">Bread, ferments, and the seasons — notes from a small corner bakery.</p>
+                <div class="gh-social-links">
+        <a class="gh-icon-button" href="https://x.com/theproofbakery" target="_blank" rel="me noopener noreferrer" aria-label="X (Twitter)" data-tooltip><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+</a>
+        <a class="gh-icon-button" href="https://www.instagram.com/theproof.bakery" target="_blank" rel="me noopener noreferrer" aria-label="Instagram" data-tooltip><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+</a>
+        <a class="gh-icon-button" href="mailto:hello@theproof.example" aria-label="Email" data-tooltip><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+</a>
+    <a class="gh-icon-button" href="https://adrianoamalfi.github.io/astrix-ghost/demos/proof/rss.xml" aria-label="RSS feed" data-tooltip><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+</a>
+</div>
+            </div>
+
+                <nav class="gh-footer-nav" aria-label="Secondary navigation">
+                    <ul class="nav">
+    <li class="nav-sign-up nav-current"><a href="#/portal/">Sign up</a></li>
+</ul>
+
+                </nav>
+        </div>
+
+        
+
+        <div class="gh-footer-meta">
+            <span class="gh-footer-copyright">&copy; 2026 The Proof</span>
+            <div class="gh-footer-credits">
+                <span>Theme <a href="https://adrianoamalfi.com/astrix/" target="_blank" rel="noopener noreferrer">Astrix <span class="u-visually-hidden">Opens in a new tab</span></a></span>
+                <span class="gh-footer-sep" aria-hidden="true">&middot;</span>
+                <span>Published with <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">Ghost <span class="u-visually-hidden">Opens in a new tab</span></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <button class="gh-back-to-top" type="button" aria-label="Back to top" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-7 7 7-7 7 7"/></svg>
+    </button>
+
+    <script defer src="/astrix-ghost/demos/proof/assets/built/main.js?v=ZDb0gkS9EVTDB2vk"></script>
+    
+    
+</body>
+</html>

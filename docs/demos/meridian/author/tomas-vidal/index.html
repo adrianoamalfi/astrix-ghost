@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" data-astryx-theme="neutral">
+<head>
+    <script>(function () {
+        try {
+            var s = localStorage.getItem('astrix-scheme');
+            if (!s) { s = (document.documentElement.getAttribute('data-scheme-default') || '').toLowerCase(); }
+            if (s === 'dark' || s === 'light') { document.documentElement.style.colorScheme = s; }
+        } catch (e) { /* storage unavailable */ }
+    })();</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Tomás Vidal - Meridian</title>
+
+    <link rel="preload" href="/astrix-ghost/demos/meridian/assets/fonts/figtree-latin.woff2?v=gzBJCgHGDBlurgC4" as="font" type="font/woff2" crossorigin>
+    
+
+
+
+
+    <link rel="stylesheet" href="/astrix-ghost/demos/meridian/assets/built/screen.css?v=cS-TTxMb0AjR5ywu">
+    
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <link rel="alternate" type="application/rss+xml" title="Meridian" href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/rss.xml">
+
+
+    <style>
+        /* Primary Latin subset, declared here (not in fonts.css) so its src goes
+           through the asset helper and gets the same version-hashed URL as the
+           preload above — matching URLs mean the preloaded font is reused
+           instead of fetched twice. The other subsets stay in fonts.css.
+           NB: Handlebars parses this file in full, CSS comments included, so
+           never write a bare helper call in here — it would be evaluated. */
+        @font-face {
+            font-family: 'Figtree';
+            font-style: normal;
+            font-weight: 300 900;
+            font-display: swap;
+            src: url("/astrix-ghost/demos/meridian/assets/fonts/figtree-latin.woff2?v=gzBJCgHGDBlurgC4") format("woff2");
+            unicode-range:
+                U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+                U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        :root {
+            --gh-accent-2: #e0a44a;
+        }
+
+        /* Cross-document view transitions: feature images morph between the
+           card/hero and the post (progressive enhancement; unsupported
+           browsers ignore it). Kept out of the layered stylesheets because
+           it applies to navigation, not to component styling. */
+        @media (prefers-reduced-motion: no-preference) {
+            @view-transition {
+                navigation: auto;
+            }
+        }
+
+        /* Without an explicit background the transition overlay falls back
+           to the UA canvas, which meta color-scheme "light dark" + a dark
+           system resolve to DARK even when the reader chose light — the
+           mid-animation dark flash. The token follows the effective scheme. */
+        ::view-transition {
+            background-color: var(--color-background-body);
+        }
+    </style>
+
+    <meta name="description" content="Photographer at large — mostly coastlines and cold mornings.">
+    <link rel="canonical" href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/author/tomas-vidal/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="Meridian">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Tomás Vidal - Meridian">
+    <meta property="og:description" content="Photographer at large — mostly coastlines and cold mornings.">
+    <meta property="og:url" content="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/author/tomas-vidal/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tomás Vidal - Meridian">
+    <meta name="twitter:description" content="Photographer at large — mostly coastlines and cold mornings.">
+    <meta name="twitter:url" content="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/author/tomas-vidal/">
+    <meta name="twitter:site" content="@meridianjournal">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "sameAs": [],
+    "name": "Tomás Vidal",
+    "url": "https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/author/tomas-vidal/",
+    "mainEntityOfPage": "https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/author/tomas-vidal/",
+    "description": "Photographer at large — mostly coastlines and cold mornings."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 6.70">
+    <link rel="alternate" type="application/rss+xml" title="Meridian" href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/rss.xml">
+    <style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style>
+    
+    
+    <link href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/webmentions/receive/" rel="webmention">
+    <script defer src="/astrix-ghost/demos/meridian/public/cards.min.js?v=ShRHxgy4po8zN-Wf"></script>
+    <link rel="stylesheet" type="text/css" href="/astrix-ghost/demos/meridian/public/cards.min.css?v=WwnU9jw5ancNC8Gc">
+    
+    <style>:root {--ghost-accent-color: #b5502e;}</style>
+</head>
+<body class="author-template author-tomas-vidal">
+
+    <a class="gh-skip-link" href="#gh-main-content">Skip to content</a>
+
+    <header id="gh-header" class="gh-header gh-header--center">
+    <div class="gh-header-inner">
+        <div class="gh-header-brand">
+            <a class="gh-header-logo" href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian">
+                    Meridian
+            </a>
+        </div>
+
+        <nav class="gh-nav" id="gh-nav" aria-label="Main navigation">
+            <ul class="nav">
+    <li class="nav-home"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/">Home</a></li>
+    <li class="nav-journeys"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/tag/journeys/">Journeys</a></li>
+    <li class="nav-photo-essays"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/tag/photo-essays/">Photo Essays</a></li>
+    <li class="nav-about"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/about/">About</a></li>
+</ul>
+
+                <div class="gh-nav-mobile-actions">
+                        <a class="gh-button" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+        </nav>
+
+        <div class="gh-header-actions">
+                    <a class="gh-button gh-header-cta" href="#/portal/signup" data-portal="signup">Subscribe</a>
+
+            
+            
+
+            <button class="gh-icon-button" type="button" id="gh-scheme-toggle" aria-label="Change color scheme" data-label-light="Switch to dark mode" data-label-dark="Switch to system mode" data-label-system="Switch to light mode" data-tooltip>
+                <svg class="gh-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                <svg class="gh-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+
+            <button class="gh-icon-button gh-burger" type="button" id="gh-burger" aria-label="Open menu" data-label-close="Close menu" aria-expanded="false" aria-controls="gh-nav" data-tooltip>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+    <main id="gh-main-content" class="gh-main">
+        
+<header class="gh-archive-header gh-author-band gh-author-band--plain">
+    <div class="gh-archive-inner">
+        <nav class="gh-breadcrumbs" aria-label="Breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian" itemprop="item"><span itemprop="name">Home</span></a>
+        <meta itemprop="position" content="1">
+    </span>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="item" itemscope itemtype="https://schema.org/WebPage" itemid="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/author/tomas-vidal/">
+                <span itemprop="name">Tomás Vidal</span>
+            </span>
+            <meta itemprop="position" content="2">
+        </span>
+</nav>
+
+        <div class="gh-author-header">
+                <img class="gh-author-avatar"
+                    srcset="/astrix-ghost/demos/meridian/content/images/size/w320/format/webp/demo/avatars/tomas-vidal.png 320w, /astrix-ghost/demos/meridian/content/images/size/w640/format/webp/demo/avatars/tomas-vidal.png 640w"
+                    sizes="(max-width: 640px) 88px, 128px"
+                    src="/astrix-ghost/demos/meridian/content/images/size/w320/format/webp/demo/avatars/tomas-vidal.png"
+                    width="320" height="320"
+                    alt="" loading="eager" decoding="async">
+            <div class="gh-author-identity">
+                <span class="u-kicker">Author</span>
+                <h1 class="gh-archive-title">Tomás Vidal</h1>
+                    <p class="gh-archive-description">Photographer at large — mostly coastlines and cold mornings.</p>
+                <p class="gh-archive-meta">
+                    <span>4 posts</span>
+                </p>
+                <div class="gh-author-links" data-astryx-overflow-list>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="gh-feed-wrap">
+    <h2 class="u-visually-hidden">Latest posts</h2>
+        <div class="gh-feed gh-feed--bold-grid">
+                <article class="gh-card post tag-photo-essays">
+    <a class="gh-card-link" href="/astrix-ghost/demos/meridian/a-gallery-from-the-salt-flats/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/meridian/content/images/size/w320/format/avif/demo/img-958713d42b7b.jpg 320w, /astrix-ghost/demos/meridian/content/images/size/w640/format/avif/demo/img-958713d42b7b.jpg 640w, /astrix-ghost/demos/meridian/content/images/size/w1024/format/avif/demo/img-958713d42b7b.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/meridian/content/images/size/w320/format/webp/demo/img-958713d42b7b.jpg 320w, /astrix-ghost/demos/meridian/content/images/size/w640/format/webp/demo/img-958713d42b7b.jpg 640w, /astrix-ghost/demos/meridian/content/images/size/w1024/format/webp/demo/img-958713d42b7b.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/meridian/content/images/size/w640/format/webp/demo/img-958713d42b7b.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="eager" fetchpriority="high"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf12f05a6ae21cc34728"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Photo Essays</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">A gallery from the salt flats</h3>
+
+                <p class="gh-card-excerpt">Twelve hours, one horizon, no shade. A set from the flattest place either of us has stood.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/meridian/content/images/size/w320/format/webp/demo/avatars/tomas-vidal.png" alt="" loading="lazy" decoding="async">
+                            <span>Tomás Vidal</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                <article class="gh-card post tag-photo-essays">
+    <a class="gh-card-link" href="/astrix-ghost/demos/meridian/twelve-frames-from-the-coast/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/meridian/content/images/size/w320/format/avif/demo/img-a6ae9e3a7a33.jpg 320w, /astrix-ghost/demos/meridian/content/images/size/w640/format/avif/demo/img-a6ae9e3a7a33.jpg 640w, /astrix-ghost/demos/meridian/content/images/size/w1024/format/avif/demo/img-a6ae9e3a7a33.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/meridian/content/images/size/w320/format/webp/demo/img-a6ae9e3a7a33.jpg 320w, /astrix-ghost/demos/meridian/content/images/size/w640/format/webp/demo/img-a6ae9e3a7a33.jpg 640w, /astrix-ghost/demos/meridian/content/images/size/w1024/format/webp/demo/img-a6ae9e3a7a33.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/meridian/content/images/size/w640/format/webp/demo/img-a6ae9e3a7a33.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf11f05a6ae21cc34714"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Photo Essays</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Twelve frames from the coast</h3>
+
+                <p class="gh-card-excerpt">One roll of film, one grey morning, one stretch of shoreline that refused to be boring.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/meridian/content/images/size/w320/format/webp/demo/avatars/tomas-vidal.png" alt="" loading="lazy" decoding="async">
+                            <span>Tomás Vidal</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                <article class="gh-card post tag-journeys">
+    <a class="gh-card-link" href="/astrix-ghost/demos/meridian/where-the-tarmac-ends/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/meridian/content/images/size/w320/format/avif/demo/img-644a5b7a121e.jpg 320w, /astrix-ghost/demos/meridian/content/images/size/w640/format/avif/demo/img-644a5b7a121e.jpg 640w, /astrix-ghost/demos/meridian/content/images/size/w1024/format/avif/demo/img-644a5b7a121e.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/meridian/content/images/size/w320/format/webp/demo/img-644a5b7a121e.jpg 320w, /astrix-ghost/demos/meridian/content/images/size/w640/format/webp/demo/img-644a5b7a121e.jpg 640w, /astrix-ghost/demos/meridian/content/images/size/w1024/format/webp/demo/img-644a5b7a121e.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/meridian/content/images/size/w640/format/webp/demo/img-644a5b7a121e.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf11f05a6ae21cc3470a"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Journeys</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Where the tarmac ends</h3>
+
+                <p class="gh-card-excerpt">A short piece about the exact place a road stops being a road, and why I keep driving to find it.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/meridian/content/images/size/w320/format/webp/demo/avatars/tomas-vidal.png" alt="" loading="lazy" decoding="async">
+                            <span>Tomás Vidal</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                <article class="gh-card post tag-photo-essays featured">
+    <a class="gh-card-link" href="/astrix-ghost/demos/meridian/blue-hour-in-the-harbour/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/meridian/content/images/size/w320/format/avif/demo/img-297d2b003b72.jpg 320w, /astrix-ghost/demos/meridian/content/images/size/w640/format/avif/demo/img-297d2b003b72.jpg 640w, /astrix-ghost/demos/meridian/content/images/size/w1024/format/avif/demo/img-297d2b003b72.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/meridian/content/images/size/w320/format/webp/demo/img-297d2b003b72.jpg 320w, /astrix-ghost/demos/meridian/content/images/size/w640/format/webp/demo/img-297d2b003b72.jpg 640w, /astrix-ghost/demos/meridian/content/images/size/w1024/format/webp/demo/img-297d2b003b72.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/meridian/content/images/size/w640/format/webp/demo/img-297d2b003b72.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf11f05a6ae21cc346fc"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Photo Essays</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Blue hour in the harbour</h3>
+
+                <p class="gh-card-excerpt">Twenty minutes of impossible colour, a borrowed tripod, and every fisherman in the port wondering what the tourist is doing.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/meridian/content/images/size/w320/format/webp/demo/avatars/tomas-vidal.png" alt="" loading="lazy" decoding="async">
+                            <span>Tomás Vidal</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+        </div>
+</div>
+
+
+
+    </main>
+
+    <footer class="gh-footer">
+    <div class="gh-footer-inner">
+        <div class="gh-footer-main">
+            <div class="gh-footer-identity">
+                <a class="gh-footer-brand" href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian">Meridian</a>
+                    <p class="gh-footer-bio">Field dispatches from the edges of the map.</p>
+                <div class="gh-social-links">
+        <a class="gh-icon-button" href="https://x.com/meridianjournal" target="_blank" rel="me noopener noreferrer" aria-label="X (Twitter)" data-tooltip><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+</a>
+        <a class="gh-icon-button" href="https://www.instagram.com/meridian.journal" target="_blank" rel="me noopener noreferrer" aria-label="Instagram" data-tooltip><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+</a>
+        <a class="gh-icon-button" href="https://meridian.example" target="_blank" rel="me noopener noreferrer" aria-label="Website" data-tooltip><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+</a>
+    <a class="gh-icon-button" href="https://adrianoamalfi.github.io/astrix-ghost/demos/meridian/rss.xml" aria-label="RSS feed" data-tooltip><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+</a>
+</div>
+            </div>
+
+                <nav class="gh-footer-nav" aria-label="Secondary navigation">
+                    <ul class="nav">
+    <li class="nav-sign-up"><a href="#/portal/">Sign up</a></li>
+</ul>
+
+                </nav>
+        </div>
+
+        
+
+        <div class="gh-footer-meta">
+            <span class="gh-footer-copyright">&copy; 2026 Meridian</span>
+            <div class="gh-footer-credits">
+                <span>Theme <a href="https://adrianoamalfi.com/astrix/" target="_blank" rel="noopener noreferrer">Astrix <span class="u-visually-hidden">Opens in a new tab</span></a></span>
+                <span class="gh-footer-sep" aria-hidden="true">&middot;</span>
+                <span>Published with <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">Ghost <span class="u-visually-hidden">Opens in a new tab</span></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <button class="gh-back-to-top" type="button" aria-label="Back to top" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-7 7 7-7 7 7"/></svg>
+    </button>
+
+    <script defer src="/astrix-ghost/demos/meridian/assets/built/main.js?v=ZDb0gkS9EVTDB2vk"></script>
+    
+    
+</body>
+</html>

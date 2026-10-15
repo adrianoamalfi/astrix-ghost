@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" data-astryx-theme="neutral">
+<head>
+    <script>(function () {
+        try {
+            var s = localStorage.getItem('astrix-scheme');
+            if (!s) { s = (document.documentElement.getAttribute('data-scheme-default') || '').toLowerCase(); }
+            if (s === 'dark' || s === 'light') { document.documentElement.style.colorScheme = s; }
+        } catch (e) { /* storage unavailable */ }
+    })();</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Field Notes</title>
+
+    <link rel="preload" href="/astrix-ghost/demos/fieldnotes/assets/fonts/figtree-latin.woff2?v=gzBJCgHGDBlurgC4" as="font" type="font/woff2" crossorigin>
+    
+
+
+
+
+    <link rel="stylesheet" href="/astrix-ghost/demos/fieldnotes/assets/built/screen.css?v=cS-TTxMb0AjR5ywu">
+    
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <link rel="alternate" type="application/rss+xml" title="Field Notes" href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes/rss.xml">
+
+
+    <style>
+        /* Primary Latin subset, declared here (not in fonts.css) so its src goes
+           through the asset helper and gets the same version-hashed URL as the
+           preload above — matching URLs mean the preloaded font is reused
+           instead of fetched twice. The other subsets stay in fonts.css.
+           NB: Handlebars parses this file in full, CSS comments included, so
+           never write a bare helper call in here — it would be evaluated. */
+        @font-face {
+            font-family: 'Figtree';
+            font-style: normal;
+            font-weight: 300 900;
+            font-display: swap;
+            src: url("/astrix-ghost/demos/fieldnotes/assets/fonts/figtree-latin.woff2?v=gzBJCgHGDBlurgC4") format("woff2");
+            unicode-range:
+                U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+                U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        :root {
+            --gh-accent-2: #c9a94a;
+        }
+
+        /* Cross-document view transitions: feature images morph between the
+           card/hero and the post (progressive enhancement; unsupported
+           browsers ignore it). Kept out of the layered stylesheets because
+           it applies to navigation, not to component styling. */
+        @media (prefers-reduced-motion: no-preference) {
+            @view-transition {
+                navigation: auto;
+            }
+        }
+
+        /* Without an explicit background the transition overlay falls back
+           to the UA canvas, which meta color-scheme "light dark" + a dark
+           system resolve to DARK even when the reader chose light — the
+           mid-animation dark flash. The token follows the effective scheme. */
+        ::view-transition {
+            background-color: var(--color-background-body);
+        }
+    </style>
+
+    <meta name="generator" content="Ghost 6.70">
+    <link rel="alternate" type="application/rss+xml" title="Field Notes" href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes/rss.xml">
+    <style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style>
+    
+    
+    <link href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes/webmentions/receive/" rel="webmention">
+    <script defer src="/astrix-ghost/demos/fieldnotes/public/cards.min.js?v=ShRHxgy4po8zN-Wf"></script>
+    <link rel="stylesheet" type="text/css" href="/astrix-ghost/demos/fieldnotes/public/cards.min.css?v=WwnU9jw5ancNC8Gc">
+    
+    <style>:root {--ghost-accent-color: #2f5d50;}</style>
+</head>
+<body class="">
+
+    <a class="gh-skip-link" href="#gh-main-content">Skip to content</a>
+
+    <header id="gh-header" class="gh-header">
+    <div class="gh-header-inner">
+        <div class="gh-header-brand">
+            <a class="gh-header-logo" href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes">
+                    Field Notes
+            </a>
+        </div>
+
+        <nav class="gh-nav" id="gh-nav" aria-label="Main navigation">
+            <ul class="nav">
+    <li class="nav-home"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes/">Home</a></li>
+    <li class="nav-process"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes/tag/process/">Process</a></li>
+    <li class="nav-notes"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes/tag/notes/">Notes</a></li>
+    <li class="nav-about"><a href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes/about/">About</a></li>
+</ul>
+
+                <div class="gh-nav-mobile-actions">
+                        <a class="gh-button" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+        </nav>
+
+        <div class="gh-header-actions">
+                    <a class="gh-button gh-header-cta" href="#/portal/signup" data-portal="signup">Subscribe</a>
+
+            
+            
+
+            <button class="gh-icon-button" type="button" id="gh-scheme-toggle" aria-label="Change color scheme" data-label-light="Switch to dark mode" data-label-dark="Switch to system mode" data-label-system="Switch to light mode" data-tooltip>
+                <svg class="gh-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                <svg class="gh-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+
+            <button class="gh-icon-button gh-burger" type="button" id="gh-burger" aria-label="Open menu" data-label-close="Close menu" aria-expanded="false" aria-controls="gh-nav" data-tooltip>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+    <main id="gh-main-content" class="gh-main">
+        
+<section class="gh-error gh-container">
+    <h1 class="u-visually-hidden">Page not found</h1>
+    <div class="gh-error-code" aria-hidden="true">404</div>
+    <p class="gh-error-description">The page you were looking for doesn&#x27;t exist or has been moved.</p>
+    <div class="gh-error-actions">
+        <a class="gh-button" href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes">Back to home</a>
+        
+    </div>
+</section>
+
+        <section class="gh-container-wide">
+            <h2 class="gh-section-title">Latest posts</h2>
+            <div class="gh-feed gh-feed--bold-grid gh-feed--related">
+                    <article class="gh-card post tag-process">
+    <a class="gh-card-link" href="/astrix-ghost/demos/fieldnotes/small-often/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/avif/demo/img-2f41576c0ed9.jpg 320w, /astrix-ghost/demos/fieldnotes/content/images/size/w640/format/avif/demo/img-2f41576c0ed9.jpg 640w, /astrix-ghost/demos/fieldnotes/content/images/size/w1024/format/avif/demo/img-2f41576c0ed9.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/webp/demo/img-2f41576c0ed9.jpg 320w, /astrix-ghost/demos/fieldnotes/content/images/size/w640/format/webp/demo/img-2f41576c0ed9.jpg 640w, /astrix-ghost/demos/fieldnotes/content/images/size/w1024/format/webp/demo/img-2f41576c0ed9.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/fieldnotes/content/images/size/w640/format/webp/demo/img-2f41576c0ed9.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="eager" fetchpriority="high"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf3de6872cf16d3a5ee9"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Process</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Small, often</h3>
+
+                <p class="gh-card-excerpt">Twenty minutes a day beats a heroic Saturday, and it is not close.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/webp/demo/avatars/devin-hale.png" alt="" loading="lazy" decoding="async">
+                            <span>Devin Hale</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                    <article class="gh-card post tag-notes gh-card--locked gh-card--paid">
+    <a class="gh-card-link" href="/astrix-ghost/demos/fieldnotes/supporter-note-the-year-i-nearly-quit/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/avif/demo/img-f13c3416d8de.jpg 320w, /astrix-ghost/demos/fieldnotes/content/images/size/w640/format/avif/demo/img-f13c3416d8de.jpg 640w, /astrix-ghost/demos/fieldnotes/content/images/size/w1024/format/avif/demo/img-f13c3416d8de.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/webp/demo/img-f13c3416d8de.jpg 320w, /astrix-ghost/demos/fieldnotes/content/images/size/w640/format/webp/demo/img-f13c3416d8de.jpg 640w, /astrix-ghost/demos/fieldnotes/content/images/size/w1024/format/webp/demo/img-f13c3416d8de.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/fieldnotes/content/images/size/w640/format/webp/demo/img-f13c3416d8de.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf3de6872cf16d3a5ee4"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Notes</span>
+                    <span class="gh-card-lock-badge" data-astryx-badge="premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+Premium</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Supporter note: the year I nearly quit</h3>
+
+                <p class="gh-card-excerpt">The honest version of the year nothing worked — what it actually felt like, and what got me back.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/webp/demo/avatars/devin-hale.png" alt="" loading="lazy" decoding="async">
+                            <span>Devin Hale</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span></span>
+            </div>
+        </div>
+    </a>
+</article>
+                    <article class="gh-card post tag-process">
+    <a class="gh-card-link" href="/astrix-ghost/demos/fieldnotes/on-finishing-things/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/avif/demo/fieldnotes-on-finishing-things.jpg 320w, /astrix-ghost/demos/fieldnotes/content/images/size/w640/format/avif/demo/fieldnotes-on-finishing-things.jpg 640w, /astrix-ghost/demos/fieldnotes/content/images/size/w1024/format/avif/demo/fieldnotes-on-finishing-things.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/webp/demo/fieldnotes-on-finishing-things.jpg 320w, /astrix-ghost/demos/fieldnotes/content/images/size/w640/format/webp/demo/fieldnotes-on-finishing-things.jpg 640w, /astrix-ghost/demos/fieldnotes/content/images/size/w1024/format/webp/demo/fieldnotes-on-finishing-things.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/fieldnotes/content/images/size/w640/format/webp/demo/fieldnotes-on-finishing-things.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf3de6872cf16d3a5edf"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Process</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">On finishing things</h3>
+
+                <p class="gh-card-excerpt">Starting is cheap and feels wonderful. Finishing is expensive and feels like nothing at all.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/webp/demo/avatars/devin-hale.png" alt="" loading="lazy" decoding="async">
+                            <span>Devin Hale</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+                    <article class="gh-card post tag-notes">
+    <a class="gh-card-link" href="/astrix-ghost/demos/fieldnotes/tools-are-not-the-work/">
+            <div class="gh-card-media">
+                <picture>
+                    <source type="image/avif"
+                        srcset="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/avif/demo/img-3bb1ba38eec1.jpg 320w, /astrix-ghost/demos/fieldnotes/content/images/size/w640/format/avif/demo/img-3bb1ba38eec1.jpg 640w, /astrix-ghost/demos/fieldnotes/content/images/size/w1024/format/avif/demo/img-3bb1ba38eec1.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px">
+                    <img
+                        srcset="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/webp/demo/img-3bb1ba38eec1.jpg 320w, /astrix-ghost/demos/fieldnotes/content/images/size/w640/format/webp/demo/img-3bb1ba38eec1.jpg 640w, /astrix-ghost/demos/fieldnotes/content/images/size/w1024/format/webp/demo/img-3bb1ba38eec1.jpg 1024w"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 420px"
+                        src="/astrix-ghost/demos/fieldnotes/content/images/size/w640/format/webp/demo/img-3bb1ba38eec1.jpg"
+                        width="1200" height="800"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style="view-transition-name: gh-post-6a60cf3de6872cf16d3a5eda"
+                    >
+                </picture>
+                    <span class="gh-card-tag" data-astryx-badge="category">Notes</span>
+            </div>
+
+        <div class="gh-card-body">
+            <h3 class="gh-card-title">Tools are not the work</h3>
+
+                <p class="gh-card-excerpt">I have reorganised my setup more times than I have shipped. A note to myself, mostly.</p>
+
+            <div class="gh-card-meta">
+                        <span class="gh-meta-author">
+                                    <img class="gh-meta-author-avatar" src="/astrix-ghost/demos/fieldnotes/content/images/size/w320/format/webp/demo/avatars/devin-hale.png" alt="" loading="lazy" decoding="async">
+                            <span>Devin Hale</span>
+                        </span>
+                        <span class="gh-meta-divider" aria-hidden="true"></span>
+                <time datetime="2026-07-22">22 Jul 2026</time>
+                <span class="gh-meta-divider" aria-hidden="true"></span>
+                <span>1 min read</span>
+            </div>
+        </div>
+    </a>
+</article>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="gh-footer">
+    <div class="gh-footer-inner">
+        <div class="gh-footer-main">
+            <div class="gh-footer-identity">
+                <a class="gh-footer-brand" href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes">Field Notes</a>
+                    <p class="gh-footer-bio">One maker&#x27;s notes on creative work, in public.</p>
+                <div class="gh-social-links">
+        <a class="gh-icon-button" href="https://x.com/devinmakes" target="_blank" rel="me noopener noreferrer" aria-label="X (Twitter)" data-tooltip><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+</a>
+        <a class="gh-icon-button" href="https://github.com/devinmakes" target="_blank" rel="me noopener noreferrer" aria-label="GitHub" data-tooltip><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+</a>
+        <a class="gh-icon-button" href="mailto:hello@fieldnotes.example" aria-label="Email" data-tooltip><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+</a>
+    <a class="gh-icon-button" href="https://adrianoamalfi.github.io/astrix-ghost/demos/fieldnotes/rss.xml" aria-label="RSS feed" data-tooltip><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+</a>
+</div>
+            </div>
+
+                <nav class="gh-footer-nav" aria-label="Secondary navigation">
+                    <ul class="nav">
+    <li class="nav-sign-up"><a href="#/portal/">Sign up</a></li>
+</ul>
+
+                </nav>
+        </div>
+
+        
+
+        <div class="gh-footer-meta">
+            <span class="gh-footer-copyright">&copy; 2026 Field Notes</span>
+            <div class="gh-footer-credits">
+                <span>Theme <a href="https://adrianoamalfi.com/astrix/" target="_blank" rel="noopener noreferrer">Astrix <span class="u-visually-hidden">Opens in a new tab</span></a></span>
+                <span class="gh-footer-sep" aria-hidden="true">&middot;</span>
+                <span>Published with <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">Ghost <span class="u-visually-hidden">Opens in a new tab</span></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <button class="gh-back-to-top" type="button" aria-label="Back to top" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-7 7 7-7 7 7"/></svg>
+    </button>
+
+    <script defer src="/astrix-ghost/demos/fieldnotes/assets/built/main.js?v=ZDb0gkS9EVTDB2vk"></script>
+    
+    
+</body>
+</html>
