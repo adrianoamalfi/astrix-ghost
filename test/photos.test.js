@@ -82,4 +82,14 @@ describe('#photos templates', () => {
       /<template data-photo-source>\{\{content\}\}<\/template>/,
     );
   });
+
+  it('passes page and limit to get as values, never as interpolated strings', () => {
+    // Ghost resolved page="{{pagination.page}}" to "undefined.page" and rejected the
+    // query, leaving tag and author archives with no cards and no pagination
+    for (const file of ['tag.hbs', 'author.hbs']) {
+      const source = read(file);
+      expect(source).not.toMatch(/(?:page|limit)="\{\{[^"]*\}\}"/);
+      expect(source).toMatch(/limit=\S*pagination\.limit page=\S*pagination\.page/);
+    }
+  });
 });

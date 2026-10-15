@@ -72,7 +72,7 @@
     {{!-- posts tagged #photos live in their own section: filtered here, before
           limit and pagination, so pages stay full and the totals are right --}}
     {{#author}}
-    {{#get "posts" filter="authors:[{{slug}}]+tag:-hash-photos" include="tags,authors" limit="{{../pagination.limit}}" page="{{../pagination.page}}" as |authorPosts pg|}}
+    {{#get "posts" filter="authors:[{{slug}}]+tag:-hash-photos" include="tags,authors" limit=../pagination.limit page=../pagination.page as |authorPosts pg|}}
         {{#if authorPosts}}
             <div class="gh-feed gh-feed--bold-grid">
                 {{#foreach authorPosts}}
