@@ -67,7 +67,9 @@ async function discoverRoutes(base) {
     for (const p of await sitemapPaths(base, kind)) routes.add(p);
   }
   // Home, tag and author feeds can paginate; follow rel=next from each.
-  const lists = [...routes].filter((r) => r === '/' || r.startsWith('/tag/') || r.startsWith('/author/'));
+  const lists = [...routes].filter(
+    (r) => r === '/' || r.startsWith('/tag/') || r.startsWith('/author/'),
+  );
   for (const start of lists) {
     let cur = start;
     for (let depth = 0; depth < 25; depth++) {
@@ -109,16 +111,24 @@ function rewriteHtml(html, { origin, base, basePath }) {
         const t = part.trim();
         if (!t) return part;
         const [url, ...desc] = t.split(/\s+/);
-        return url.startsWith('/') ? basePath + url + (desc.length ? ' ' + desc.join(' ') : '') : part;
+        return url.startsWith('/')
+          ? basePath + url + (desc.length ? ' ' + desc.join(' ') : '')
+          : part;
       })
       .join(', ');
     return 'srcset="' + out + '"';
   });
   // Root-relative URLs in CSS url() inside inline <style> (the @font-face in
   // default.hbs) — not caught by the href/src pass below.
-  html = html.replace(/url\((["']?)(\/[^"')]+)\1\)/g, (_m, q, url) => `url(${q}${basePath}${url}${q})`);
+  html = html.replace(
+    /url\((["']?)(\/[^"')]+)\1\)/g,
+    (_m, q, url) => `url(${q}${basePath}${url}${q})`,
+  );
   // Root-relative URLs in href / src.
-  html = html.replace(/(href|src)="(\/[^"]*)"/g, (_m, attr, url) => attr + '="' + basePath + url + '"');
+  html = html.replace(
+    /(href|src)="(\/[^"]*)"/g,
+    (_m, attr, url) => attr + '="' + basePath + url + '"',
+  );
   // The feed is exported as rss.xml, not /rss/.
   html = html.split(base + '/rss/').join(base + '/rss.xml');
   return html;
@@ -186,18 +196,28 @@ async function exportPub({ name, port }) {
   // RSS feed, exported as rss.xml.
   {
     const res = await fetch(origin + '/rss/');
-    if (res.ok) await saveFile(path.join(out, 'rss.xml'), (await res.text()).split(origin).join(base));
+    if (res.ok)
+      await saveFile(path.join(out, 'rss.xml'), (await res.text()).split(origin).join(base));
   }
 
   // Theme assets are identical for every pub: copy the built CSS/JS and the
   // self-hosted fonts straight from the repo (already produced by `npm run build`).
-  await cp(path.join(ROOT, 'assets', 'built'), path.join(out, 'assets', 'built'), { recursive: true });
-  await cp(path.join(ROOT, 'assets', 'fonts'), path.join(out, 'assets', 'fonts'), { recursive: true });
+  await cp(path.join(ROOT, 'assets', 'built'), path.join(out, 'assets', 'built'), {
+    recursive: true,
+  });
+  await cp(path.join(ROOT, 'assets', 'fonts'), path.join(out, 'assets', 'fonts'), {
+    recursive: true,
+  });
 
   // Ghost-served public assets (Koenig cards) and the favicons. Ghost serves
   // /favicon.png as a redirect to /favicon.ico; fetch follows it, so the RSS
   // <image> reference resolves to a real file in the static export.
-  for (const f of ['/public/cards.min.js', '/public/cards.min.css', '/favicon.ico', '/favicon.png']) {
+  for (const f of [
+    '/public/cards.min.js',
+    '/public/cards.min.css',
+    '/favicon.ico',
+    '/favicon.png',
+  ]) {
     const res = await fetch(origin + f);
     if (!res.ok) {
       console.warn(`  ! ${name} ${f} → ${res.status}`);
@@ -220,7 +240,9 @@ async function exportPub({ name, port }) {
     bytes += buf.length;
   });
 
-  console.log(`${name}: ${pages} pages, ${imgs.length} images, ${(bytes / 1024 / 1024).toFixed(1)} MB of images`);
+  console.log(
+    `${name}: ${pages} pages, ${imgs.length} images, ${(bytes / 1024 / 1024).toFixed(1)} MB of images`,
+  );
   return { pages, images: imgs.length, bytes };
 }
 
