@@ -17,11 +17,16 @@ function fakeImg(attrs, caption = '') {
 const body = (imgs) => ({ querySelectorAll: () => imgs });
 
 describe('imageKey', () => {
-  it('ignores Ghost size paths, query strings and the host', () => {
+  it('folds Ghost sizes of one upload into one key', () => {
     expect(imageKey('https://x.com/content/images/size/w1600/2024/a.jpg?v=1')).toBe(
       '/content/images/2024/a.jpg',
     );
     expect(imageKey('/content/images/2024/a.jpg')).toBe('/content/images/2024/a.jpg');
+  });
+
+  it('keeps other URLs distinct, even with the same file name', () => {
+    expect(imageKey('https://a.test/photo.jpg')).not.toBe(imageKey('https://b.test/photo.jpg'));
+    expect(imageKey('https://a.test/p.jpg?id=1')).not.toBe(imageKey('https://a.test/p.jpg?id=2'));
   });
 });
 

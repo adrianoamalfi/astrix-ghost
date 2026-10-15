@@ -11,12 +11,17 @@
  */
 const IMAGE_SELECTOR = '.kg-image-card img, .kg-gallery-image img';
 
-// Same image at a different Ghost size or query string counts as one
+// Ghost serves one upload at several sizes (/content/images/size/w600/...):
+// those count as one image. Any other URL (another host, an external image)
+// keeps its full identity, so two different photos are never merged.
 export function imageKey(src) {
-  return (src || '')
+  const url = src || '';
+  const at = url.indexOf('/content/images/');
+  if (at === -1) return url;
+  return url
+    .slice(at)
     .replace(/[?#].*$/, '')
-    .replace(/\/size\/w\d+(h\d+)?(\/format\/[a-z]+)?\//, '/')
-    .replace(/^https?:\/\/[^/]+/, '');
+    .replace(/^\/content\/images\/size\/w\d+(h\d+)?(\/format\/[a-z]+)?\//, '/content/images/');
 }
 
 function captionOf(img) {
@@ -26,6 +31,7 @@ function captionOf(img) {
 }
 
 // Ordered, de-duplicated image data. `seen` holds keys already in the slider.
+// `key` lets a duplicate be matched to the slide that already shows it.
 export function extractImages(root, seen = new Set()) {
   const found = [];
   for (const img of root.querySelectorAll(IMAGE_SELECTOR)) {
@@ -33,6 +39,7 @@ export function extractImages(root, seen = new Set()) {
     const duplicate = !key || seen.has(key);
     if (!duplicate) seen.add(key);
     found.push({
+      key,
       node: img,
       duplicate,
       src: img.getAttribute('src'),
@@ -152,6 +159,28 @@ function setupControls(root, track, slides) {
   update();
 }
 
+// Fold the editorial alt/caption of a body copy into the slide that already
+// shows the image. Returns false when both sides differ, so the copy must stay.
+function mergeIntoSlide(item, slide) {
+  if (!slide) return false;
+  const img = slide.querySelector('img');
+  let caption = slide.querySelector('.gh-photo-caption');
+  const altOk = !item.alt || !img.alt || item.alt === img.alt;
+  const captionOk = !item.caption || !caption || item.caption === caption.innerHTML;
+  if (!altOk || !captionOk) return false;
+  if (item.alt && !img.alt) {
+    img.alt = item.alt;
+    slide.querySelector('.gh-photo-slide-link')?.removeAttribute('aria-label');
+  }
+  if (item.caption && !caption) {
+    caption = document.createElement('span');
+    caption.className = 'gh-photo-caption';
+    caption.innerHTML = item.caption;
+    slide.append(caption);
+  }
+  return true;
+}
+
 function initSlider(root) {
   const track = root.querySelector('[data-photo-track]');
   if (!track) return;
@@ -162,18 +191,30 @@ function initSlider(root) {
     : root.querySelector('template[data-photo-source]')?.content;
 
   const seen = new Set();
+  const slideByKey = new Map();
   for (const img of track.querySelectorAll('[data-photo-key]')) {
-    seen.add(imageKey(img.dataset.photoKey));
+    const key = imageKey(img.dataset.photoKey);
+    seen.add(key);
+    slideByKey.set(key, img.closest('[data-photo-slide]'));
   }
 
   const items = source ? extractImages(source, seen) : [];
   const fresh = items.filter((item) => !item.duplicate);
   if (fresh.length) {
     track.querySelector('[data-photo-fallback]')?.remove();
-    for (const item of fresh) track.append(buildSlide(item, root));
+    for (const item of fresh) {
+      const slide = buildSlide(item, root);
+      slideByKey.set(item.key, slide);
+      track.append(slide);
+    }
   }
-  // A body copy of an image now in the slider (or of the feature image) goes
-  if (detail) for (const item of items) removeFromBody(item);
+  // Body copies of images now in the slider go, once the slider holds their
+  // alt and caption; a copy with different editorial text stays in the body
+  if (detail) {
+    for (const item of items) {
+      if (!item.duplicate || mergeIntoSlide(item, slideByKey.get(item.key))) removeFromBody(item);
+    }
+  }
 
   const slides = [...track.querySelectorAll('[data-photo-slide]')];
   const count = root.parentElement.querySelector('[data-photo-count]');
