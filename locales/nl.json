@@ -97,5 +97,15 @@
   "month": "maand",
   "year": "jaar",
   "Choose this plan": "Kies dit plan",
-  "Scrollable table": "Scrollbare tabel"
+  "Scrollable table": "Scrollbare tabel",
+  "Photos": "Foto's",
+  "Latest photos": "Nieuwste foto's",
+  "No photos yet": "Nog geen foto's",
+  "Photo posts will appear here as soon as they are published.": "Fotoberichten verschijnen hier zodra ze zijn gepubliceerd.",
+  "Photo slider": "Fotoslider",
+  "Previous photo": "Vorige foto",
+  "Next photo": "Volgende foto",
+  "Photo {current} of {total}": "Foto {current} van {total}",
+  "1 photo": "1 foto",
+  "% photos": "% foto's"
 }

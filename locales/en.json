@@ -97,5 +97,15 @@
   "month": "month",
   "year": "year",
   "Choose this plan": "Choose this plan",
-  "Scrollable table": "Scrollable table"
+  "Scrollable table": "Scrollable table",
+  "Photos": "Photos",
+  "Latest photos": "Latest photos",
+  "No photos yet": "No photos yet",
+  "Photo posts will appear here as soon as they are published.": "Photo posts will appear here as soon as they are published.",
+  "Photo slider": "Photo slider",
+  "Previous photo": "Previous photo",
+  "Next photo": "Next photo",
+  "Photo {current} of {total}": "Photo {current} of {total}",
+  "1 photo": "1 photo",
+  "% photos": "% photos"
 }

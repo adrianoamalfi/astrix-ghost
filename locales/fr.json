@@ -97,5 +97,15 @@
   "month": "mois",
   "year": "an",
   "Choose this plan": "Choisir cette formule",
-  "Scrollable table": "Tableau défilant"
+  "Scrollable table": "Tableau défilant",
+  "Photos": "Photos",
+  "Latest photos": "Dernières photos",
+  "No photos yet": "Pas encore de photos",
+  "Photo posts will appear here as soon as they are published.": "Les articles photo apparaîtront ici dès leur publication.",
+  "Photo slider": "Diaporama photo",
+  "Previous photo": "Photo précédente",
+  "Next photo": "Photo suivante",
+  "Photo {current} of {total}": "Photo {current} sur {total}",
+  "1 photo": "1 photo",
+  "% photos": "% photos"
 }

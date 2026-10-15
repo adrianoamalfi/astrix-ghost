@@ -51,7 +51,7 @@
                     <p class="gh-archive-description">{{bio}}</p>
                 {{/if}}
                 <p class="gh-archive-meta">
-                    {{#if location}}<span>{{location}}</span> <span aria-hidden="true">·</span> {{/if}}<span>{{plural ../pagination.total empty=(t "No posts") singular=(t "% post") plural=(t "% posts")}}</span>
+                    {{#if location}}<span>{{location}}</span> <span aria-hidden="true">·</span> {{/if}}<span>{{#get "posts" filter="authors:[{{slug}}]+tag:-hash-photos" limit="1" as |first pg|}}{{plural pg.total empty=(t "No posts") singular=(t "% post") plural=(t "% posts")}}{{/get}}</span>
                 </p>
                 {{!-- The author's own accounts only. The publication's social
                       accounts live in the footer, on every page; repeating them
@@ -69,15 +69,20 @@
 
 <div class="gh-feed-wrap">
     <h2 class="u-visually-hidden">{{t "Latest posts"}}</h2>
-    {{#if posts}}
-        <div class="gh-feed gh-feed--bold-grid">
-            {{#foreach posts}}
-                {{> "post-card"}}
-            {{/foreach}}
-        </div>
-    {{else}}
-        {{> "empty-state"}}
-    {{/if}}
+    {{!-- posts tagged #photos live in their own section: filtered here, before
+          limit and pagination, so pages stay full and the totals are right --}}
+    {{#author}}
+    {{#get "posts" filter="authors:[{{slug}}]+tag:-hash-photos" include="tags,authors" limit=../pagination.limit page=../pagination.page as |authorPosts pg|}}
+        {{#if authorPosts}}
+            <div class="gh-feed gh-feed--bold-grid">
+                {{#foreach authorPosts}}
+                    {{> "post-card"}}
+                {{/foreach}}
+            </div>
+        {{else}}
+            {{> "empty-state"}}
+        {{/if}}
+        {{> "pagination" pagination=pg}}
+    {{/get}}
+    {{/author}}
 </div>
-
-{{pagination}}

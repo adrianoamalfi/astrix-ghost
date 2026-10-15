@@ -2,6 +2,11 @@
 
 {{#post}}
 
+{{!-- Posts tagged #photos get the photo page instead of the article layout --}}
+{{#has tag="#photos"}}
+{{> "photo-post"}}
+{{else}}
+
 {{#if @custom.show_reading_progress}}
     <div class="gh-progress" aria-hidden="true">
         <div class="gh-progress-bar" id="gh-progress-bar"></div>
@@ -121,5 +126,7 @@
 {{#if @custom.show_related_posts}}
     {{> "related-posts"}}
 {{/if}}
+
+{{/has}}
 
 {{/post}}

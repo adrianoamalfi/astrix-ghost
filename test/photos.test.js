@@ -1,0 +1,95 @@
+import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { imageKey, extractImages } from '../assets/js/modules/photos.js';
+
+// No DOM library in the toolchain: minimal stand-ins for the few members
+// extractImages touches (getAttribute, closest, querySelector on the figure).
+function fakeImg(attrs, caption = '') {
+  const figure = {
+    querySelector: () => (caption ? { innerHTML: caption } : null),
+  };
+  return {
+    getAttribute: (name) => attrs[name] ?? null,
+    closest: (selector) => (selector === 'figure.kg-image-card' && caption ? figure : null),
+  };
+}
+
+const body = (imgs) => ({ querySelectorAll: () => imgs });
+
+describe('imageKey', () => {
+  it('folds Ghost sizes of one upload into one key', () => {
+    expect(imageKey('https://x.com/content/images/size/w1600/2024/a.jpg')).toBe(
+      imageKey('https://x.com/content/images/2024/a.jpg'),
+    );
+    expect(imageKey('/content/images/size/w600h400/format/webp/2024/a.jpg')).toBe(
+      imageKey('/content/images/2024/a.jpg'),
+    );
+  });
+
+  it('keeps Ghost upload paths on different hosts distinct', () => {
+    expect(imageKey('https://a.test/content/images/2026/photo.jpg')).not.toBe(
+      imageKey('https://b.test/content/images/2026/photo.jpg'),
+    );
+  });
+
+  it('keeps other URLs distinct, even with the same file name', () => {
+    expect(imageKey('https://a.test/photo.jpg')).not.toBe(imageKey('https://b.test/photo.jpg'));
+    expect(imageKey('https://a.test/p.jpg?id=1')).not.toBe(imageKey('https://a.test/p.jpg?id=2'));
+  });
+});
+
+describe('extractImages', () => {
+  const imgs = () => [
+    fakeImg({ src: 'https://s.test/content/images/2024/a.jpg', alt: 'A' }, 'Cap A'),
+    fakeImg({ src: 'https://s.test/content/images/size/w600/2024/b.jpg', alt: 'B' }),
+    fakeImg({ src: 'https://s.test/content/images/2024/c.jpg', alt: 'C' }),
+    fakeImg({ src: 'https://s.test/content/images/size/w1000/2024/a.jpg', alt: 'A again' }),
+  ];
+
+  it('keeps document order and preserves alt and captions', () => {
+    const items = extractImages(body(imgs()));
+    expect(items.map((i) => i.alt)).toEqual(['A', 'B', 'C', 'A again']);
+    expect(items[0].caption).toBe('Cap A');
+  });
+
+  it('flags duplicates, including images already in the slider', () => {
+    const seen = new Set([imageKey('https://s.test/content/images/2024/b.jpg')]);
+    const items = extractImages(body(imgs()), seen);
+    expect(items.map((i) => i.duplicate)).toEqual([false, true, false, true]);
+  });
+});
+
+describe('#photos templates', () => {
+  const read = (file) => readFileSync(file, 'utf8');
+
+  it('filters photo posts out before limit and pagination in every ordinary list', () => {
+    for (const file of ['tag.hbs', 'author.hbs', 'partials/related-posts.hbs', 'home.hbs']) {
+      expect(read(file)).toContain('tag:-hash-photos');
+    }
+    expect(read('partials/post-nav.hbs')).toContain('tag:-hash-photos');
+    expect(read('routes.example.yaml')).toContain('filter: tag:-hash-photos');
+  });
+
+  it('serves the index from the #photos collection and picks the post page by tag', () => {
+    expect(read('routes.example.yaml')).toMatch(
+      /\/photos\/:[\s\S]*template: photos[\s\S]*filter: tag:hash-photos/,
+    );
+    expect(read('post.hbs')).toContain('{{#has tag="#photos"}}');
+  });
+
+  it('never prints the body images of the slider on the grid, only inside a template', () => {
+    expect(read('partials/photo-slider.hbs')).toMatch(
+      /<template data-photo-source>\{\{content\}\}<\/template>/,
+    );
+  });
+
+  it('passes page and limit to get as values, never as interpolated strings', () => {
+    // Ghost resolved page="{{pagination.page}}" to "undefined.page" and rejected the
+    // query, leaving tag and author archives with no cards and no pagination
+    for (const file of ['tag.hbs', 'author.hbs']) {
+      const source = read(file);
+      expect(source).not.toMatch(/(?:page|limit)="\{\{[^"]*\}\}"/);
+      expect(source).toMatch(/limit=\S*pagination\.limit page=\S*pagination\.page/);
+    }
+  });
+});

@@ -15,10 +15,27 @@ routes:
     template: home
     data: page.home # create a page with slug "home" to feed content to home.hbs
 
+# Posts tagged #photos (internal tag, slug hash-photos) are the photo posts:
+# they get their own index at /photos/ (photos.hbs) and are filtered out of the
+# ordinary collection BEFORE pagination, so pages stay full. Collections are
+# matched in order and a post belongs to the first one whose filter matches, so
+# keep /photos/ first. Both collections MUST share the same permalink, so adding
+# or removing #photos never changes a post URL: below it is /writing/{slug}/,
+# as for the ordinary collection. On a live site, copy your current routes and
+# only add the /photos/ collection plus the tag:-hash-photos filter, using your
+# existing permalink in both.
+# The theme also filters tag and author archives, "Keep reading" and the
+# previous/next links itself. Ghost's native search, RSS and sitemap are not
+# affected: a #photos post is hidden from lists, not made private.
 collections:
+  /photos/:
+    permalink: /writing/{slug}/
+    template: photos
+    filter: tag:hash-photos
   /writing/:
     permalink: /writing/{slug}/
     template: index
+    filter: tag:-hash-photos
 
 taxonomies:
   tag: /topic/{slug}/

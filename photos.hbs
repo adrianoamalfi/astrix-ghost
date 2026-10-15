@@ -1,0 +1,35 @@
+{{!< default}}
+
+{{!-- Photos index. Served at /photos/ by the collection in routes.example.yaml,
+      whose filter (tag:hash-photos) is applied before pagination. Posts carry
+      the internal tag #photos; they are kept out of every ordinary list. --}}
+<header class="gh-archive-header">
+    <div class="gh-archive-inner">
+        {{> "breadcrumbs"}}
+        <span class="u-kicker">{{t "Photos"}}</span>
+        <h1 class="gh-archive-title">{{t "Photos"}}</h1>
+        <p class="gh-archive-meta">
+            {{plural pagination.total empty=(t "No posts") singular=(t "% post") plural=(t "% posts")}}
+        </p>
+    </div>
+</header>
+
+<div class="gh-feed-wrap">
+    <h2 class="u-visually-hidden">{{t "Latest photos"}}</h2>
+    {{#if posts}}
+        <div class="gh-photo-grid">
+            {{#foreach posts}}
+                {{> "photo-card"}}
+            {{/foreach}}
+        </div>
+    {{else}}
+        <div class="gh-empty">
+            <span class="gh-empty-icon" aria-hidden="true">{{> "icons/search"}}</span>
+            <p class="gh-empty-title">{{t "No photos yet"}}</p>
+            <p class="gh-empty-text">{{t "Photo posts will appear here as soon as they are published."}}</p>
+            <a class="gh-button gh-button--ghost" href="{{@site.url}}">{{t "Back to home"}}</a>
+        </div>
+    {{/if}}
+</div>
+
+{{pagination}}

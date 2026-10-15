@@ -31,7 +31,7 @@
             <p class="gh-archive-description">{{description}}</p>
         {{/if}}
         <p class="gh-archive-meta">
-            {{plural ../pagination.total empty=(t "No posts") singular=(t "% post") plural=(t "% posts")}}
+            {{#get "posts" filter="tags:[{{slug}}]+tag:-hash-photos" limit="1" as |first pg|}}{{plural pg.total empty=(t "No posts") singular=(t "% post") plural=(t "% posts")}}{{/get}}
         </p>
     </div>
 </header>
@@ -39,15 +39,18 @@
 
 <div class="gh-feed-wrap">
     <h2 class="u-visually-hidden">{{t "Latest posts"}}</h2>
-    {{#if posts}}
-        <div class="gh-feed gh-feed--bold-grid">
-            {{#foreach posts}}
-                {{> "post-card"}}
-            {{/foreach}}
-        </div>
-    {{else}}
-        {{> "empty-state"}}
-    {{/if}}
+    {{!-- posts tagged #photos live in their own section: filtered here, before
+          limit and pagination, so pages stay full and the totals are right --}}
+    {{#get "posts" filter="tags:[{{tag.slug}}]+tag:-hash-photos" include="tags,authors" limit=pagination.limit page=pagination.page as |tagPosts pg|}}
+        {{#if tagPosts}}
+            <div class="gh-feed gh-feed--bold-grid">
+                {{#foreach tagPosts}}
+                    {{> "post-card"}}
+                {{/foreach}}
+            </div>
+        {{else}}
+            {{> "empty-state"}}
+        {{/if}}
+        {{> "pagination" pagination=pg}}
+    {{/get}}
 </div>
-
-{{pagination}}

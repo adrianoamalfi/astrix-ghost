@@ -3,6 +3,18 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## Unreleased
+
+### New features
+
+- **A #photos section.** Posts tagged with the internal tag `#photos` get a
+  dedicated index (`photos.hbs`, served at `/photos/` by the collection in
+  `routes.example.yaml`) with a grid of varying proportions and a slider per
+  post when it holds several images, plus a photo post page with the same
+  slider. They are kept out of the home, the paginated archive, tag and
+  author archives, "Keep reading" and the previous/next links. Add the two
+  collection filters from `routes.example.yaml` to your routes to enable it.
+
 ## 0.4.0 — Reader conveniences, three new templates, and owned element defaults
 
 ### New features

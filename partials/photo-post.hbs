@@ -1,0 +1,52 @@
+{{!-- Photo post page. Context: a post tagged #photos (selected by post.hbs).
+      The slider shows the feature image plus the images of the body, which
+      the module moves out of the content; without JavaScript the body keeps
+      them. Reserved posts only ever receive the content Ghost allows. --}}
+<article class="gh-article gh-photo-post {{post_class}}">
+    <header class="gh-article-header">
+        {{> "breadcrumbs"}}
+        <div class="gh-article-tag">
+            <a class="gh-tag-chip" href="{{@site.url}}/photos/">{{t "Photos"}}</a>
+        </div>
+        <h1 class="gh-article-title">{{title}}</h1>
+        {{#if custom_excerpt}}
+            <p class="gh-article-excerpt">{{custom_excerpt}}</p>
+        {{/if}}
+        <div class="gh-article-meta" data-astryx-metadata-list>
+            <div class="gh-article-authors">
+                {{#foreach authors}}
+                    <a href="{{url}}">{{name}}</a>
+                {{/foreach}}
+            </div>
+            <span aria-hidden="true">·</span>
+            <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+        </div>
+    </header>
+
+    <div class="gh-photo-detail">
+        {{> "photo-slider" detail=true}}
+        <p class="gh-photo-count" data-photo-count hidden></p>
+    </div>
+
+    <div class="gh-article-layout" id="gh-article-layout">
+        <div class="gh-article-column">
+            <section class="gh-content gh-canvas" id="gh-content"
+                data-table-label="{{t "Scrollable table"}}"
+                data-copy="{{t "Copy"}}" data-copied="{{t "Copied"}}"
+                data-anchor-label="{{t "Copy link to this section"}}"
+                data-anchor-copied-label="{{t "Copied"}}"
+                data-zoom-label="{{t "Zoom image"}}" data-close-label="{{t "Close"}}"
+                data-prev-label="{{t "Previous"}}" data-next-label="{{t "Next"}}">
+                {{content}}
+            </section>
+
+            {{^if access}}
+                {{> "membership-cta"}}
+            {{/if}}
+        </div>
+    </div>
+
+    {{> "share"}}
+
+    {{> "comments"}}
+</article>

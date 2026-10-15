@@ -97,5 +97,15 @@
   "month": "mese",
   "year": "anno",
   "Choose this plan": "Scegli questo piano",
-  "Scrollable table": "Tabella scorrevole"
+  "Scrollable table": "Tabella scorrevole",
+  "Photos": "Foto",
+  "Latest photos": "Ultime foto",
+  "No photos yet": "Ancora nessuna foto",
+  "Photo posts will appear here as soon as they are published.": "I post fotografici compariranno qui non appena saranno pubblicati.",
+  "Photo slider": "Slider fotografico",
+  "Previous photo": "Foto precedente",
+  "Next photo": "Foto successiva",
+  "Photo {current} of {total}": "Foto {current} di {total}",
+  "1 photo": "1 foto",
+  "% photos": "% foto"
 }

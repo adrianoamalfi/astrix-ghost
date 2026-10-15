@@ -1,0 +1,8 @@
+{{!-- Photo grid card. Context: a post tagged #photos. --}}
+<article class="gh-photo-card {{post_class}}">
+    {{> "photo-slider" link=true}}
+    <div class="gh-photo-body">
+        <h3 class="gh-photo-title"><a href="{{url}}">{{title}}</a></h3>
+        <p class="gh-photo-count" data-photo-count hidden></p>
+    </div>
+</article>
