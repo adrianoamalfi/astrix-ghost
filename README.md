@@ -106,7 +106,10 @@ changes only need a browser refresh in development mode.
 The Astryx design system is a **build-time** dependency, not a runtime one.
 `npm run tokens` (part of `npm run build`) reads `@astryxdesign/core` and
 `@astryxdesign/theme-neutral` and writes the token / reset / theme CSS into
-`assets/css/vendor/`. **Those generated files are committed to the repo**, so
+`assets/css/vendor/`. `astryx-reset.css` is still copied from
+`@astryxdesign/core`, but the element-defaults `@layer reset` block is stripped
+from `astryx-theme-neutral.css`; the theme declares its own element defaults in
+`assets/css/theme/base.css`. **Those generated files are committed to the repo**, so
 the shippable theme (the `assets/built/` bundle and the upload zip) never
 depends on the packages being available — a checkout can be styled and zipped
 from the committed vendor CSS alone. You only need `npm run tokens` (and the
