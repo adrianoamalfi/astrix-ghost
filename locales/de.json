@@ -97,5 +97,15 @@
   "month": "Monat",
   "year": "Jahr",
   "Choose this plan": "Diesen Tarif wählen",
-  "Scrollable table": "Scrollbare Tabelle"
+  "Scrollable table": "Scrollbare Tabelle",
+  "Photos": "Fotos",
+  "Latest photos": "Neueste Fotos",
+  "No photos yet": "Noch keine Fotos",
+  "Photo posts will appear here as soon as they are published.": "Foto-Beiträge erscheinen hier, sobald sie veröffentlicht sind.",
+  "Photo slider": "Fotoslider",
+  "Previous photo": "Vorheriges Foto",
+  "Next photo": "Nächstes Foto",
+  "Photo {current} of {total}": "Foto {current} von {total}",
+  "1 photo": "1 Foto",
+  "% photos": "% Fotos"
 }

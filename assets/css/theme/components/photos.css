@@ -1,0 +1,237 @@
+/* Photos: grid index (photos.hbs) and photo post page (photo-post.hbs).
+   Both share the slider shell from partials/photo-slider.hbs. */
+.gh-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-6);
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-block: var(--spacing-4) var(--spacing-10);
+  min-width: 0;
+}
+
+.gh-photo-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  min-width: 0;
+}
+
+.gh-photo-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--gh-radius-media);
+  background-color: var(--color-background-surface);
+  aspect-ratio: 4 / 3;
+}
+
+.gh-photo-card .gh-photo-media {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Rows with varying proportions: fixed row height, spans repeat every 7 cards */
+@media (min-width: 641px) {
+  .gh-photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 901px) {
+  .gh-photo-grid {
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: clamp(18rem, 34vw, 32rem);
+  }
+
+  .gh-photo-card {
+    grid-column: span 2;
+  }
+
+  .gh-photo-card:nth-child(7n + 1) {
+    grid-column: span 4;
+  }
+
+  .gh-photo-card:nth-child(7n + 6),
+  .gh-photo-card:nth-child(7n + 7) {
+    grid-column: span 3;
+  }
+
+  .gh-photo-card .gh-photo-media {
+    aspect-ratio: auto;
+  }
+}
+
+.gh-photo-track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.gh-photo-track::-webkit-scrollbar {
+  display: none;
+}
+
+.gh-photo-track:focus-visible {
+  outline: 2px solid var(--gh-accent-fill);
+  outline-offset: -2px;
+}
+
+.gh-photo-slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+}
+
+.gh-photo-slide-link {
+  display: block;
+  height: 100%;
+}
+
+.gh-photo-slide picture,
+.gh-photo-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gh-photo-slide img {
+  object-fit: cover;
+}
+
+.gh-photo-caption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: var(--spacing-8) var(--spacing-4) var(--spacing-3);
+  background: linear-gradient(to top, rgb(0 0 0 / 0.65), transparent);
+  color: #fff;
+  font-size: var(--font-size-sm);
+  pointer-events: none;
+}
+
+.gh-photo-caption a {
+  pointer-events: auto;
+  color: inherit;
+}
+
+.gh-photo-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 100%;
+  height: 100%;
+  padding: var(--spacing-4);
+  text-align: center;
+  font-weight: var(--font-weight-semibold);
+}
+
+.gh-photo-controls {
+  position: absolute;
+  inset-inline: var(--spacing-3);
+  bottom: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.gh-photo-controls[hidden] {
+  display: none;
+}
+
+.gh-photo-controls > * {
+  pointer-events: auto;
+}
+
+.gh-photo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-inverted);
+  color: var(--color-background-body);
+  cursor: pointer;
+}
+
+.gh-photo-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.gh-photo-button:focus-visible {
+  outline: 2px solid var(--gh-accent-fill);
+  outline-offset: 2px;
+}
+
+.gh-photo-status {
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-inverted);
+  color: var(--color-background-body);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.gh-photo-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-1) var(--spacing-4);
+}
+
+.gh-photo-title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.gh-photo-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.gh-photo-title a:hover {
+  text-decoration: underline;
+}
+
+.gh-photo-count {
+  margin: 0;
+  color: var(--gh-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.gh-photo-count[hidden] {
+  display: none;
+}
+
+/* Photo post page */
+.gh-photo-detail {
+  width: var(--gh-container-wide);
+  margin-inline: auto;
+  padding-bottom: var(--spacing-6);
+}
+
+.gh-photo-detail .gh-photo-media {
+  max-height: 80vh;
+}
+
+.gh-photo-detail .gh-photo-slide img {
+  object-fit: contain;
+}
+
+.gh-photo-detail .gh-photo-count {
+  margin-top: var(--spacing-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gh-photo-track {
+    scroll-behavior: auto;
+  }
+}

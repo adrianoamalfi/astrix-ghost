@@ -1,0 +1,60 @@
+{{!-- Slider shell shared by the photo grid card and the photo post page.
+      Context: a post. Parameters: link=true wraps the slides in a link to the
+      post (grid card); detail=true marks the post page, where the images of
+      the body are moved into the slider. Without JavaScript only the feature
+      image (if any) shows; the controls stay hidden until the module has
+      found at least two images. Images of the body are never emitted here:
+      the module reads them from the already access-checked content. --}}
+<div class="gh-photo-media" data-photo-slider{{#if detail}} data-photo-detail{{/if}}
+    data-label="{{t "Photo slider"}}"
+    data-prev-label="{{t "Previous photo"}}" data-next-label="{{t "Next photo"}}"
+    data-status-label="{{t "Photo {current} of {total}" current="{current}" total="{total}"}}"
+    data-count-one="{{t "1 photo"}}" data-count-other="{{t "% photos"}}"
+    data-title="{{title}}"{{#if link}} data-href="{{url}}"{{/if}}>
+    <div class="gh-photo-track" data-photo-track>
+        {{#if feature_image}}
+            <div class="gh-photo-slide" data-photo-slide>
+                {{#if link}}<a class="gh-photo-slide-link" href="{{url}}"{{#unless feature_image_alt}} aria-label="{{title}}"{{/unless}}>{{/if}}
+                <picture>
+                    <source type="image/avif"
+                        srcset="{{img_url feature_image size="s" format="avif"}} 320w,
+                                {{img_url feature_image size="m" format="avif"}} 640w,
+                                {{img_url feature_image size="l" format="avif"}} 1024w"
+                        sizes="{{#if detail}}(max-width: 1200px) 100vw, 1200px{{else}}(max-width: 640px) 100vw, 50vw{{/if}}">
+                    <img
+                        srcset="{{img_url feature_image size="s" format="webp"}} 320w,
+                                {{img_url feature_image size="m" format="webp"}} 640w,
+                                {{img_url feature_image size="l" format="webp"}} 1024w"
+                        sizes="{{#if detail}}(max-width: 1200px) 100vw, 1200px{{else}}(max-width: 640px) 100vw, 50vw{{/if}}"
+                        src="{{img_url feature_image size="m" format="webp"}}"
+                        width="1200" height="800"
+                        alt="{{feature_image_alt}}"
+                        {{#if detail}}loading="eager"{{else}}loading="lazy"{{/if}}
+                        decoding="async"
+                        data-photo-key="{{feature_image}}"
+                    >
+                </picture>
+                {{#if link}}</a>{{/if}}
+                {{#if feature_image_caption}}<span class="gh-photo-caption">{{{feature_image_caption}}}</span>{{/if}}
+            </div>
+        {{else}}
+            <div class="gh-photo-fallback" data-photo-fallback>
+                {{#if link}}<a href="{{url}}">{{title}}</a>{{else}}<span>{{title}}</span>{{/if}}
+            </div>
+        {{/if}}
+    </div>
+    <div class="gh-photo-controls" data-photo-controls hidden>
+        <button class="gh-photo-button" type="button" data-photo-prev>
+            <span class="u-visually-hidden">{{t "Previous photo"}}</span>
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <span class="gh-photo-status" data-photo-status aria-live="polite"></span>
+        <button class="gh-photo-button" type="button" data-photo-next>
+            <span class="u-visually-hidden">{{t "Next photo"}}</span>
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+    </div>
+    {{#unless detail}}
+        <template data-photo-source>{{content}}</template>
+    {{/unless}}
+</div>

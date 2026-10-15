@@ -1,6 +1,6 @@
 {{!< default}}
 
-{{#get "posts" filter="featured:true" include="tags,authors" limit="7" as |featured|}}
+{{#get "posts" filter="featured:true+tag:-hash-photos" include="tags,authors" limit="7" as |featured|}}
 
     {{#match @custom.header_style "Personal"}}
         {{!-- Personal hero: the author opens the page; every featured post
