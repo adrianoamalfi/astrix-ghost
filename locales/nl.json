@@ -90,6 +90,7 @@
   "% posts": "% berichten",
   "Nothing here yet": "Hier is nog niets",
   "There are no posts to show right now. Check back soon.": "Er zijn nu geen berichten om te tonen. Kom snel terug.",
+  "There are no posts for {name} right now. Check back soon.": "Er zijn nu geen berichten voor {name}. Kom snel terug.",
   "Page not found": "Pagina niet gevonden",
   "The page you were looking for doesn't exist or has been moved.": "De pagina die je zocht bestaat niet of is verplaatst.",
   "Back to home": "Terug naar home",

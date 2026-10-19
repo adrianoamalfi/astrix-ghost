@@ -46,7 +46,7 @@
             {{/foreach}}
         </div>
     {{else}}
-        {{> "empty-state"}}
+        {{#tag}}{{> "empty-state" name=name}}{{/tag}}
     {{/if}}
 </div>
 

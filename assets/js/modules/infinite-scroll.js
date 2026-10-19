@@ -82,7 +82,10 @@ export function initInfiniteScroll() {
     (entries) => {
       if (entries.some((entry) => entry.isIntersecting)) loadNext();
     },
-    { rootMargin: '900px 0px' },
+    // 500px prefetches the next page just before it scrolls into view — close
+    // enough to feel instant, far enough to avoid fetching pages a reader
+    // never reaches on a long feed.
+    { rootMargin: '500px 0px' },
   );
 
   observer.observe(nav);

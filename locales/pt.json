@@ -90,6 +90,7 @@
   "% posts": "% publicações",
   "Nothing here yet": "Ainda não há nada aqui",
   "There are no posts to show right now. Check back soon.": "Não há publicações para mostrar agora. Volte em breve.",
+  "There are no posts for {name} right now. Check back soon.": "Não há publicações para {name} agora. Volte em breve.",
   "Page not found": "Página não encontrada",
   "The page you were looking for doesn't exist or has been moved.": "A página que você procurava não existe ou foi movida.",
   "Back to home": "Voltar ao início",

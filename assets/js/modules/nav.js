@@ -24,11 +24,21 @@ export function initNav() {
     nav.inert = hidden;
   };
 
+  // While the drawer is open it is modal: everything outside the header is
+  // inert so keyboard and screen-reader focus can't tab into the page behind
+  // it. Only the header (burger + nav) stays reachable.
+  const setPageInert = (inert) => {
+    for (const el of document.body.children) {
+      if (el !== header) el.inert = inert;
+    }
+  };
+
   const setOpen = (open) => {
     header.classList.toggle('is-menu-open', open);
     document.body.classList.toggle('has-menu-open', open);
     burger.setAttribute('aria-expanded', String(open));
     syncNavVisibility(open);
+    setPageInert(open);
     if (labelOpen && labelClose) {
       burger.setAttribute('aria-label', open ? labelClose : labelOpen);
     }

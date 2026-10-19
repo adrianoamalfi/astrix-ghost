@@ -18,8 +18,10 @@ function apply(scheme) {
   } else {
     html.style.colorScheme = '';
   }
-  // Mirror the *effective* scheme for CSS (toggle icon) and embeds.
+  // Mirror the *effective* scheme for embeds, and the *chosen* mode for the
+  // toggle icon (which needs to show a distinct "system" state).
   html.dataset.scheme = scheme === 'system' ? systemScheme() : scheme;
+  html.dataset.schemeChoice = scheme;
 }
 
 function stored() {
