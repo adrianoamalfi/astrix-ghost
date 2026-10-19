@@ -7,8 +7,10 @@ All notable changes to Astrix. Downloadable theme packages live on the
 
 A quiet release: no new features, just the small fixes that make the existing
 ones feel more correct. The lightbox and the mobile drawer now behave like
-native modal UI, the header stops blurring the page on phones, and a couple of
-deprecated or over-eager code paths are cleaned up.
+native modal UI, the header stops blurring the page on phones, a couple of
+deprecated or over-eager code paths are cleaned up, and the footer's secondary
+menu and recommended-sites cards are brought fully in line with the design
+system.
 
 ### Accessibility
 
@@ -64,6 +66,26 @@ deprecated or over-eager code paths are cleaned up.
   pass their name to the `empty-state` partial, which renders a contextual
   "There are no posts for {name} right now." The new string is translated in
   all seven locales.
+
+### Design
+
+- **The footer's recommended-sites cards now follow the design system.** The
+  "Recommended sites" heading was an ALL-CAPS eyebrow — a pattern the theme
+  explicitly rejects — and the cards were a bordered SaaS-style grid whose
+  hover turned the border navy (a Two-Voices category error: interaction
+  feedback must answer in gold). The heading is now the signature section
+  title (headline-weight text with the flex-grown navy-to-transparent
+  gradient rule), the cards drop their borders in favour of the Canvas fill
+  sitting on the Surface footer, and the hover draws a 2px gold rule in along
+  the top edge while the title turns gold — flat, no lift. The favicon sits in
+  a neutral ring so each site's own icon colour is the accent instead of a
+  repeated navy blob, and the grid settles on two columns (one on mobile) for
+  more air.
+- **The footer's secondary menu reads with more confidence.** The links were
+  set at app size and sat flat against the page. They now use the UI body
+  size, carry the header nav's pill shape, and answer a hover with the same
+  neutral brighten-to-Ink-plus-overlay treatment as the header — no accent,
+  since accent hovers are reserved for the brand.
 
 ### Developer experience
 
