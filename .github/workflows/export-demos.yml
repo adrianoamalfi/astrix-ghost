@@ -1,18 +1,23 @@
 name: Export static demos
 
 # Regenerates the static demo sites in docs/demos/ from the four running Ghost
-# publications and commits them back to main. GitHub Pages serves docs/ at
-# https://adrianoamalfi.github.io/astrix-ghost/, so the exported sites go live
-# at /astrix-ghost/demos/<pub>/ as soon as this commit lands.
+# publications and opens (or updates) a PR against main. GitHub Pages serves
+# docs/ at https://adrianoamalfi.github.io/astrix-ghost/, so the exported sites
+# go live at /astrix-ghost/demos/<pub>/ once the PR is merged.
 #
 # Triggered manually (workflow_dispatch) so it never re-triggers itself on the
 # commit it produces. Run it whenever the theme, its assets, or the demo seed
 # content changes and you want the live demos refreshed.
+#
+# main is a protected branch (PR + status checks required), so the export is
+# pushed to a rolling `chore/regenerate-demos` branch and a PR is opened or
+# updated. Merge the PR to publish the new showcase.
 on:
   workflow_dispatch:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   export:
@@ -53,17 +58,52 @@ jobs:
       - name: Export static demo sites
         run: node scripts/export-static.mjs
 
-      - name: Commit exported demos back to main
+      - name: Push exported demos to the rolling branch
+        id: push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/demos
           if git diff --cached --quiet; then
             echo "No changes to docs/demos — nothing to commit."
-          else
-            git commit -m "chore(demos): regenerate static demo sites"
-            git push
+            exit 0
           fi
+          git checkout -B chore/regenerate-demos
+          git commit -m "chore(demos): regenerate static demo sites"
+          git push -f origin chore/regenerate-demos
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update the demos PR
+        if: steps.push.outputs.pushed == 'true'
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const branch = 'chore/regenerate-demos';
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: context.repo.owner + ':' + branch,
+              state: 'open',
+            });
+            if (prs.length > 0) {
+              core.info('PR #' + prs[0].number + ' already open — updated by the push.');
+            } else {
+              const { data: pr } = await github.rest.pulls.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                head: branch,
+                base: 'main',
+                title: 'chore(demos): regenerate static demo sites',
+                body: [
+                  'Regenerated the static demo sites in `docs/demos/` from the four running Ghost publications.',
+                  '',
+                  'Merging this PR publishes the new showcase at https://adrianoamalfi.github.io/astrix-ghost/demos/ via GitHub Pages.',
+                  '',
+                  '_Opened automatically by the `Export static demos` workflow (run #' + context.runId + ')._',
+                ].join('\n'),
+              });
+              core.info('Opened PR #' + pr.number + ': ' + pr.html_url);
+            }
 
       - name: Ghost logs
         if: always()
