@@ -139,12 +139,15 @@ export function initLightbox() {
     { passive: true },
   );
 
-  // Arrow keys navigate the gallery. Escape-to-close and the focus trap are
-  // handled by the native <dialog>; focus returns to the trigger on close.
+  // Arrow keys navigate the gallery. Escape closes — the native <dialog> also
+  // handles it, but the explicit branch keeps the behaviour identical in every
+  // environment (and testable). The focus trap is native; focus returns to the
+  // trigger on close.
   document.addEventListener('keydown', (e) => {
     if (!overlay.open) return;
     if (e.key === 'ArrowLeft') step(-1);
     else if (e.key === 'ArrowRight') step(1);
+    else if (e.key === 'Escape') close();
   });
 
   // Every close path (close button, backdrop click, Escape) fires `close`:

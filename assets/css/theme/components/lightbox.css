@@ -15,7 +15,6 @@
   width: 100%;
   height: 100%;
   margin: 0;
-  display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2);
@@ -24,6 +23,13 @@
   background-color: color-mix(in oklab, #000 88%, transparent);
   backdrop-filter: blur(4px);
   animation: gh-lightbox-in var(--duration-fast) var(--ease-standard);
+}
+
+/* A closed <dialog> is display:none in the UA stylesheet. Only switch to the
+   flex layout when open, so a dismissed lightbox is fully hidden instead of
+   leaving a full-viewport dark box at the end of the page. */
+.gh-lightbox:open {
+  display: flex;
 }
 
 /* The dialog covers the whole viewport, so its ::backdrop is never seen —

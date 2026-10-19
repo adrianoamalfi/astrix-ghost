@@ -521,16 +521,30 @@ describe('v0.4.0 page & post templates', () => {
 describe('v0.4.1 reader & a11y refinements', () => {
   const site = { '@site': { url: 'https://example.com', title: 'Astrix Test' } };
 
-  it('lightbox is a native <dialog> (modal focus trap, Escape, focus restore for free)', () => {
+  it('lightbox is a native <dialog> (modal focus trap, focus restore for free)', () => {
     const js = readFileSync('assets/js/modules/lightbox.js', 'utf8');
     expect(js).toContain("document.createElement('dialog')");
     expect(js).toContain('overlay.showModal()');
-    // The manual role/aria-modal and the hand-rolled Escape + focus trap are
-    // gone — the dialog element owns all of it now.
+    // The manual role/aria-modal and the hand-rolled Tab focus trap are gone —
+    // the dialog element owns the modal focus trap now.
     expect(js).not.toContain("overlay.setAttribute('role', 'dialog')");
-    expect(js).not.toContain("e.key === 'Escape'");
+    expect(js).not.toContain("e.key === 'Tab'");
+    // Escape closes via an explicit branch (the native <dialog> also handles
+    // it, but the branch keeps the behaviour identical in every environment).
+    expect(js).toMatch(/e\.key === 'Escape'[\s\S]*?close\(\)/);
     // Focus returns to the trigger on the dialog's close event.
     expect(js).toMatch(/addEventListener\('close'[\s\S]*?trigger\.focus\(\)/);
+  });
+
+  it('closed lightbox dialog is display:none (no stray full-viewport box)', () => {
+    // A closed <dialog> is display:none in the UA stylesheet. The flex layout
+    // must only apply when :open, or a dismissed lightbox leaves a dark box at
+    // the end of the page.
+    const css = readFileSync('assets/css/theme/components/lightbox.css', 'utf8');
+    expect(css).toMatch(/\.gh-lightbox:open\s*{[^}]*display:\s*flex/);
+    // The base .gh-lightbox rule must not set display:flex itself.
+    const baseRule = css.match(/\.gh-lightbox\s*{[^}]*}/)?.[0] ?? '';
+    expect(baseRule).not.toMatch(/display:\s*flex/);
   });
 
   it('mobile drawer makes the rest of the page inert while open', () => {

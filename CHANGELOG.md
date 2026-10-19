@@ -21,7 +21,11 @@ deprecated or over-eager code paths are cleaned up.
   trigger (the `close` event re-focuses the thumbnail that opened it). The
   arrow-key navigation and the touch-swipe gesture are unchanged. The CSS
   drops the `position: fixed; inset: 0` overlay in favour of the dialog's
-  native full-viewport sizing and a transparent `::backdrop`.
+  native full-viewport sizing and a transparent `::backdrop`. Two details
+  needed care: the flex layout only applies under `:open`, so a dismissed
+  lightbox is `display: none` instead of leaving a full-viewport dark box at
+  the end of the page; and `Escape` closes through an explicit branch as well
+  as the native one, so the behaviour is identical in every environment.
 - **The mobile drawer now makes the rest of the page inert.** Opening the
   navigation on a phone moved focus into the drawer, but the page behind it
   stayed in the tab order — a keyboard or screen-reader user could still reach
@@ -68,8 +72,9 @@ deprecated or over-eager code paths are cleaned up.
   trap and `Escape` handler gone, the drawer sets `inert` on the page, the
   search hint no longer reads `navigator.platform`, the infinite-scroll margin
   is `500px`, the header drops the blur on mobile, the toggle carries the
-  system icon and `data-scheme-choice`, and the empty state renders the
-  contextual name. The suite grows from 165 to 173 tests.
+  system icon and `data-scheme-choice`, the empty state renders the
+  contextual name, and the closed lightbox dialog is `display: none`. The
+  suite grows from 165 to 174 tests.
 
 ## 0.4.0 — Reader conveniences, three new templates, and owned element defaults
 
