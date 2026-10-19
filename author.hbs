@@ -76,7 +76,7 @@
             {{/foreach}}
         </div>
     {{else}}
-        {{> "empty-state"}}
+        {{#author}}{{> "empty-state" name=name}}{{/author}}
     {{/if}}
 </div>
 

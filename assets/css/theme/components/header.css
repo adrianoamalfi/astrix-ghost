@@ -20,6 +20,17 @@
   -webkit-backdrop-filter: blur(14px);
 }
 
+/* The frosted blur is a desktop nicety: on small screens it costs GPU
+   compositing on every scroll frame over large hero images, so drop it and
+   lean on a slightly more opaque fill for the same separation. */
+@media (--to-mobile) {
+  .gh-header::before {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: color-mix(in oklab, var(--color-background-body) 92%, transparent);
+  }
+}
+
 .gh-header::after {
   position: fixed;
   inset: 0;
@@ -164,16 +175,28 @@
   grid-row: 1;
 }
 
-/* Color-scheme toggle: JS mirrors the active scheme on html[data-scheme] */
-#gh-scheme-toggle .gh-icon-moon {
+/* Color-scheme toggle: JS mirrors the *chosen* mode on
+   html[data-scheme-choice] (light / dark / system). The icon follows the
+   choice — not the effective scheme — so a reader can tell they're on
+   "system" (which resolves to light or dark) rather than a fixed scheme. */
+#gh-scheme-toggle .gh-icon-moon,
+#gh-scheme-toggle .gh-icon-system {
   display: none;
 }
 
-html[data-scheme='dark'] #gh-scheme-toggle .gh-icon-sun {
+html[data-scheme-choice='dark'] #gh-scheme-toggle .gh-icon-sun {
   display: none;
 }
 
-html[data-scheme='dark'] #gh-scheme-toggle .gh-icon-moon {
+html[data-scheme-choice='dark'] #gh-scheme-toggle .gh-icon-moon {
+  display: block;
+}
+
+html[data-scheme-choice='system'] #gh-scheme-toggle .gh-icon-sun {
+  display: none;
+}
+
+html[data-scheme-choice='system'] #gh-scheme-toggle .gh-icon-system {
   display: block;
 }
 

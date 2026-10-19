@@ -55,12 +55,11 @@ export function initLightbox() {
     });
   });
 
-  // Overlay, built once.
-  const overlay = document.createElement('div');
+  // Overlay, built once. A native <dialog> provides the modal focus trap,
+  // Escape-to-close, and focus restoration for free; the markup and the
+  // click / arrow / swipe behaviour below are unchanged.
+  const overlay = document.createElement('dialog');
   overlay.className = 'gh-lightbox';
-  overlay.setAttribute('role', 'dialog');
-  overlay.setAttribute('aria-modal', 'true');
-  overlay.hidden = true;
   overlay.innerHTML = `
     <button type="button" class="gh-lightbox-close" aria-label="${closeLabel}">${CLOSE_ICON}</button>
     <button type="button" class="gh-lightbox-nav gh-lightbox-prev" aria-label="${prevLabel}">${PREV_ICON}</button>
@@ -95,15 +94,13 @@ export function initLightbox() {
     index = group.indexOf(img);
     trigger = img;
     render();
-    overlay.hidden = false;
     document.body.classList.add('has-lightbox-open');
+    overlay.showModal();
     closeBtn.focus();
   }
 
   function close() {
-    overlay.hidden = true;
-    document.body.classList.remove('has-lightbox-open');
-    if (trigger) trigger.focus();
+    overlay.close();
   }
 
   function step(delta) {
@@ -142,23 +139,18 @@ export function initLightbox() {
     { passive: true },
   );
 
+  // Arrow keys navigate the gallery. Escape-to-close and the focus trap are
+  // handled by the native <dialog>; focus returns to the trigger on close.
   document.addEventListener('keydown', (e) => {
-    if (overlay.hidden) return;
-    if (e.key === 'Escape') close();
-    else if (e.key === 'ArrowLeft') step(-1);
+    if (!overlay.open) return;
+    if (e.key === 'ArrowLeft') step(-1);
     else if (e.key === 'ArrowRight') step(1);
-    else if (e.key === 'Tab') {
-      // Focus trap across the visible overlay buttons.
-      const focusables = [closeBtn, prevBtn, nextBtn].filter((b) => !b.hidden);
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    }
+  });
+
+  // Every close path (close button, backdrop click, Escape) fires `close`:
+  // release the scroll lock and return focus to the trigger image.
+  overlay.addEventListener('close', () => {
+    document.body.classList.remove('has-lightbox-open');
+    if (trigger) trigger.focus();
   });
 }

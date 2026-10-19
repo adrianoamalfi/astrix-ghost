@@ -517,3 +517,80 @@ describe('v0.4.0 page & post templates', () => {
     expect(html).not.toContain('has-toc');
   });
 });
+
+describe('v0.4.1 reader & a11y refinements', () => {
+  const site = { '@site': { url: 'https://example.com', title: 'Astrix Test' } };
+
+  it('lightbox is a native <dialog> (modal focus trap, Escape, focus restore for free)', () => {
+    const js = readFileSync('assets/js/modules/lightbox.js', 'utf8');
+    expect(js).toContain("document.createElement('dialog')");
+    expect(js).toContain('overlay.showModal()');
+    // The manual role/aria-modal and the hand-rolled Escape + focus trap are
+    // gone — the dialog element owns all of it now.
+    expect(js).not.toContain("overlay.setAttribute('role', 'dialog')");
+    expect(js).not.toContain("e.key === 'Escape'");
+    // Focus returns to the trigger on the dialog's close event.
+    expect(js).toMatch(/addEventListener\('close'[\s\S]*?trigger\.focus\(\)/);
+  });
+
+  it('mobile drawer makes the rest of the page inert while open', () => {
+    const js = readFileSync('assets/js/modules/nav.js', 'utf8');
+    expect(js).toMatch(/el\.inert = inert/);
+    // setPageInert is wired into the open/close path.
+    expect(js).toContain('setPageInert(open)');
+  });
+
+  it('search hint no longer reads the deprecated navigator.platform', () => {
+    const js = readFileSync('assets/js/modules/search-shortcut.js', 'utf8');
+    expect(js).not.toContain('navigator.platform');
+    expect(js).toContain('navigator.userAgent');
+  });
+
+  it('infinite scroll prefetches 500px ahead, not 900px', () => {
+    const js = readFileSync('assets/js/modules/infinite-scroll.js', 'utf8');
+    expect(js).toContain("rootMargin: '500px 0px'");
+    expect(js).not.toContain("rootMargin: '900px 0px'");
+  });
+
+  it('header drops the backdrop blur on mobile', () => {
+    const css = readFileSync('assets/css/theme/components/header.css', 'utf8');
+    expect(css).toMatch(/@media \(--to-mobile\)[\s\S]*?backdrop-filter: none/);
+  });
+
+  it('color-scheme toggle shows a distinct icon for the system mode', () => {
+    const header = readFileSync('partials/site-header.hbs', 'utf8');
+    expect(header).toContain('{{> "icons/system"}}');
+    const css = readFileSync('assets/css/theme/components/header.css', 'utf8');
+    expect(css).toContain("html[data-scheme-choice='system'] #gh-scheme-toggle .gh-icon-system");
+    const js = readFileSync('assets/js/modules/color-scheme.js', 'utf8');
+    expect(js).toContain('html.dataset.schemeChoice = scheme;');
+  });
+
+  it('empty state names the tag or author when their archive is empty', () => {
+    const hbs = Handlebars.create();
+    // A t helper that substitutes {name} so the render proves the value flows
+    // through, not just that the right key was chosen.
+    hbs.registerHelper('t', (key, options) => {
+      const name = options && options.hash ? options.hash.name : undefined;
+      return String(key).replace('{name}', name != null ? name : '');
+    });
+    hbs.registerPartial('icons/search', '<svg></svg>');
+    const render = hbs.compile(readFileSync('partials/empty-state.hbs', 'utf8'));
+
+    const withName = render({ ...site, name: 'Design' });
+    expect(withName).toContain('There are no posts for Design right now. Check back soon.');
+    expect(withName).not.toContain('There are no posts to show right now');
+
+    const generic = render(site);
+    expect(generic).toContain('There are no posts to show right now. Check back soon.');
+  });
+
+  it('tag and author archives pass their name to the empty state', () => {
+    expect(readFileSync('tag.hbs', 'utf8')).toContain(
+      '{{#tag}}{{> "empty-state" name=name}}{{/tag}}',
+    );
+    expect(readFileSync('author.hbs', 'utf8')).toContain(
+      '{{#author}}{{> "empty-state" name=name}}{{/author}}',
+    );
+  });
+});

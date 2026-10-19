@@ -3,6 +3,74 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.4.1 — Accessibility and performance refinements
+
+A quiet release: no new features, just the small fixes that make the existing
+ones feel more correct. The lightbox and the mobile drawer now behave like
+native modal UI, the header stops blurring the page on phones, and a couple of
+deprecated or over-eager code paths are cleaned up.
+
+### Accessibility
+
+- **The lightbox is now a native `<dialog>`.** It was a hand-rolled `div` with
+  `role="dialog"`, `aria-modal`, a manual `Tab` focus trap, and a manual
+  `Escape` handler — all of which the `<dialog>` element provides for free,
+  and all of which had to be kept in sync by hand. `lightbox.js` now creates a
+  `<dialog>`, opens it with `showModal()`, and closes it with `close()`; the
+  browser owns the focus trap, the `Escape` key, and returning focus to the
+  trigger (the `close` event re-focuses the thumbnail that opened it). The
+  arrow-key navigation and the touch-swipe gesture are unchanged. The CSS
+  drops the `position: fixed; inset: 0` overlay in favour of the dialog's
+  native full-viewport sizing and a transparent `::backdrop`.
+- **The mobile drawer now makes the rest of the page inert.** Opening the
+  navigation on a phone moved focus into the drawer, but the page behind it
+  stayed in the tab order — a keyboard or screen-reader user could still reach
+  the links underneath. `nav.js` now sets `inert` on every body child except
+  the header while the drawer is open and clears it on close, so the drawer is
+  genuinely modal.
+- **The colour-scheme toggle shows a distinct icon for the system mode.** The
+  button cycled light → dark → system, but the icon only ever showed the sun or
+  the moon, so the system state looked identical to one of the other two. A
+  new half-filled `system` icon is shown when the reader has chosen *system*,
+  keyed off a new `data-scheme-choice` attribute (the chosen mode) that is
+  separate from `data-scheme` (the effective scheme, still used for embeds).
+  The new string is translated in all seven locales.
+
+### Performance
+
+- **The header no longer blurs the page on mobile.** The sticky header's
+  `backdrop-filter` was a per-frame cost on phones, where the page scrolls
+  under it constantly. On the mobile breakpoint the blur is dropped and the
+  header falls back to a near-opaque background, so the text stays legible
+  without the filter.
+- **Infinite scroll prefetches a little less.** The sentinel's `rootMargin`
+  drops from `900px` to `500px`, so the next page of posts is fetched just
+  before it scrolls into view rather than well ahead of it — fewer requests
+  for readers who stop early, with no visible change for those who scroll on.
+
+### Fixes
+
+- **The search hint no longer reads the deprecated `navigator.platform`.**
+  `search-shortcut.js` decided between `⌘K` and `Ctrl K` from
+  `navigator.platform`, which is deprecated and slated for removal. It now
+  reads the user agent (still universally present) for the Apple check.
+- **The empty state names the tag or author.** An empty tag or author archive
+  showed the generic "no posts" line, which read oddly on a page that was
+  clearly about a specific topic or person. `tag.hbs` and `author.hbs` now
+  pass their name to the `empty-state` partial, which renders a contextual
+  "There are no posts for {name} right now." The new string is translated in
+  all seven locales.
+
+### Developer experience
+
+- **New unit tests.** The refinements above are covered in
+  `test/templates.test.js`: the lightbox is a native `<dialog>` with the manual
+  trap and `Escape` handler gone, the drawer sets `inert` on the page, the
+  search hint no longer reads `navigator.platform`, the infinite-scroll margin
+  is `500px`, the header drops the blur on mobile, the toggle carries the
+  system icon and `data-scheme-choice`, and the empty state renders the
+  contextual name. The suite grows from 165 to 173 tests.
+
 ## 0.4.0 — Reader conveniences, three new templates, and owned element defaults
 
 ### New features

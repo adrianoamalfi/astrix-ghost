@@ -1,7 +1,9 @@
-{{!-- Empty archive state. Context: a collection page with no posts. --}}
+{{!-- Empty archive state. Context: a collection page with no posts. Pass
+      name= (the tag or author name) to name the empty collection instead of
+      the generic "nothing here yet". --}}
 <div class="gh-empty">
     <span class="gh-empty-icon" aria-hidden="true">{{> "icons/search"}}</span>
     <p class="gh-empty-title">{{t "Nothing here yet"}}</p>
-    <p class="gh-empty-text">{{t "There are no posts to show right now. Check back soon."}}</p>
+    <p class="gh-empty-text">{{#if name}}{{t "There are no posts for {name} right now. Check back soon." name=name}}{{else}}{{t "There are no posts to show right now. Check back soon."}}{{/if}}</p>
     <a class="gh-button gh-button--ghost" href="{{@site.url}}">{{t "Back to home"}}</a>
 </div>

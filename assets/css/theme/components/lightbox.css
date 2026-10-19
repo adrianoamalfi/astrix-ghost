@@ -7,22 +7,29 @@
   overflow: hidden;
 }
 
+/* A native <dialog>, sized to the full viewport so the dark field is part of
+   the element (clicking it closes) and the close/nav buttons position against
+   the viewport, exactly as the previous fixed <div> did. The UA centres the
+   dialog; width/height 100% + margin 0 make it fill the viewport instead. */
 .gh-lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2);
   padding: clamp(var(--spacing-4), 4vw, var(--spacing-10));
+  border: none;
   background-color: color-mix(in oklab, #000 88%, transparent);
   backdrop-filter: blur(4px);
   animation: gh-lightbox-in var(--duration-fast) var(--ease-standard);
 }
 
-.gh-lightbox[hidden] {
-  display: none;
+/* The dialog covers the whole viewport, so its ::backdrop is never seen —
+   keep it transparent to avoid a second darkening layer. */
+.gh-lightbox::backdrop {
+  background-color: transparent;
 }
 
 .gh-lightbox-figure {

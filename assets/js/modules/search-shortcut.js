@@ -29,9 +29,10 @@ export function initSearchShortcut() {
     searchBtn.click();
   });
 
-  // Platform-appropriate hint
+  // Platform-appropriate hint. The old platform property is deprecated, so
+  // read the user agent (still universally present) for the Apple check.
   const kbd = document.querySelector('.gh-search-kbd');
   if (kbd) {
-    kbd.textContent = /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘K' : 'Ctrl K';
+    kbd.textContent = /Mac|iPhone|iPad/.test(navigator.userAgent) ? '⌘K' : 'Ctrl K';
   }
 }
