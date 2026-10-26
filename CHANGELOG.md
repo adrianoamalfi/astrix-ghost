@@ -58,6 +58,13 @@ links, anchors and non-web schemes keep the reading experience unchanged.
   post or page: external links must be decorated with the new tab and hidden
   text, internal links must not. If the demo content has no external body
   link, that check reports a skip instead of passing silently.
+- **The showcase documents the feature and ships a demo.** The docs site gains
+  an External links section with an embedded light/dark demo, and
+  `docs/external-link-icons/` is a standalone page generated from the real
+  module, component CSS and SVG partials by
+  `scripts/build-external-link-demo.mjs`. The page checks its own output against
+  the rules and reports the result; `npm run check:demo` keeps the generated copy
+  in sync with the theme sources.
 
 ## 0.4.1 — Accessibility and performance refinements
 
