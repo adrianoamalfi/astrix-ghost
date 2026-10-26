@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global document, location */
 /*
  * Runs axe-core and a layout-shift check against a real Ghost render of the
  * theme. Everything else in the quality gate is static analysis of the .hbs
@@ -64,6 +65,77 @@ const CLS_PROBE = `
   }).observe({ type: 'layout-shift', buffered: true });
 `;
 
+/*
+ * External-link decoration on a real post/page. The static gate cannot see
+ * this: external-links.js runs in the browser and rewrites the anchors after
+ * Ghost has rendered {{content}}. If the demo post has no external body link,
+ * the check is skipped with an explicit message rather than passing silently.
+ */
+async function checkBodyLinks(page, label) {
+  const links = await page.evaluate(() => {
+    const content = document.querySelector('.gh-content');
+    if (!content) return null;
+
+    const normalize = (host) => host.toLowerCase().replace(/^www\./, '');
+    const pageHost = normalize(location.hostname);
+    const skipped =
+      '.kg-card, .kg-embed-card, .kg-bookmark-card, .kg-gallery-card, figure, [data-ghost-embed]';
+
+    return [...content.querySelectorAll('a[href]')].map((link) => {
+      let external = false;
+      try {
+        const url = new URL(link.getAttribute('href'), location.href);
+        external =
+          (url.protocol === 'http:' || url.protocol === 'https:') &&
+          normalize(url.hostname) !== pageHost;
+      } catch {
+        /* malformed or non-URL: not external for this check */
+      }
+
+      return {
+        href: link.getAttribute('href'),
+        external,
+        inCard: Boolean(link.closest(skipped)),
+        text: link.textContent.replace(/\s+/g, ' ').trim(),
+        decorated: Object.hasOwn(link.dataset, 'externalLink'),
+        target: link.getAttribute('target'),
+        rel: (link.getAttribute('rel') || '').split(/\s+/).filter(Boolean),
+        icon: Boolean(link.querySelector('.gh-external-link-icon')),
+        label: Boolean(link.querySelector('[data-external-link-label]')),
+      };
+    });
+  });
+
+  if (links === null) {
+    fail(`${label} has no .gh-content to check external links`);
+    return;
+  }
+
+  const candidates = links.filter((link) => link.external && !link.inCard && link.text);
+  const internal = links.filter((link) => !link.external && !link.inCard && link.text);
+
+  if (!candidates.length) {
+    console.log(`rendered: ${label} no external body link to check — skipped`);
+  }
+
+  for (const link of candidates.slice(0, 5)) {
+    const problems = [];
+    if (!link.decorated) problems.push('missing data-external-link');
+    if (link.target !== '_blank') problems.push('missing target="_blank"');
+    if (!link.rel.includes('noopener')) problems.push('missing rel="noopener"');
+    if (!link.rel.includes('noreferrer')) problems.push('missing rel="noreferrer"');
+    if (!link.icon) problems.push('missing icon');
+    if (!link.label) problems.push('missing hidden "Opens in a new tab"');
+    if (problems.length) fail(`${label} external link ${link.href}: ${problems.join(', ')}`);
+  }
+
+  for (const link of internal.slice(0, 5)) {
+    if (link.decorated || link.target || link.icon || link.label) {
+      fail(`${label} internal link ${link.href} was treated as external`);
+    }
+  }
+}
+
 async function checkRoute(browser, route, scheme) {
   const label = `${route.name} ${route.path} [${scheme}]`;
   const page = await browser.newPage();
@@ -90,6 +162,10 @@ async function checkRoute(browser, route, scheme) {
 
   if (route.name === '404' && !(await page.$('h1'))) {
     fail(`${label} has no <h1>`);
+  }
+
+  if (route.name === 'post' || route.name === 'page') {
+    await checkBodyLinks(page, label);
   }
 
   // axe — skip third-party injected widgets (Portal, sodo-search) that the

@@ -3,6 +3,62 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.5.0 — External link icons
+
+The first feature release since 0.4.1. Post and page bodies now make it clear
+when a link leaves the publication: external links carry a small icon, the
+service's own mark when it is recognized, and open in a new tab. Internal
+links, anchors and non-web schemes keep the reading experience unchanged.
+
+### New
+
+- **External links in post and page bodies show an icon.** `external-links.js`
+  classifies every link inside `.gh-content` after Ghost renders the content.
+  A link to another host gets a 0.85em icon after its text: the service icon
+  for a recognized brand, the generic Feather `external-link` mark otherwise.
+  The icon inherits `currentColor`, sits at reduced opacity at rest, reaches
+  full opacity on hover and keyboard focus, and is hidden in print. The brand
+  icon replaces the generic mark; there is never more than one.
+- **External links open in a new tab.** The module sets `target="_blank"` and
+  adds `noopener` and `noreferrer` to `rel`, preserving existing `nofollow`,
+  `sponsored` and `ugc` tokens without duplicates. `href` and link text are
+  not modified.
+- **Recognized services.** The footer's social set (GitHub, LinkedIn,
+  Instagram, Facebook, X, YouTube, Threads, Bluesky, TikTok) plus Google,
+  Anthropic, OpenAI, Microsoft, Apple, Amazon, Hugging Face, Kaggle, GitLab,
+  npm, Medium, Substack, Reddit, Discord, Telegram, WhatsApp, Spotify, Figma,
+  Notion, Wikipedia and arXiv. Matching accepts the exact domain and its
+  subdomains, and the most specific domain wins, so `open.spotify.com`,
+  `aws.amazon.com` and `it.wikipedia.org` resolve correctly. Everything else
+  gets the generic icon. Mastodon is federated and deliberately generic.
+- **Internal links are left alone.** Relative links, absolute links to the
+  same host and its `www.` variant get no icon, no new tab and no extra text.
+  Subdomains of the publication are treated as external. `mailto:`, `tel:`,
+  in-page anchors, `javascript:`, malformed URLs, image-only links and links
+  inside Koenig cards or embeds are not touched.
+
+### Accessibility
+
+- **The icon is decorative and the new tab is announced.** The icon is
+  `aria-hidden`; a visually hidden "Opens in a new tab" after the link text
+  uses the existing translated string in all seven locales. The link keeps its
+  normal focus ring and hit area — the icon adds no separate target.
+
+### Internals
+
+- Icons live in `partials/external-link-icons.hbs` as a `<template>` and are
+  cloned by the module, so the SVGs have one source of truth. New brand icons
+  are Simple Icons (CC0) in `partials/icons/brands/`; the generic mark is in
+  the Feather style. The template is included only on the `post` and `page`
+  contexts, and the module is part of `post.js`, so the homepage and archives
+  do not pay for it.
+- Unit tests cover host normalization, service matching, internal/external
+  classification, `rel` merging, image-only and card exclusions, and the
+  one-time decoration. `scripts/check-rendered.mjs` checks the real DOM on a
+  post or page: external links must be decorated with the new tab and hidden
+  text, internal links must not. If the demo content has no external body
+  link, that check reports a skip instead of passing silently.
+
 ## 0.4.1 — Accessibility and performance refinements
 
 A quiet release: no new features, just the small fixes that make the existing

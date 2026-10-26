@@ -41,12 +41,14 @@ export default [
     },
   },
   {
-    // Unit tests (explicit imports from vitest, run under Node)
+    // Unit tests (explicit imports from vitest). Most run under Node; the DOM
+    // suite declares the jsdom environment in its own file, so browser globals
+    // are available where the test mounts markup.
     files: ['test/**/*.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
-      globals: globals.node,
+      globals: { ...globals.node, ...globals.browser },
     },
   },
 ];

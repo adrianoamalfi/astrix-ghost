@@ -62,10 +62,32 @@ them through a Cloudflare Tunnel — see [demo/README.md](demo/README.md).
 - **Page & post templates** — six ready-made templates beyond the defaults: **Portfolio** (a responsive grid of project posts), **Landing** (a page built entirely from Koenig cards, no article chrome), **Note** (a compact post without the TOC rail, for short-form writing), plus **Archive**, **Newsletter** and **Membership**. See [Page & post templates](#page--post-templates).
 - **SEO breadcrumbs** — posts, pages, tags and authors render a breadcrumb trail carrying `BreadcrumbList` microdata; the last crumb is the current page, marked `aria-current="page"`.
 - **Ghost recommendations** — up to four of the publication's recommendations (favicon, title, readable URL, description) above the footer meta row, rendered only when the site configures them.
+- **External link icons** — links in a post or page body that leave the site get a small service icon (GitHub, Google, Anthropic, OpenAI, Wikipedia…) or a generic external-link mark, open in a new tab, and tell screen readers so. Internal links, anchors, `mailto:` and `tel:` stay as they are.
 - **Native Ghost search** (sodo-search) and styled Koenig cards (callouts, bookmarks, galleries, toggles, signup, product, audio/video/file…).
 - **i18n** — English and Italian (maintained) plus German, Spanish, French,
   Portuguese and Dutch; every UI string goes through `{{t}}`.
 - Ghost **custom fonts** supported (`--gh-font-heading` / `--gh-font-body`).
+
+## External link icons
+
+Links in the body of a post or page are classified after Ghost renders the
+content. A link that points to another host gets a small icon after its text,
+`target="_blank"`, `rel="noopener noreferrer"` (merged with any existing
+`nofollow` / `sponsored` / `ugc` tokens) and a visually hidden "Opens in a new
+tab" for screen readers. A link that stays on the same host — normalized so
+`www.` does not matter — gets nothing: no icon, no new tab, no extra text.
+
+Recognized services use their own icon; every other external host gets the
+generic Feather `external-link` mark. The set covers the footer's social
+accounts plus Google, Anthropic, OpenAI, Microsoft, Apple, Amazon, Hugging
+Face, Kaggle, GitLab, npm, Medium, Substack, Reddit, Discord, Telegram,
+WhatsApp, Spotify, Figma, Notion, Wikipedia and arXiv. Service icons live in
+`partials/icons/social/` and `partials/icons/brands/`; the domain map is in
+`assets/js/modules/external-links.js`.
+
+`mailto:`, `tel:`, in-page anchors, image-only links and links inside Koenig
+cards are not touched. The enhancement is client-side, so with JavaScript
+disabled every link still works, but there is no icon and no new tab.
 
 ## Browser support
 
@@ -202,7 +224,7 @@ Code is released under the [MIT License](LICENSE).
 
 - [Figtree](https://github.com/erikdkennedy/figtree) by Erik Kennedy, self-hosted
   under the [SIL Open Font License 1.1](assets/fonts/OFL.txt).
-- Social icons based on [Simple Icons](https://simpleicons.org) (CC0);
+- Social and brand icons based on [Simple Icons](https://simpleicons.org) (CC0);
   utility icons in the style of [Feather](https://feathericons.com) (MIT).
 - Design tokens from [@astryxdesign/core](https://www.npmjs.com/package/@astryxdesign/core) (MIT),
   vendored at build time.

@@ -1,0 +1,39 @@
+{{!-- Icons used by modules/external-links.js to decorate links inside the
+      post/page body. Keeping them in a <template> means the SVGs live in the
+      templates (one source of truth) and the JavaScript only clones them.
+      The generic icon is a Feather "external-link"; the brand icons are
+      Simple Icons (CC0), monochrome with currentColor. --}}
+<template id="gh-external-link-icons">
+    <span class="gh-external-link-icon" data-external-icon="generic">{{> "icons/external-link"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="github">{{> "icons/social/github"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="linkedin">{{> "icons/social/linkedin"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="instagram">{{> "icons/social/instagram"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="facebook">{{> "icons/social/facebook"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="x">{{> "icons/social/x"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="youtube">{{> "icons/social/youtube"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="threads">{{> "icons/social/threads"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="bluesky">{{> "icons/social/bluesky"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="tiktok">{{> "icons/social/tiktok"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="huggingface">{{> "icons/social/huggingface"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="google">{{> "icons/brands/google"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="anthropic">{{> "icons/brands/anthropic"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="openai">{{> "icons/brands/openai"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="microsoft">{{> "icons/brands/microsoft"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="apple">{{> "icons/brands/apple"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="amazon">{{> "icons/brands/amazon"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="kaggle">{{> "icons/brands/kaggle"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="gitlab">{{> "icons/brands/gitlab"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="npm">{{> "icons/brands/npm"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="medium">{{> "icons/brands/medium"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="substack">{{> "icons/brands/substack"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="reddit">{{> "icons/brands/reddit"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="discord">{{> "icons/brands/discord"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="telegram">{{> "icons/brands/telegram"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="whatsapp">{{> "icons/brands/whatsapp"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="spotify">{{> "icons/brands/spotify"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="figma">{{> "icons/brands/figma"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="notion">{{> "icons/brands/notion"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="wikipedia">{{> "icons/brands/wikipedia"}}</span>
+    <span class="gh-external-link-icon" data-external-icon="arxiv">{{> "icons/brands/arxiv"}}</span>
+    <span class="u-visually-hidden" data-external-link-label>{{t "Opens in a new tab"}}</span>
+</template>

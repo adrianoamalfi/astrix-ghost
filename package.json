@@ -1,7 +1,7 @@
 {
   "name": "astrix",
   "description": "A free, open-source Ghost CMS theme for image-led blogs, magazines, publishers, and membership sites.",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "license": "MIT",
   "author": {
     "name": "Adriano Amalfi",
@@ -226,6 +226,7 @@
     "eslint": "^10.7.0",
     "globals": "^17.7.0",
     "gscan": "^6.6.1",
+    "jsdom": "^30.1.3",
     "postcss": "^8.5.26",
     "postcss-cli": "^11.0.0",
     "postcss-custom-media": "^12.0.1",
