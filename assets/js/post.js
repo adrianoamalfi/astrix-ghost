@@ -15,11 +15,13 @@ import { initHeadingAnchors } from './modules/heading-anchors.js';
 import { initLightbox } from './modules/lightbox.js';
 import { initShare } from './modules/share.js';
 import { initTables } from './modules/tables.js';
+import { initExternalLinks } from './modules/external-links.js';
 
 initTables();
 initToc();
 initProgress();
 initCodeCopy();
 initHeadingAnchors();
+initExternalLinks();
 initLightbox();
 initShare();

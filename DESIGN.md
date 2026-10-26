@@ -158,6 +158,7 @@ Flat. No drop shadows anywhere. Depth is conveyed by surface contrast (Canvas â†
 
 ### Links
 - **Inline text links** (prose, footer credits): underlined with `--gh-accent-line` decoration (2px in prose, 1px in small print), 0.2em offset; hover answers in `--gh-accent-2-text` (prose hovers use `--gh-accent-text`).
+- **External-link mark** (post/page body only): a 0.85em `currentColor` icon after the text, at 55% opacity at rest and full opacity on hover/focus. It inherits the link colour, adds no background, border, shadow or hit area, and is hidden in print. The brand icon replaces the generic mark; internal links get neither.
 - **Focus:** global 2px `--gh-accent-2-text` outline, 2px offset â€” gold is the touch voice.
 
 ### Section Title (signature)

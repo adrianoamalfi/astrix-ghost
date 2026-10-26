@@ -3,14 +3,16 @@ import globals from 'globals';
 
 export default [
   {
-    // docs/demos holds the generated static demo export (minified bundles and
-    // rendered HTML) — it is build output, not source, so it is not linted.
+    // docs/demos holds the generated static demo export and
+    // docs/external-link-icons holds the generated feature demo (a copy of the
+    // module plus rendered HTML) — build output, not source, so not linted.
     ignores: [
       'node_modules/**',
       'dist/**',
       'assets/built/**',
       'assets/css/vendor/**',
       'docs/demos/**',
+      'docs/external-link-icons/**',
     ],
   },
   js.configs.recommended,
@@ -41,12 +43,14 @@ export default [
     },
   },
   {
-    // Unit tests (explicit imports from vitest, run under Node)
+    // Unit tests (explicit imports from vitest). Most run under Node; the DOM
+    // suite declares the jsdom environment in its own file, so browser globals
+    // are available where the test mounts markup.
     files: ['test/**/*.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
-      globals: globals.node,
+      globals: { ...globals.node, ...globals.browser },
     },
   },
 ];

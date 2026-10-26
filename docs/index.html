@@ -88,6 +88,8 @@
   figcaption{padding:.7rem 1rem;font-size:.85rem;color:var(--ink-soft);border-top:1px solid var(--line)}
   .scrollbox{max-height:520px;overflow:hidden;position:relative}
   .scrollbox::after{content:"";position:absolute;inset:auto 0 0 0;height:60px;background:linear-gradient(transparent,var(--surface))}
+  .demo-frame{display:block;width:100%;height:660px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+  @media (max-width:900px){.demo-frame{height:1080px}}
 
   .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem}
   .mobilerow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem}
@@ -125,6 +127,7 @@
       <a href="#heroes">Hero styles</a>
       <a href="#feeds">Feeds</a>
       <a href="#reading">Reading</a>
+      <a href="#external-links">External links</a>
       <a href="#cards">Cards</a>
       <a href="#templates">Templates</a>
       <a href="#membership">Membership</a>
@@ -238,6 +241,21 @@
       <figure><div class="scrollbox"><img loading="lazy" src="screenshots/vellum/specimen-desktop-light.webp" alt="Typography specimen with table of contents"></div><figcaption>Sticky TOC + prose specimen (Vellum)</figcaption></figure>
       <figure><div class="scrollbox"><img loading="lazy" src="screenshots/meridian/post-reading-desktop.webp" alt="Article reading view"></div><figcaption>Article with in-content headings (Meridian)</figcaption></figure>
     </div>
+  </div>
+</section>
+
+<section id="external-links">
+  <div class="wrap">
+    <span class="eyebrow">New in 0.5.0</span>
+    <h2 class="section">External link icons</h2>
+    <p class="sub">Links that leave the publication show a small icon after their text — the service's own mark when Astrix recognizes it, a generic external-link mark otherwise. They open in a new tab, keep any existing <code>nofollow</code> / <code>sponsored</code> / <code>ugc</code> tokens, and announce the new tab to screen readers. Internal links, anchors, <code>mailto:</code> and <code>tel:</code> stay exactly as they are.</p>
+    <iframe class="demo-frame" src="external-link-icons/?embed=1" title="Interactive demo of the Astrix external-link icons in light and dark schemes" loading="lazy"></iframe>
+    <div class="flist" style="margin-top:1.6rem">
+      <div class="f"><h4>One icon, never two</h4><p>A recognized service replaces the generic mark. The icon inherits the link colour, sits at 55% opacity at rest, reaches full ink on hover and keyboard focus, and is hidden in print.</p></div>
+      <div class="f"><h4>30 services + generic</h4><p>GitHub, LinkedIn, Instagram, Facebook, X, YouTube, Threads, Bluesky, TikTok, Google, Anthropic, OpenAI, Microsoft, Apple, Amazon, Hugging Face, Kaggle, GitLab, npm, Medium, Substack, Reddit, Discord, Telegram, WhatsApp, Spotify, Figma, Notion, Wikipedia and arXiv.</p></div>
+      <div class="f"><h4>Internal stays internal</h4><p>Relative links, absolute links to the same host (with or without <code>www.</code>), anchors, <code>mailto:</code>, <code>tel:</code>, image-only links and links inside Koenig cards get no icon and no new tab.</p></div>
+    </div>
+    <p style="margin-top:1.4rem"><a href="external-link-icons/" style="color:var(--accent);font-weight:700">Open the full demo →</a> — every supported service, the links deliberately left alone, and a live self-check against the rules.</p>
   </div>
 </section>
 
