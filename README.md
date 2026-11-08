@@ -59,7 +59,7 @@ them through a Cloudflare Tunnel — see [demo/README.md](demo/README.md).
 - **Tips & donations** — with donations enabled in Ghost Admin, a *Support this site* button opens Portal's support flow from the site footer and the post share row; nothing renders when donations are off.
 - **Reading experience** — sticky table of contents with scrollspy, reading progress bar, related posts, native Ghost comments, ~68ch measure with fluid prose scale.
 - **Reader conveniences** — a global search shortcut (⌘K / Ctrl+K anywhere, `/` when not typing) that opens Ghost's native search, a native Web Share button on posts (where the browser supports it), a language badge on code blocks, and styled footnotes with a back-reference and a target flash.
-- **Page & post templates** — six ready-made templates beyond the defaults: **Portfolio** (a responsive grid of project posts), **Landing** (a page built entirely from Koenig cards, no article chrome), **Note** (a compact post without the TOC rail, for short-form writing), plus **Archive**, **Newsletter** and **Membership**. See [Page & post templates](#page--post-templates).
+- **Page & post templates** — six ready-made page/post templates plus the **Pulse** collection index: **Portfolio** (a responsive grid of project posts), **Landing** (a page built entirely from Koenig cards, no article chrome), **Note** (a compact post without the TOC rail, for short-form writing), plus **Archive**, **Newsletter** and **Membership**. See [Page & post templates](#page--post-templates).
 - **SEO breadcrumbs** — posts, pages, tags and authors render a breadcrumb trail carrying `BreadcrumbList` microdata; the last crumb is the current page, marked `aria-current="page"`.
 - **Ghost recommendations** — up to four of the publication's recommendations (favicon, title, readable URL, description) above the footer meta row, rendered only when the site configures them.
 - **External link icons** — links in a post or page body that leave the site get a small service icon (GitHub, Google, Anthropic, OpenAI, Wikipedia…) or a generic external-link mark, open in a new tab, and tell screen readers so. Internal links, anchors, `mailto:` and `tel:` stay as they are.
@@ -221,10 +221,28 @@ template, selected per-post in the post editor.
 | **Archive** | page | The page content, every public tag with its post count, then the full post index (grouped by year with JS). |
 | **Newsletter** | page | The page content, a prominent subscribe form, then past editions (posts tagged with the internal `#newsletter` tag). |
 | **Membership** | page | A pricing grid built from the publication's tiers, with a tier-aware CTA. |
+| **Pulse** | collection | The newest digest gets a large image and excerpt; earlier digests use the theme's existing list cards. |
 
 An optional `routes.example.yaml` at the repository root shows how to serve a
 static home with the blog under `/writing/`; without it the post feed lives at
 `/` (what the four demo publications run).
+
+To serve Pulse at `/pulse/`, merge this collection into the existing
+`content/settings/routes.yaml`. Tag Pulse posts with the internal `#pulse` tag;
+exclude them from the root collection to prevent duplicate routes, and keep
+the site's current routes and taxonomies in the same file:
+
+```yaml
+collections:
+  /pulse/:
+    permalink: /pulse/{slug}/
+    template: custom-pulse
+    filter: tag:pulse
+  /:
+    permalink: /{slug}/
+    template: index
+    filter: tag:-pulse
+```
 
 ## License & credits
 

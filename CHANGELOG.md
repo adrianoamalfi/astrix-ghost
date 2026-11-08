@@ -3,6 +3,32 @@
 All notable changes to Astrix. Downloadable theme packages live on the
 [releases page](https://github.com/adrianoamalfi/astrix-ghost/releases).
 
+## 0.6.0 — Pulse collection and maintenance
+
+Adds an image-led Pulse collection index with the latest digest featured above
+the earlier entries. Updates the Astryx design-system packages to 0.7.11 and
+refreshes the build, lint, and accessibility toolchain.
+
+### New
+
+- **Pulse collection template.** `custom-pulse.hbs` gives the latest post a
+  prominent responsive image, excerpt, date and reading time; older posts use
+  Astrix's existing list-card partial. Add the `/pulse/` collection mapping in
+  Ghost's `content/settings/routes.yaml` to activate it. The README includes
+  the production route snippet.
+
+### Maintenance
+
+- Updated Astryx CLI, core and neutral theme packages to 0.7.11; rebuilt the
+  vendored tokens and CSS assets.
+- Updated compatible lint, accessibility, Ghost scan, PostCSS, and formatting
+  dependencies. Pinned `minimatch` to the patched 11.x line for ESLint and
+  Ghost scan transitive dependencies.
+- Kept the contributor Node minimum at 22.17 by using the current jsdom stable
+  line, which supports the project's existing runtime range.
+- Improved contrast for accent fills and kicker text across light and dark
+  schemes; the rendered accessibility check now covers the Pulse route.
+
 ## 0.5.0 — External link icons
 
 The first feature release since 0.4.1. Post and page bodies now make it clear

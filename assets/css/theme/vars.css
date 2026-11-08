@@ -7,12 +7,11 @@
 :root {
   /* color */
   --gh-accent: var(--ghost-accent-color, var(--color-accent));
-  /* Accent as solid fill (buttons, badges, chips): raw on light, lifted on
-     dark so a dark admin accent doesn't merge with the dark canvas. Pairs
-     with --gh-on-accent. */
+  /* Accent fills (buttons, badges, chips) are softened toward the canvas so
+     primary text keeps AA contrast for both pale and saturated Admin accents. */
   --gh-accent-fill: light-dark(
-    var(--gh-accent),
-    color-mix(in oklab, var(--gh-accent) 65%, var(--color-text-primary))
+    color-mix(in oklab, var(--gh-accent) 22%, white),
+    color-mix(in oklab, var(--gh-accent) 16%, black)
   );
   --gh-accent-hover: color-mix(in oklab, var(--gh-accent-fill), var(--color-text-primary) 16%);
   --gh-accent-muted: color-mix(in oklab, var(--gh-accent) 14%, transparent);
@@ -20,13 +19,13 @@
   /* Accent for thin lines (underlines, rules): mixed toward text-secondary
      so it survives a dark admin accent on dark backgrounds. */
   --gh-accent-line: color-mix(in oklab, var(--gh-accent) 60%, var(--color-text-secondary));
-  /* Accent as ink (text, icons, markers): raw accent on light, lifted
-     toward the ink ramp on dark so a dark admin accent stays readable. */
+  /* Accent ink is mixed toward the text ramp in both schemes so light and
+     dark custom brand colors remain readable on the page canvas. */
   --gh-accent-text: light-dark(
-    var(--gh-accent),
+    color-mix(in oklab, var(--gh-accent) 60%, var(--color-text-primary)),
     color-mix(in oklab, var(--gh-accent) 40%, var(--color-text-primary))
   );
-  --gh-on-accent: #fff;
+  --gh-on-accent: var(--color-text-primary);
 
   /* Readable secondary — Astryx's text-secondary lands at 4.2:1 on the body
      bg at body sizes (AA needs 4.5:1). Mixing toward text-primary fixes both

@@ -1,0 +1,70 @@
+{{!< default}}
+
+<header class="gh-pulse-header gh-container">
+    <span class="u-kicker">{{t "Daily digest"}}</span>
+    <h1 class="gh-pulse-title">Pulse</h1>
+    <p class="gh-pulse-description">{{t "Artificial intelligence, one day at a time."}}</p>
+</header>
+
+<div class="gh-feed-wrap gh-pulse-wrap">
+    <h2 class="u-visually-hidden">{{t "Latest digests"}}</h2>
+    {{#if posts}}
+        {{#foreach posts}}
+            {{#match @index 0}}
+                <article class="gh-pulse-featured gh-container-wide">
+                    <a class="gh-pulse-featured-link{{#unless feature_image}} gh-pulse-featured-link--no-image{{/unless}}" href="{{url}}">
+                        {{#if feature_image}}
+                            <div class="gh-pulse-featured-media">
+                                <picture>
+                                    <source type="image/avif"
+                                        srcset="{{img_url feature_image size="m" format="avif"}} 640w,
+                                                {{img_url feature_image size="l" format="avif"}} 1024w,
+                                                {{img_url feature_image size="xl" format="avif"}} 1920w"
+                                        sizes="(min-width: 1200px) 54vw, 100vw">
+                                    <img
+                                        srcset="{{img_url feature_image size="m" format="webp"}} 640w,
+                                                {{img_url feature_image size="l" format="webp"}} 1024w,
+                                                {{img_url feature_image size="xl" format="webp"}} 1920w"
+                                        sizes="(min-width: 1200px) 54vw, 100vw"
+                                        src="{{img_url feature_image size="l" format="webp"}}"
+                                        width="1024" height="683"
+                                        alt="{{feature_image_alt}}"
+                                        loading="eager" fetchpriority="high" decoding="async">
+                                </picture>
+                            </div>
+                        {{/if}}
+                        <div class="gh-pulse-featured-body">
+                            <div class="gh-pulse-meta">
+                                <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+                                <span class="gh-meta-divider" aria-hidden="true"></span>
+                                <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+                            </div>
+                            <h2 class="gh-pulse-featured-title">{{title}}</h2>
+                            {{#if custom_excerpt}}
+                                <p class="gh-pulse-featured-excerpt">{{custom_excerpt}}</p>
+                            {{else}}
+                                <p class="gh-pulse-featured-excerpt">{{excerpt words="36"}}</p>
+                            {{/if}}
+                            <span class="gh-pulse-read-link">{{t "Read the digest"}} <span aria-hidden="true">→</span></span>
+                        </div>
+                    </a>
+                </article>
+            {{else}}
+                {{#match @index 1}}
+                    <section class="gh-pulse-archive gh-container" aria-label="{{t "More digests"}}">
+                        <h2 class="gh-pulse-archive-title">{{t "More digests"}}</h2>
+                        <div class="gh-feed gh-feed--list gh-pulse-list">
+                {{/match}}
+                {{> "post-card"}}
+                {{#match @last}}
+                        </div>
+                    </section>
+                {{/match}}
+            {{/match}}
+        {{/foreach}}
+    {{else}}
+        {{> "empty-state"}}
+    {{/if}}
+</div>
+
+{{pagination}}
