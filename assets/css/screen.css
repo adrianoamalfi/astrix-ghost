@@ -28,6 +28,7 @@
 @import 'theme/components/hero.css' layer(theme.components);
 @import 'theme/components/cards.css' layer(theme.components);
 @import 'theme/components/archive.css' layer(theme.components);
+@import 'theme/components/pulse.css' layer(theme.components);
 @import 'theme/components/footer.css' layer(theme.components);
 @import 'theme/components/members.css' layer(theme.components);
 @import 'theme/components/pagination.css' layer(theme.components);

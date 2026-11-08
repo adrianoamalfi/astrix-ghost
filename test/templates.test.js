@@ -26,6 +26,25 @@ function findTemplates(dir = '.', out = []) {
 
 const templates = findTemplates();
 
+describe('Pulse collection template', () => {
+  const pulse = readFileSync('custom-pulse.hbs', 'utf8');
+  const pulseCss = readFileSync('assets/css/theme/components/pulse.css', 'utf8');
+
+  it('features the newest post and reuses the existing card partial for the rest', () => {
+    expect(pulse).toContain('{{#foreach posts}}');
+    expect(pulse).toContain('{{#match @index 0}}');
+    expect(pulse).toContain('{{> "post-card"}}');
+    expect(pulse).toContain('{{pagination}}');
+  });
+
+  it('keeps feature images responsive and provides a text-only fallback', () => {
+    expect(pulse).toContain('fetchpriority="high"');
+    expect(pulse).toContain('sizes="(min-width: 1200px) 54vw, 100vw"');
+    expect(pulse).toContain('gh-pulse-featured-link--no-image');
+    expect(pulseCss).toContain('@media (--to-mobile)');
+  });
+});
+
 function makeHandlebars() {
   const hbs = Handlebars.create();
   // Mirrors Ghost's asset helper, which calls assetPath.match(...) and so
